@@ -89,7 +89,7 @@ public class iniciarSesion extends ActionSupport {
                 return ERROR;
             } else {
                 rol = rolDAO.read(usuario.getCorreo().split("@")[1]);
-                return rol.getTipo();
+                return SUCCESS;
             }
         }
         return ERROR;
