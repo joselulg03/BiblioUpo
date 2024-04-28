@@ -12,6 +12,7 @@
         
         <action name="formIniciarSesion" class="controlador.iniciarSesion">
             <result name="success">/login.jsp</result>
+            <result name="logado">/gestionEntidades.jsp</result>
         </action>
         
         <action name="iniciarSesion" class="controlador.iniciarSesion" method="iniciarSesion">

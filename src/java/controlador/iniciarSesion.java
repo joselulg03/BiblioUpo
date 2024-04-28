@@ -8,8 +8,10 @@ package controlador;
 import DAO.RolDAO;
 import DAO.UsuarioDAO;
 import com.opensymphony.xwork2.ActionSupport;
+import javax.servlet.http.HttpSession;
 import modelo.Rol;
 import modelo.Usuario;
+import org.apache.struts2.ServletActionContext;
 
 /**
  *
@@ -78,6 +80,12 @@ public class iniciarSesion extends ActionSupport {
     }
 
     public String execute() throws Exception {
+        HttpSession session = ServletActionContext.getRequest().getSession();
+        if(session.getAttribute("usuario") != null){
+            usuario = (Usuario) session.getAttribute("usuario");
+            rol = (Rol) session.getAttribute("rol");
+            return "logado";
+        }
         return SUCCESS;
     }
 
@@ -88,7 +96,15 @@ public class iniciarSesion extends ActionSupport {
             if (!usuario.getPassword().equals(getPassword())) {
                 return ERROR;
             } else {
+                
                 rol = rolDAO.read(usuario.getCorreo().split("@")[1]);
+                
+                HttpSession session = ServletActionContext.getRequest().getSession();
+                
+                session.setAttribute("usuario", usuario);
+                
+                session.setAttribute("rol", rol);
+                
                 return SUCCESS;
             }
         }

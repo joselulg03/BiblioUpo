@@ -6,6 +6,10 @@
 package controlador;
 
 import com.opensymphony.xwork2.ActionSupport;
+import javax.servlet.http.HttpSession;
+import modelo.Rol;
+import modelo.Usuario;
+import org.apache.struts2.ServletActionContext;
 
 /**
  *
@@ -15,7 +19,7 @@ public class inicio extends ActionSupport {
     
     public inicio() {
     }
-    
+
     public String execute() throws Exception {
         return SUCCESS;
     }

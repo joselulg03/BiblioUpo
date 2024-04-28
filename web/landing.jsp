@@ -13,5 +13,7 @@
         <s:form action="formIniciarSesion" method="post">
             <s:submit value="Iniciar Sesión" />
         </s:form>
+        
+        
     </body>
 </html>
