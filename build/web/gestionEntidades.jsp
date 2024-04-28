@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Área Admin</title>
+        <title>Área de Gestión</title>
     </head>
     <body>
         <h1><s:property value="rol.tipo" />: <s:property value="usuario.nombre" /> <s:property value="usuario.apellidos" /></h1>
@@ -64,5 +64,9 @@
             </s:form>
 
         </nav>
+        
+        <s:form action="logout" method="post">
+            <s:submit value="Cerrar Sesión" />
+        </s:form>
     </body>
 </html>
