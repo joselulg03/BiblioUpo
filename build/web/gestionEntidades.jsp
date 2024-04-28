@@ -59,12 +59,23 @@
 
             <s:form action="gestion" method="post">
                 <s:hidden name="rol" value="%{rol.tipo}" />
-                <s:hidden name="entidad" value="reservas" />
-                <s:submit value="Reservas" />
+                <s:hidden name="entidad" value="refuerzos" />
+                <s:submit value="Refuerzos" />
             </s:form>
 
+            <s:if test="rol.tipo.equals('Invitado')">
+                <%-- ROL != Invitado--%>
+            </s:if>
+            <s:else>
+                <s:form action="gestion" method="post">
+                    <s:hidden name="rol" value="%{rol.tipo}" />
+                    <s:hidden name="entidad" value="reservas" />
+                    <s:submit value="Reservas" />
+                </s:form>
+            </s:else>
+
         </nav>
-        
+
         <s:form action="logout" method="post">
             <s:submit value="Cerrar Sesión" />
         </s:form>
