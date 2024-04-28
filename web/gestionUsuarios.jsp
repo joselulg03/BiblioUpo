@@ -7,7 +7,7 @@
         <title>Gestión Usuarios</title>
     </head>
     <body>
-        <h1>Gestión de Usuarios</h1>
+        <h1>Área de Gestión de Usuarios</h1>
         <h2>Rol: <s:property value="rol" /> </h2>
 
         <s:form action="formGestionUsuario" method="post">

@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Gestión PC</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Área de Gestión de Ordenadores Fijos</h1>
     </body>
 </html>
