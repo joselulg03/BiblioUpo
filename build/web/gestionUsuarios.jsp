@@ -8,32 +8,12 @@
     </head>
     <body>
         <h1>Área de Gestión de Usuarios</h1>
-        <h2>Rol: <s:property value="rol" /> </h2>
+        <h2>Rol: <s:property value="#session.rol.tipo" /> </h2>
 
         <s:form action="formGestionUsuario" method="post">
             <s:hidden name="operacion" value="alta" />
             <s:submit value="Alta" />
         </s:form>
-
-        <%--<s:form action="formGestionUsuario" method="post">
-            <s:hidden name="operacion" value="baja" />
-            <s:submit value="Baja" />
-        </s:form>
-        
-        <s:form action="formGestionUsuario" method="post">
-            <s:hidden name="operacion" value="modificacion" />
-            <s:submit value="Modificar" />
-        </s:form>
-        
-        <s:form action="formGestionUsuario" method="post">
-            <s:hidden name="operacion" value="consulta" />
-            <s:submit value="Consultar" />
-        </s:form>
-        
-        <s:form action="formGestionUsuario" method="post">
-            <s:hidden name="operacion" value="lista" />
-            <s:submit value="Listar" />
-        </s:form>--%>
 
         <s:if test="usuarios != null">
             <table border="1">
@@ -57,8 +37,8 @@
                             <td><s:property value="correo" /></td>
                             <td><s:property value="fechaNacimiento" /></td>
                             <td>
-                                <s:form action="formGestionUsuario" method="post">
-                                    <s:hidden name="operacion" value="baja" />
+                                <s:form action="bajaUsuario" method="post">
+                                    <s:hidden name="dni" value="%{dni}" />
                                     <s:submit value="Baja" />
                                 </s:form>
 

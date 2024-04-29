@@ -90,7 +90,7 @@ public class iniciarSesion extends ActionSupport {
     }
 
     public String iniciarSesion() {
-        usuario = usuarioDAO.read(getCorreo());
+        usuario = usuarioDAO.readCorreo(getCorreo());
 
         if (usuario != null) {
             if (!usuario.getPassword().equals(getPassword())) {

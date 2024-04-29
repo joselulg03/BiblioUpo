@@ -22,8 +22,15 @@ public class UsuarioDAO {
     public UsuarioDAO(){
         
     }
+    
+    public void create(Usuario u){
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        session.save(u);
+        tx.commit();
+    }
 
-    public Usuario read(String correo){
+    public Usuario readCorreo(String correo){
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from Usuario where correo = :correo");
@@ -31,6 +38,23 @@ public class UsuarioDAO {
         Usuario u = (Usuario) q.uniqueResult();
         tx.commit();
         return u;
+    }
+    
+    public Usuario readDni(String dni){
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Usuario where dni = :dni");
+        q.setParameter("dni", dni);
+        Usuario u = (Usuario) q.uniqueResult();
+        tx.commit();
+        return u;
+    }
+    
+    public void delete(Usuario u){
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        session.delete(u);
+        tx.commit();
     }
     
     /*public void create(Cliente c){

@@ -40,9 +40,17 @@
     </package>
     
     <package name="usuario" extends="struts-default">
-        <action name="formGestionUsuario" class="controlador.usuario.formGestionUsuario">
+        <action name="formGestionUsuario" class="controlador.usuario.gestionUsuario">
             <result name="alta">/altaUsuario.jsp</result>
             <result name="modificacion">/modificacionUsuario.jsp</result>
+        </action>
+        
+        <action name="altaUsuario" class="controlador.usuario.gestionUsuario" method="alta">
+            <result name="success">/gestionUsuarios.jsp</result>
+        </action>
+        
+        <action name="bajaUsuario" class="controlador.usuario.gestionUsuario" method="baja">
+            <result name="success">/gestionUsuarios.jsp</result>
         </action>
     </package>
 </struts>
