@@ -1,6 +1,6 @@
 # BiblioUpo
 
-![BiblioUpo Logo](link-a-la-imagen-del-logo.png)
+![BiblioUpo Logo](img/upo.png)
 
 BiblioUpo es una plataforma web desarrollada para gestionar la biblioteca de la Universidad Pablo de Olavide. Proporciona a los usuarios una manera eficiente de acceder y gestionar los recursos bibliográficos disponibles en la universidad.
 
