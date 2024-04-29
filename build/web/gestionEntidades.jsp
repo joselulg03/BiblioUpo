@@ -7,69 +7,69 @@
         <title>Área de Gestión</title>
     </head>
     <body>
-        <h1><s:property value="rol.tipo" />: <s:property value="usuario.nombre" /> <s:property value="usuario.apellidos" /></h1>
+        <h1><s:property value="#session.rol.tipo" />: <s:property value="#session.usuario.nombre" /> <s:property value="usuario.apellidos" /></h1>
 
         <nav>
 
-            <s:if test="rol.tipo.equals('Estudiante') || rol.tipo.equals('Invitado')">
+            <s:if test="#session.rol.tipo.equals('Estudiante') || #session.rol.tipo.equals('Invitado')">
                 <%-- ROL != Estudiante o Invitado--%>
             </s:if>
             <s:else>
                 <s:form action="gestion" method="post">
-                    <s:hidden name="rol" value="%{rol.tipo}" />
+                    <s:hidden name="rol" value="%{#session.rol.tipo}" />
                     <s:hidden name="entidad" value="usuarios" />
                     <s:submit value="Usuarios" />
                 </s:form>
             </s:else>
 
 
-            <s:if test="rol.tipo.equals('Invitado')">
+            <s:if test="#session.rol.tipo.equals('Invitado')">
                 <%-- ROL != Invitado--%>
             </s:if>
             <s:else>
                 <s:form action="gestion" method="post">
-                    <s:hidden name="rol" value="%{rol.tipo}" />
+                    <s:hidden name="rol" value="%{#session.rol.tipo}" />
                     <s:hidden name="entidad" value="libros" />
                     <s:submit value="Libros" />
                 </s:form>
             </s:else>
 
             <s:form action="gestion" method="post">
-                <s:hidden name="rol" value="%{rol.tipo}" />
+                <s:hidden name="rol" value="%{#session.rol.tipo}" />
                 <s:hidden name="entidad" value="salas" />
                 <s:submit value="Salas" />
             </s:form>
 
             <s:form action="gestion" method="post">
-                <s:hidden name="rol" value="%{rol.tipo}" />
+                <s:hidden name="rol" value="%{#session.rol.tipo}" />
                 <s:hidden name="entidad" value="ordenadores" />
                 <s:submit value="Ordenadores" />
             </s:form>
 
-            <s:if test="rol.tipo.equals('Invitado')">
+            <s:if test="#session.rol.tipo.equals('Invitado')">
                 <%-- ROL != Invitado--%>
             </s:if>
             <s:else>
                 <s:form action="gestion" method="post">
-                    <s:hidden name="rol" value="%{rol.tipo}" />
+                    <s:hidden name="rol" value="%{#session.rol.tipo}" />
                     <s:hidden name="entidad" value="portatiles" />
                     <s:submit value="Portátiles" />
                 </s:form>
             </s:else>
 
-            <s:if test="rol.tipo.equals('Invitado')">
+            <s:if test="#session.rol.tipo.equals('Invitado')">
                 <%-- ROL != Invitado--%>
             </s:if>
             <s:else>
                 <s:form action="gestion" method="post">
-                    <s:hidden name="rol" value="%{rol.tipo}" />
+                    <s:hidden name="rol" value="%{#session.rol.tipo}" />
                     <s:hidden name="entidad" value="refuerzos" />
                     <s:submit value="Refuerzos" />
                 </s:form>
             </s:else>
 
             <s:form action="gestion" method="post">
-                <s:hidden name="rol" value="%{rol.tipo}" />
+                <s:hidden name="rol" value="%{#session.rol.tipo}" />
                 <s:hidden name="entidad" value="reservas" />
                 <s:submit value="Reservas" />
             </s:form>
