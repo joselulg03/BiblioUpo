@@ -16,21 +16,21 @@ import org.hibernate.Session;
  * @author josel
  */
 public class UsuarioDAO {
-    
+
     Session session = null;
-    
-    public UsuarioDAO(){
-        
+
+    public UsuarioDAO() {
+
     }
-    
-    public void create(Usuario u){
+
+    public void create(Usuario u) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.save(u);
         tx.commit();
     }
 
-    public Usuario readCorreo(String correo){
+    public Usuario readCorreo(String correo) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from Usuario where correo = :correo");
@@ -39,8 +39,8 @@ public class UsuarioDAO {
         tx.commit();
         return u;
     }
-    
-    public Usuario readDni(String dni){
+
+    public Usuario readDni(String dni) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from Usuario where dni = :dni");
@@ -49,14 +49,14 @@ public class UsuarioDAO {
         tx.commit();
         return u;
     }
-    
-    public void delete(Usuario u){
+
+    public void delete(Usuario u) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.delete(u);
         tx.commit();
     }
-    
+
     /*public void create(Cliente c){
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
@@ -87,8 +87,8 @@ public class UsuarioDAO {
         session.delete(c);
         tx.commit();
     }
-    */
-    public List<Usuario> list(){
+     */
+    public List<Usuario> list() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from Usuario");
@@ -96,5 +96,6 @@ public class UsuarioDAO {
         tx.commit();
         return lu;
     }
+    
     
 }

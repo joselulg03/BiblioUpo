@@ -60,5 +60,9 @@
         <s:else>
             <p>No hay usuarios que mostrar.</p>
         </s:else>
+
+        <s:form action="volverGestionEntidades" method="post">
+            <s:submit value="Volver" />
+        </s:form>
     </body>
 </html>
