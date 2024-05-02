@@ -98,19 +98,19 @@
                                                 <a class="nav-link" href="index.html"> inicio </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="about.html">acceso personalizado</a>
+                                                <a class="nav-link" href="https://www.upo.es/portal/impe/web/portada/index.html">acceso personalizado</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="service.html">aula virtual</a>
+                                                <a class="nav-link" href="https://campusvirtual.upo.es/">aula virtual</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="team.html">correo web </a>
+                                                <a class="nav-link" href="https://correo.upo.es/">correo web </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="client.html">tika</a>
+                                                <a class="nav-link" href="https://www.upo.es/tika/web/index.php">tika</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="contact.html"> estudiar </a>
+                                                <a class="nav-link" href="https://www.upo.es/portal/impe/web/portadaEspecifica?channel=c1f3624d-2f47-11de-b088-3fe5a96f4a88"> estudiar </a>
                                             </li>
                                             <li class="nav-item">
                                                 <s:form action="formIniciarSesion" method="post">
