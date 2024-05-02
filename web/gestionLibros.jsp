@@ -8,10 +8,7 @@
     </head>
     <body>
         <h1>Área de Gestión de Libros</h1>
-        
-        <s:form action="volverGestionEntidades" method="post">
-            <s:submit value="Volver" />
-        </s:form>
+
         
         <s:url action="volverGestionEntidades" var="url" />
         <h5><a href="${url}"/>Volver</h5>

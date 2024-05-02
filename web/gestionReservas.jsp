@@ -1,9 +1,4 @@
-<%-- 
-    Document   : gestionReservas
-    Created on : 28-abr-2024, 17:32:50
-    Author     : josel
---%>
-
+<%@taglib prefix="s" uri="/struts-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,5 +8,8 @@
     </head>
     <body>
         <h1>Área de Gestión de Reservas</h1>
+        
+        <s:url action="volverGestionEntidades" var="url" />
+        <h5><a href="${url}"/>Volver</h5>
     </body>
 </html>

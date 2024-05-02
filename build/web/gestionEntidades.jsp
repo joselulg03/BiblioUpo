@@ -7,7 +7,7 @@
         <title>Área de Gestión</title>
     </head>
     <body>
-        <h1><s:property value="#session.rol.tipo" />: <s:property value="#session.usuario.nombre" /> <s:property value="usuario.apellidos" /></h1>
+        <h1><s:property value="#session.rol.tipo" />: <s:property value="#session.usuario.nombre" /> <s:property value="#session.usuario.apellidos" /></h1>
 
         <nav>
 
