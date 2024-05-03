@@ -128,4 +128,10 @@ public class gestionUsuario extends ActionSupport {
         return SUCCESS;
     }
     
+    public String consulta(){
+        usuarioDAO = new UsuarioDAO();
+        usuario = usuarioDAO.readDni(getDni());
+        return SUCCESS;
+    }
+    
 }

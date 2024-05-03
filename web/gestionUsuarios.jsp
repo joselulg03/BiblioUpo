@@ -134,12 +134,13 @@
                                     </s:form>
 
                                     <s:form action="formGestionUsuario" method="post" cssClass="form-inline">
+                                        <s:hidden name="dni" value="%{dni}" />
                                         <s:hidden name="operacion" value="modificacion" />
                                         <s:submit value="Modificar" cssClass="btn btn-warning mr-2" />
                                     </s:form>
 
-                                    <s:form action="formGestionUsuario" method="post" cssClass="form-inline">
-                                        <s:hidden name="operacion" value="consulta" />
+                                    <s:form action="consultaUsuario" method="post" cssClass="form-inline">
+                                        <s:hidden name="dni" value="%{dni}" />
                                         <s:submit value="Consultar" cssClass="btn btn-info" />
                                     </s:form>
                                 </td>
