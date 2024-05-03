@@ -72,7 +72,7 @@
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/owl.carousel.min.css">
         <!-- fevicon -->
-        <link rel="icon" href="images/fevicon.png" type="image/gif" />
+        <link rel="icon" href="images/upo2.png" type="image/gif" />
         <!-- Scrollbar Custom CSS -->
         <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
         <!-- Tweaks for older IEs-->
@@ -84,12 +84,20 @@
     </head>
     <body class="main-layout">
 
-        <section class="contact">
+        <section class="col-lg-3 col-md-6 col-sm-6">
             <h1>Login</h1>
-            <s:form action="iniciarSesion" method="post">
-                <s:textfield label="Correo Electrónico" name="correo" cssClass="email-icon" />
-                <s:password label="Contraseña" name="password" cssClass="password-icon" />
-                <s:submit value="Iniciar Sesión" cssClass="send_btn" />
+            <s:form action="iniciarSesion" method="post" cssClass="main_form">
+                <div class="col-md-12 ">
+                    <label>Correo</label>
+                    <s:textfield name="correo" cssClass="news"  />
+                </div>
+                <div class="col-md-12 ">
+                    <label>Contraseña</label>
+                    <s:password name="password" cssClass="news" />
+                </div>
+                <div class="col-md-12 ">
+                    <s:submit value="Iniciar Sesión" cssClass="send_btn" />
+                </div>
             </s:form>
             <a href="landing.jsp"><h2>Volver</h2></a>
         </section>

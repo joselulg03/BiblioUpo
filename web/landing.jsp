@@ -95,7 +95,7 @@
                                     <div class="collapse navbar-collapse" id="navbarsExample04">
                                         <ul class="navbar-nav mr-auto">
                                             <li class="nav-item active">
-                                                <a class="nav-link" href="index.html"> inicio </a>
+                                                <a class="nav-link" href="landing.jsp"> inicio </a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="https://www.upo.es/portal/impe/web/portada/index.html">acceso personalizado</a>
