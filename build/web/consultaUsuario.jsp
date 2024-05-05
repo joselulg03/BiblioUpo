@@ -53,25 +53,69 @@
                 <p>No hay reservas para <s:property value="usuario.nombre" /></p>
             </s:if>
             <s:else>
-                <s:iterator value="usuario.reservas">
-                    <div>
-                        <p><s:property value="id" /></p>
-                    </div>
-                </s:iterator>
+                <table border="1">
+                    <thead>
+                    <th>ID</th>
+                    <th>Recurso</th>
+                    <th>Fecha</th>
+                    <th>Duracion (horas)</th>
+                    <th>Entregado</th>
+                    </thead>
+                    <tbody>
+                        <s:iterator value="usuario.reservas">
+                            <tr>
+                                <td><s:property value="id" /></td>
+                                <td><s:property value="recurso.id" /></td>
+                                <td><s:property value="fecha" /></td>
+                                <td><s:property value="duracionHoras" /></td>
+                                <td><s:property value="entregado" /></td>
+                                <td>
+                                    <s:form action="consultaReserva" method="post">
+                                        <s:hidden name="idReserva" value="%{id}" />
+                                        <s:submit value="Consultar" />
+                                    </s:form>
+                                </td>
+                            </tr>
+                        </s:iterator>
+                    </tbody>
+                </table>
             </s:else>
         </div>
-        
+
         <div class="container">
             <h1>Refuerzos</h1>
             <s:if test="usuario.refuerzos == null">
                 <p>No hay refuerzos para <s:property value="usuario.nombre" /></p>
             </s:if>
             <s:else>
-                <s:iterator value="usuario.refuerzos">
-                    <div>
-                        <p><s:property value="id" /></p>
-                    </div>
-                </s:iterator>
+                <table border="1">
+                    <thead>
+                    <th>ID</th>
+                    <th>Recurso</th>
+                    <th>Sala</th>
+                    <th>Descripción</th>
+                    <th>Asignatura</th>
+                    <th>Tipo</th>
+                    </thead>
+                    <tbody>
+                        <s:iterator value="usuario.refuerzos">
+                            <tr>
+                                <td><s:property value="id" /></td>
+                                <td><s:property value="recurso.id" /></td>
+                                <td><s:property value="sala.nombre" /></td>
+                                <td><s:property value="descripcion" /></td>
+                                <td><s:property value="asignatura" /></td>
+                                <td><s:property value="tipo" /></td>
+                                <td>
+                                    <s:form action="consultaRefuerzo" method="post">
+                                        <s:hidden name="idRefuerzo" value="%{id}" />
+                                        <s:submit value="Consultar" />
+                                    </s:form>
+                                </td>
+                            </tr>
+                        </s:iterator>
+                    </tbody>
+                </table>
             </s:else>
         </div>
     </body>

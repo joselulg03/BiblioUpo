@@ -23,13 +23,13 @@
         <property name="password" type="string">
             <column name="password" not-null="true" />
         </property>
-        <set name="reservas" table="reserva" inverse="true" lazy="true" fetch="select">
+        <set name="reservas" table="reserva" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="dni_usuario" length="9" not-null="true" />
             </key>
             <one-to-many class="modelo.Reserva" />
         </set>
-        <set name="refuerzos" table="refuerzo" inverse="true" lazy="true" fetch="select">
+        <set name="refuerzos" table="refuerzo" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="dni_usuario" length="9" not-null="true" />
             </key>

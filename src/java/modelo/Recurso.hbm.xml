@@ -11,37 +11,37 @@
         <property name="disponible" type="boolean">
             <column name="disponible" not-null="true" />
         </property>
-        <set name="libros" table="libro" inverse="true" lazy="true" fetch="select">
+        <set name="libros" table="libro" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="id_recurso" not-null="true" />
             </key>
             <one-to-many class="modelo.Libro" />
         </set>
-        <set name="salas" table="sala" inverse="true" lazy="true" fetch="select">
+        <set name="salas" table="sala" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="id_recurso" not-null="true" />
             </key>
             <one-to-many class="modelo.Sala" />
         </set>
-        <set name="reservas" table="reserva" inverse="true" lazy="true" fetch="select">
+        <set name="reservas" table="reserva" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="id_recurso" not-null="true" />
             </key>
             <one-to-many class="modelo.Reserva" />
         </set>
-        <set name="portatils" table="portatil" inverse="true" lazy="true" fetch="select">
+        <set name="portatils" table="portatil" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="id_recurso" not-null="true" />
             </key>
             <one-to-many class="modelo.Portatil" />
         </set>
-        <set name="ordenadors" table="ordenador" inverse="true" lazy="true" fetch="select">
+        <set name="ordenadors" table="ordenador" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="id_recurso" not-null="true" />
             </key>
             <one-to-many class="modelo.Ordenador" />
         </set>
-        <set name="refuerzos" table="refuerzo" inverse="true" lazy="true" fetch="select">
+        <set name="refuerzos" table="refuerzo" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="id_recurso" not-null="true" />
             </key>

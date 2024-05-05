@@ -45,11 +45,19 @@
             <result name="modificacion">/modificacionUsuario.jsp</result>
         </action>
         
+        <action name="consultarUsuario" class="controlador.usuario.gestionUsuario" method="consultar">
+            <result name="success">/consultaUsuario.jsp</result>
+        </action>
+        
         <action name="altaUsuario" class="controlador.usuario.gestionUsuario" method="alta">
             <result name="success">/gestionUsuarios.jsp</result>
         </action>
         
         <action name="bajaUsuario" class="controlador.usuario.gestionUsuario" method="baja">
+            <result name="success">/gestionUsuarios.jsp</result>
+        </action>
+        
+        <action name="modificacionUsuario" class="controlador.usuario.gestionUsuario" method="modificacion">
             <result name="success">/gestionUsuarios.jsp</result>
         </action>
     </package>

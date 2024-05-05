@@ -139,7 +139,7 @@
                                         <s:submit value="Modificar" cssClass="btn btn-warning mr-2" />
                                     </s:form>
 
-                                    <s:form action="consultaUsuario" method="post" cssClass="form-inline">
+                                    <s:form action="consultarUsuario" method="post" cssClass="form-inline">
                                         <s:hidden name="dni" value="%{dni}" />
                                         <s:submit value="Consultar" cssClass="btn btn-info" />
                                     </s:form>

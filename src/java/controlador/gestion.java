@@ -63,6 +63,7 @@ public class gestion extends ActionSupport {
     public String execute() throws Exception {
         if(entidad.equals("usuarios")){
             usuarios = usuarioDAO.list();
+            System.out.println("-- USUARIOS --");
         }
         return entidad;
     }
