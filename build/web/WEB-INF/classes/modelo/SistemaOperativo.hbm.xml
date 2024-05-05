@@ -11,7 +11,7 @@
         <property name="nombre" type="string">
             <column name="nombre" not-null="true" unique="true" />
         </property>
-        <set name="portatils" table="portatil" inverse="true" lazy="true" fetch="select">
+        <set name="portatils" table="portatil" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="id_sistema_operativo" not-null="true" />
             </key>
