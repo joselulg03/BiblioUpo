@@ -99,6 +99,10 @@ public class iniciarSesion extends ActionSupport {
                 
                 rol = rolDAO.read(usuario.getCorreo().split("@")[1]);
                 
+                if(rol == null){
+                    setRol(new Rol(usuario.getCorreo().split("@")[1], "Invitado"));
+                }
+                
                 HttpSession session = ServletActionContext.getRequest().getSession();
                 
                 session.setAttribute("usuario", usuario);

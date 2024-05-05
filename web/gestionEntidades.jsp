@@ -34,7 +34,11 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
     </head>
     <body class="container">
+
         <h1><s:property value="#session.rol.tipo" />: <s:property value="#session.usuario.nombre" /> <s:property value="#session.usuario.apellidos" /></h1>
+
+
+
 
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
