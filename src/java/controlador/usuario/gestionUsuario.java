@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import modelo.Usuario;
+import servicios.EmailAutomaticoJerseyClient;
 
 public class gestionUsuario extends ActionSupport {
     
@@ -108,6 +109,10 @@ public class gestionUsuario extends ActionSupport {
     }
     
     public String execute() throws Exception {
+        if(getDni() != null){
+            usuarioDAO = new UsuarioDAO();
+            usuario = usuarioDAO.readDni(getDni());
+        }
         return operacion;
     }
     
@@ -131,6 +136,24 @@ public class gestionUsuario extends ActionSupport {
     public String consultar(){
         usuarioDAO = new UsuarioDAO();
         usuario = usuarioDAO.readDni(getDni());
+        return SUCCESS;
+    }
+    
+    public String modificar() throws ParseException{
+        System.out.println("HOLA"+getNombre());
+        
+        usuarioDAO = new UsuarioDAO();
+        usuario = usuarioDAO.readDni(getDni());
+        System.out.println("DNI: "+usuario.getDni());
+        usuario.setNombre(getNombre());
+        usuario.setApellidos(getApellidos());
+        usuario.setCorreo(getCorreo());
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = formato.parse(getFechaNacimiento());
+        usuario.setFechaNacimiento(fecha);
+        usuario.setPassword(getPassword()); 
+        EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
+        client.enviarCorreo(String.class,"","BiblioUpo ha actualizado su perfil", "Hola "+getNombre()+" "+getApellidos()+", el administrador de BiblioUpo ha modificado su perfil. Su nueva contraseña es "+getPassword()+".");
         return SUCCESS;
     }
     

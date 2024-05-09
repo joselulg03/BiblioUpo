@@ -57,7 +57,7 @@
             <result name="success">/gestionUsuarios.jsp</result>
         </action>
         
-        <action name="modificacionUsuario" class="controlador.usuario.gestionUsuario" method="modificacion">
+        <action name="modificacionUsuario" class="controlador.usuario.gestionUsuario" method="modificar">
             <result name="success">/gestionUsuarios.jsp</result>
         </action>
     </package>
