@@ -52,7 +52,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>UPO-Login</title>
+        <title>Iniciar Sesión</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- basic -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -67,7 +68,6 @@
         <!-- bootstrap css -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <!-- style css -->
-        <link rel="stylesheet" href="css/style.css">
         <!-- Responsive-->
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/owl.carousel.min.css">
@@ -82,25 +82,21 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
     </head>
-    <body class="main-layout">
+    <body>
 
-        <section class="col-lg-3 col-md-6 col-sm-6">
+        <div class="container">
             <h1>Login</h1>
-            <s:form action="iniciarSesion" method="post" cssClass="main_form">
-                <div class="col-md-12 ">
-                    <label>Correo</label>
-                    <s:textfield name="correo" cssClass="news"  />
-                </div>
-                <div class="col-md-12 ">
-                    <label>Contraseña</label>
-                    <s:password name="password" cssClass="news" />
-                </div>
-                <div class="col-md-12 ">
-                    <s:submit value="Iniciar Sesión" cssClass="send_btn" />
-                </div>
+            <s:form action="iniciarSesion" method="post">
+
+                <s:textfield label="Correo" name="correo" />
+
+                <s:password label="Contraseña" name="password" />
+
+                <s:submit value="Iniciar Sesión" />
+
             </s:form>
             <a href="landing.jsp"><h2>Volver</h2></a>
-        </section>
-    </body>
+        </div>
+</body>
 </html>
 

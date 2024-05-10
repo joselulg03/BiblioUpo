@@ -10,21 +10,21 @@ import modelo.Usuario;
 import servicios.EmailAutomaticoJerseyClient;
 
 public class gestionUsuario extends ActionSupport {
-    
+
     private String operacion;
-    
+
     private UsuarioDAO usuarioDAO;
-    
+
     private String dni;
     private String nombre;
     private String apellidos;
     private String correo;
     private String fechaNacimiento;
     private String password;
-    
+
     private Usuario usuario;
     private List<Usuario> usuarios;
-    
+
     public gestionUsuario() {
     }
 
@@ -107,54 +107,71 @@ public class gestionUsuario extends ActionSupport {
     public void setOperacion(String operacion) {
         this.operacion = operacion;
     }
-    
+
     public String execute() throws Exception {
-        if(getDni() != null){
+        if (getDni() != null) {
             usuarioDAO = new UsuarioDAO();
             usuario = usuarioDAO.readDni(getDni());
         }
         return operacion;
     }
-    
-    public String alta() throws ParseException{
+
+    public String alta() throws ParseException {
         usuarioDAO = new UsuarioDAO();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = formato.parse(getFechaNacimiento());
         usuarioDAO.create(new Usuario(getDni(), getNombre(), getApellidos(), getCorreo(), fecha, getPassword()));
         usuarios = usuarioDAO.list();
+
+        EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
+        client.enviarCorreo(String.class,
+                getCorreo(),
+                "Bienvenido a BiblioUpo!",
+                "Hola "+getNombre()+" "+getApellidos()+", ya formas parte de BiblioUpo.\n"
+                        + "Accede a nuestra web para iniciar sesión.\n"
+                        + "Sus credenciales son:\n Usuario: "+getCorreo()+"\nContraseña: "+getPassword()+".");
         return SUCCESS;
     }
-    
-    public String baja(){
+
+    public String baja() {
         usuarioDAO = new UsuarioDAO();
         usuario = usuarioDAO.readDni(getDni());
         usuarioDAO.delete(usuario);
         usuarios = usuarioDAO.list();
-        return SUCCESS;
-    }
-    
-    public String consultar(){
-        usuarioDAO = new UsuarioDAO();
-        usuario = usuarioDAO.readDni(getDni());
-        return SUCCESS;
-    }
-    
-    public String modificar() throws ParseException{
-        System.out.println("HOLA"+getNombre());
         
+        EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
+        client.enviarCorreo(String.class,
+                getCorreo(),
+                "Hasta pronto!",
+                "Hola, ya no formas parte de BiblioUpo.\n"
+                        + "Esperamos que vuelvas pronto.\n");
+        return SUCCESS;
+    }
+
+    public String consultar() {
         usuarioDAO = new UsuarioDAO();
         usuario = usuarioDAO.readDni(getDni());
-        System.out.println("DNI: "+usuario.getDni());
+        return SUCCESS;
+    }
+
+    public String modificar() throws ParseException {
+        System.out.println("HOLA" + getNombre());
+
+        usuarioDAO = new UsuarioDAO();
+        usuario = usuarioDAO.readDni(getDni());
+        System.out.println("DNI: " + usuario.getDni());
         usuario.setNombre(getNombre());
         usuario.setApellidos(getApellidos());
         usuario.setCorreo(getCorreo());
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = formato.parse(getFechaNacimiento());
         usuario.setFechaNacimiento(fecha);
-        usuario.setPassword(getPassword()); 
+        usuario.setPassword(getPassword());
         EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
-        client.enviarCorreo(String.class,"","BiblioUpo ha actualizado su perfil", "Hola "+getNombre()+" "+getApellidos()+", el administrador de BiblioUpo ha modificado su perfil. Su nueva contraseña es "+getPassword()+".");
+        client.enviarCorreo(String.class, "", "BiblioUpo ha actualizado su perfil", "Hola " + getNombre() + " " + getApellidos() + ", el administrador de BiblioUpo ha modificado su perfil. Su nueva contraseña es " + getPassword() + ".");
+
+        usuarios = usuarioDAO.list();
         return SUCCESS;
     }
-    
+
 }

@@ -8,10 +8,13 @@ package controlador;
 import DAO.RolDAO;
 import DAO.UsuarioDAO;
 import com.opensymphony.xwork2.ActionSupport;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.http.HttpSession;
 import modelo.Rol;
 import modelo.Usuario;
 import org.apache.struts2.ServletActionContext;
+import servicios.EmailAutomaticoJerseyClient;
 
 /**
  *
@@ -81,7 +84,7 @@ public class iniciarSesion extends ActionSupport {
 
     public String execute() throws Exception {
         HttpSession session = ServletActionContext.getRequest().getSession();
-        if(session.getAttribute("usuario") != null){
+        if (session.getAttribute("usuario") != null) {
             usuario = (Usuario) session.getAttribute("usuario");
             rol = (Rol) session.getAttribute("rol");
             return "logado";
@@ -96,19 +99,33 @@ public class iniciarSesion extends ActionSupport {
             if (!usuario.getPassword().equals(getPassword())) {
                 return ERROR;
             } else {
-                
+
                 rol = rolDAO.read(usuario.getCorreo().split("@")[1]);
-                
-                if(rol == null){
+
+                if (rol == null) {
                     setRol(new Rol(usuario.getCorreo().split("@")[1], "Invitado"));
                 }
-                
+
                 HttpSession session = ServletActionContext.getRequest().getSession();
-                
+
                 session.setAttribute("usuario", usuario);
-                
+
                 session.setAttribute("rol", rol);
-                
+
+                // Obtener la fecha y hora actual
+                Date fechaActual = new Date();
+
+                // Formatear la fecha y hora
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+                String fechaFormateada = formatoFecha.format(fechaActual);
+                String horaFormateada = formatoHora.format(fechaActual);
+
+                EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
+                client.enviarCorreo(String.class,
+                        usuario.getCorreo(),
+                        "Inicio de sesión en BiblioUpo",
+                        "Has iniciado sesión en BiblioUpo hoy día " + fechaFormateada + " a las " + horaFormateada+".");
                 return SUCCESS;
             }
         }
