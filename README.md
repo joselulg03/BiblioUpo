@@ -27,5 +27,5 @@ BiblioUpo es una plataforma web desarrollada para gestionar la biblioteca de la 
 
 ## Capturas de pantalla
 
-![Captura de pantalla 1](link-a-captura-de-pantalla-1.png)
-![Captura de pantalla 2](link-a-captura-de-pantalla-2.png)
+![Captura de pantalla 1](web/images/captura1.png)
+
