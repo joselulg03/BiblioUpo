@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/servicios/EmailAutomaticoJerseyClient.java</file>
-            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/web/modificacionUsuario.jsp</file>
-            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/web/gestionUsuarios.jsp</file>
-            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/struts.xml</file>
-            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/WS/WS.java</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/controlador/gestion.java</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/web/vistas/usuario/gestionUsuarios.jsp</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/modelo/Libro.hbm.xml</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/controlador/usuario/gestionUsuario.java</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/controlador/libro/gestionLibro.java</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/web/vistas/libro/gestionLibros.jsp</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/modelo/Libro.java</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/DAO/LibroDAO.java</file>
         </group>
     </open-files>
 </project-private>

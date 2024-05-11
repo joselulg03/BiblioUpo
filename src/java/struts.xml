@@ -29,8 +29,8 @@
         </action>
         
         <action name="gestion" class="controlador.gestion">
-            <result name="usuarios">/gestionUsuarios.jsp</result>
-            <result name="libros">/gestionLibros.jsp</result>
+            <result name="usuarios">/vistas/usuario/gestionUsuarios.jsp</result>
+            <result name="libros">/vistas/libro/gestionLibros.jsp</result>
             <result name="salas">/gestionSalas.jsp</result>
             <result name="ordenadores">/gestionOrdenadores.jsp</result>
             <result name="portatiles">/gestionPortatiles.jsp</result>
@@ -41,24 +41,51 @@
     
     <package name="usuario" extends="struts-default">
         <action name="formGestionUsuario" class="controlador.usuario.gestionUsuario">
-            <result name="alta">/altaUsuario.jsp</result>
-            <result name="modificacion">/modificacionUsuario.jsp</result>
+            <result name="alta">/vistas/usuario/altaUsuario.jsp</result>
+            <result name="modificacion">/vistas/usuario/modificacionUsuario.jsp</result>
         </action>
         
         <action name="consultarUsuario" class="controlador.usuario.gestionUsuario" method="consultar">
-            <result name="success">/consultaUsuario.jsp</result>
+            <result name="success">/vistas/usuario/consultaUsuario.jsp</result>
         </action>
         
         <action name="altaUsuario" class="controlador.usuario.gestionUsuario" method="alta">
-            <result name="success">/gestionUsuarios.jsp</result>
+            <result name="success">/vistas/usuario/gestionUsuarios.jsp</result>
         </action>
         
         <action name="bajaUsuario" class="controlador.usuario.gestionUsuario" method="baja">
-            <result name="success">/gestionUsuarios.jsp</result>
+            <result name="success">/vistas/usuario/gestionUsuarios.jsp</result>
         </action>
         
         <action name="modificacionUsuario" class="controlador.usuario.gestionUsuario" method="modificar">
-            <result name="success">/gestionUsuarios.jsp</result>
+            <result name="success">/vistas/usuario/gestionUsuarios.jsp</result>
+        </action>
+    </package>
+    
+    <package name="libro" extends="struts-default">
+        <action name="formGestionLibro" class="controlador.libro.gestionLibro">
+            <result name="alta">/vistas/libro/altaLibro.jsp</result>
+            <result name="modificacion">/vistas/libro/modificacionLibro.jsp</result>
+        </action>
+        
+        <action name="consultarLibro" class="controlador.libro.gestionLibro" method="consultar">
+            <result name="success">/vistas/libro/consultaLibro.jsp</result>
+        </action>
+        
+        <action name="altaLibro" class="controlador.libro.gestionLibro" method="alta">
+            <result name="success">/vistas/libro/gestionLibros.jsp</result>
+        </action>
+        
+        <action name="bajaLibro" class="controlador.libro.gestionLibro" method="baja">
+            <result name="success">/vistas/libro/gestionLibros.jsp</result>
+        </action>
+        
+        <action name="modificacionLibro" class="controlador.libro.gestionLibro" method="modificar">
+            <result name="success">/vistas/libro/gestionLibros.jsp</result>
+        </action>
+        
+        <action name="filtrarLibro" class="controlador.libro.gestionLibro" method="filtrar">
+            <result name="success">/vistas/libro/gestionLibros.jsp</result>
         </action>
     </package>
 </struts>

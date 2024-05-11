@@ -5,9 +5,11 @@
  */
 package controlador;
 
+import DAO.LibroDAO;
 import DAO.UsuarioDAO;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
+import modelo.Libro;
 import modelo.Usuario;
 
 /**
@@ -17,11 +19,13 @@ import modelo.Usuario;
 public class gestion extends ActionSupport {
     
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private LibroDAO libroDAO = new LibroDAO();
     
     private String entidad;
     private String rol;
     
     private List<Usuario> usuarios;
+    private List<Libro> libros;
     
     public gestion() {
     }
@@ -57,13 +61,33 @@ public class gestion extends ActionSupport {
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
+
+    public LibroDAO getLibroDAO() {
+        return libroDAO;
+    }
+
+    public void setLibroDAO(LibroDAO libroDAO) {
+        this.libroDAO = libroDAO;
+    }
+
+    public List<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
+    }
+    
     
     
     
     public String execute() throws Exception {
         if(entidad.equals("usuarios")){
             usuarios = usuarioDAO.list();
-            System.out.println("-- USUARIOS --");
+            //System.out.println("-- USUARIOS --");
+        }
+        else if(entidad.equals("libros")){
+            libros = libroDAO.list();
         }
         return entidad;
     }

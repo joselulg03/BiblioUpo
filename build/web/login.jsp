@@ -87,13 +87,9 @@
         <div class="container">
             <h1>Login</h1>
             <s:form action="iniciarSesion" method="post">
-
                 <s:textfield label="Correo" name="correo" />
-
                 <s:password label="Contraseña" name="password" />
-
                 <s:submit value="Iniciar Sesión" />
-
             </s:form>
             <a href="landing.jsp"><h2>Volver</h2></a>
         </div>

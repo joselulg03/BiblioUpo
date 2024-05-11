@@ -8,19 +8,19 @@
             <column name="isbn" length="13" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="autor" class="modelo.Autor" fetch="select">
+        <many-to-one name="autor" class="modelo.Autor" lazy="false" fetch="join">
             <column name="id_autor" not-null="true" />
         </many-to-one>
-        <many-to-one name="categoria" class="modelo.Categoria" fetch="select">
+        <many-to-one name="categoria" class="modelo.Categoria" lazy="false" fetch="join">
             <column name="id_categoria" not-null="true" />
         </many-to-one>
-        <many-to-one name="editorial" class="modelo.Editorial" fetch="select">
+        <many-to-one name="editorial" class="modelo.Editorial" lazy="false" fetch="join">
             <column name="id_editorial" not-null="true" />
         </many-to-one>
-        <many-to-one name="idioma" class="modelo.Idioma" fetch="select">
+        <many-to-one name="idioma" class="modelo.Idioma" lazy="false" fetch="join">
             <column name="id_idioma" not-null="true" />
         </many-to-one>
-        <many-to-one name="recurso" class="modelo.Recurso" fetch="select">
+        <many-to-one name="recurso" class="modelo.Recurso" lazy="false" fetch="join">
             <column name="id_recurso" not-null="true" />
         </many-to-one>
         <property name="titulo" type="string">
