@@ -54,4 +54,14 @@ public class LibroDAO {
         tx.commit();
         return ll;
     }
+
+    public Libro readTitulo(String filtro) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Libro where titulo = :filtro");
+        q.setParameter("filtro", filtro);
+        Libro u = (Libro) q.uniqueResult();
+        tx.commit();
+        return u;
+    }
 }

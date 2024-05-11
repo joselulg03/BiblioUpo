@@ -21,23 +21,26 @@ import modelo.Recurso;
  * @author josel
  */
 public class gestionLibro extends ActionSupport {
-    
+
     private LibroDAO libroDAO;
 
     private String isbn;
-     private Autor autor;
-     private Categoria categoria;
-     private Editorial editorial;
-     private Idioma idioma;
-     private Recurso recurso;
-     private String titulo;
-     private String descripcion;
-     private Date fecha;
-     private int cantidad;
+    private Autor autor;
+    private Categoria categoria;
+    private Editorial editorial;
+    private Idioma idioma;
+    private Recurso recurso;
+    private String titulo;
+    private String descripcion;
+    private Date fecha;
+    private int cantidad;
+    
+    private String filtro;
+    private String seleccion;
 
     private Libro libro;
     private List<Libro> libros;
-    
+
     public gestionLibro() {
     }
 
@@ -144,15 +147,41 @@ public class gestionLibro extends ActionSupport {
     public void setLibros(List<Libro> libros) {
         this.libros = libros;
     }
+
+    public String getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(String filtro) {
+        this.filtro = filtro;
+    }
+
+    public String getSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(String seleccion) {
+        this.seleccion = seleccion;
+    }
     
     
-    
+
     public String execute() throws Exception {
         return SUCCESS;
     }
-    
-    public String filtrar(){
+
+    public String filtrar() {
+        if(seleccion != null){
+            libroDAO = new LibroDAO();
+            if(seleccion.equals("Titulo")){
+                System.out.println(">>>>>>>>>>"+filtro);
+                libro = libroDAO.readTitulo(filtro);
+                if(libro == null){
+                    return ERROR;
+                }
+            }
+        }
         return SUCCESS;
     }
-    
+
 }

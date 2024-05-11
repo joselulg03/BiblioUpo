@@ -51,7 +51,7 @@
                     <div class="col-md-4">
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid" src="/images/libro.png"/>
+                                <img class="card-img rounded-0 img-fluid" src="images/libro.png"/>
                                 <div class="card-body">
                                     <p class="h3 text-decoration-none"><strong>ISBN: </strong><s:property value="isbn" /></p>
                                     <p><strong>Titulo: </strong><s:property value="titulo" /></p>
@@ -73,6 +73,33 @@
                         </div>
                     </div>
                 </s:iterator>
+            </div>
+        </s:if>
+
+        <s:if test="libro != null">
+            <div class="col-md-4">
+                <div class="card mb-4 product-wap rounded-0">
+                    <div class="card rounded-0">
+                        <img class="card-img rounded-0 img-fluid" src="images/libro.png"/>
+                        <div class="card-body">
+                            <p class="h3 text-decoration-none"><strong>ISBN: </strong><s:property value="libro.isbn" /></p>
+                            <p><strong>Titulo: </strong><s:property value="libro.titulo" /></p>
+                            <p><strong>Descripción: </strong><s:property value="libro.descripcion" /></p>
+                            <p><strong>Autor: </strong><s:property value="libro.autor.nombre" /></p>
+                            <p><strong>Categoría: </strong><s:property value="libro.categoria.nombre" /></p>
+                            <p><strong>Editorial: </strong><s:property value="libro.editorial.nombre" /></p>
+                            <p><strong>Idioma: </strong><s:property value="libro.idioma.nombre" /></p>
+                            <p><strong>Recurso disponible: </strong><s:property value="libro.recurso.disponible" /></p>
+                            <p><strong>Fecha lanzamiento: </strong><s:property value="libro.fecha" /></p>
+                            <p><strong>Cantidad disponible: </strong><s:property value="libro.cantidad" /></p>
+                            <s:if test="%{libro.cantidad > 0}">
+                                <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
+                                    <s:submit value="Reservar" cssClass="text-center mb-0" />
+                                </s:form>
+                            </s:if>
+                        </div>
+                    </div>
+                </div>
             </div>
         </s:if>
 

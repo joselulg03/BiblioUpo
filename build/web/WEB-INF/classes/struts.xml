@@ -86,6 +86,7 @@
         
         <action name="filtrarLibro" class="controlador.libro.gestionLibro" method="filtrar">
             <result name="success">/vistas/libro/gestionLibros.jsp</result>
+            <result name="error">/vistas/libro/gestionLibros.jsp</result>
         </action>
     </package>
 </struts>
