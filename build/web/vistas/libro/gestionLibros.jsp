@@ -65,6 +65,7 @@
                                     <p><strong>Cantidad disponible: </strong><s:property value="cantidad" /></p>
                                     <s:if test="%{cantidad > 0}">
                                         <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
+                                            <s:hidden name="idRecurso" value="%{recurso.id}" />
                                             <s:submit value="Reservar" cssClass="text-center mb-0" />
                                         </s:form>
                                     </s:if>
@@ -94,6 +95,7 @@
                             <p><strong>Cantidad disponible: </strong><s:property value="libro.cantidad" /></p>
                             <s:if test="%{libro.cantidad > 0}">
                                 <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
+                                    <s:hidden name="idRecurso" value="%{libro.recurso.id}" />
                                     <s:submit value="Reservar" cssClass="text-center mb-0" />
                                 </s:form>
                             </s:if>

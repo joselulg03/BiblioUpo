@@ -5,6 +5,7 @@
  */
 package controlador.libro;
 
+import DAO.AutorDAO;
 import DAO.LibroDAO;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Date;
@@ -40,6 +41,7 @@ public class gestionLibro extends ActionSupport {
 
     private Libro libro;
     private List<Libro> libros;
+    
 
     public gestionLibro() {
     }
@@ -174,11 +176,14 @@ public class gestionLibro extends ActionSupport {
         if(seleccion != null){
             libroDAO = new LibroDAO();
             if(seleccion.equals("Titulo")){
-                System.out.println(">>>>>>>>>>"+filtro);
                 libro = libroDAO.readTitulo(filtro);
                 if(libro == null){
                     return ERROR;
                 }
+            }
+            else if(seleccion.equals("Autor")){
+                AutorDAO autorDAO = new AutorDAO();
+                autor = autorDAO.read(filtro);
             }
         }
         return SUCCESS;

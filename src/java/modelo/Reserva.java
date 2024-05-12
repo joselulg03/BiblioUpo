@@ -9,7 +9,6 @@ import java.util.Date;
  */
 public class Reserva  implements java.io.Serializable {
 
-
      private Integer id;
      private Recurso recurso;
      private Usuario usuario;
@@ -70,9 +69,6 @@ public class Reserva  implements java.io.Serializable {
     public void setEntregado(boolean entregado) {
         this.entregado = entregado;
     }
-
-
-
 
 }
 

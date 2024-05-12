@@ -36,33 +36,30 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
     </head>
     <body>
-        <h1>Área de Gestión de Libros</h1>
+        <h1>Área de Gestión de Reservas</h1>
 
-        <h2>Buscar</h2>
+        <%--<h2>Buscar</h2>
         <s:form action="filtrarLibro" method="post">
             <s:textfield name="filtro" />
             <s:select label="Filtrar por" name="seleccion" list="{'Titulo', 'Autor', 'Editorial'}"/>
             <s:submit value="Buscar" />
-        </s:form>
+        </s:form>--%>
 
-        <s:if test="libros != null">
+        <s:if test="reservas != null">
             <div class="row">
-                <s:iterator value="libros">
+                <s:iterator value="reservas">
                     <div class="col-md-4">
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid" src="images/libro.png"/>
+                                <%--<img class="card-img rounded-0 img-fluid" src="images/libro.png"/>--%>
                                 <div class="card-body">
-                                    <p class="h3 text-decoration-none"><strong>ISBN: </strong><s:property value="isbn" /></p>
-                                    <p><strong>Titulo: </strong><s:property value="titulo" /></p>
-                                    <p><strong>Descripción: </strong><s:property value="descripcion" /></p>
-                                    <p><strong>Autor: </strong><s:property value="autor.nombre" /></p>
-                                    <p><strong>Categoría: </strong><s:property value="categoria.nombre" /></p>
-                                    <p><strong>Editorial: </strong><s:property value="editorial.nombre" /></p>
-                                    <p><strong>Idioma: </strong><s:property value="idioma.nombre" /></p>
-                                    <p><strong>Recurso disponible: </strong><s:property value="recurso.disponible" /></p>
-                                    <p><strong>Fecha lanzamiento: </strong><s:property value="fecha" /></p>
-                                    <p><strong>Cantidad disponible: </strong><s:property value="cantidad" /></p>
+                                    <p class="h3 text-decoration-none"><strong>ID: </strong><s:property value="id" /></p>
+                                    <p><strong>Recurso: </strong><s:property value="recurso.id" /></p>
+                                    <p><strong>Usuario: </strong><s:property value="usuario.correo" /></p>
+                                    <p><strong>Fecha: </strong><s:property value="fecha" /></p>
+                                    <p><strong>Duración: </strong><s:property value="duracionHoras" /> horas</p>
+                                    <p><strong>Entregado: </strong><s:property value="entregado" /></p>
+                                    
                                     <s:if test="%{cantidad > 0}">
                                         <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
                                             <s:hidden name="idRecurso" value="%{recurso.id}" />
