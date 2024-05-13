@@ -28,6 +28,10 @@
             <result name="success">/gestionEntidades.jsp</result>
         </action>
         
+        <action name="contactar" class="controlador.contactar" >
+            <result name="success" type="redirectAction">inicio</result>
+        </action>
+        
         <action name="gestion" class="controlador.gestion">
             <result name="usuarios">/vistas/usuario/gestionUsuarios.jsp</result>
             <result name="libros">/vistas/libro/gestionLibros.jsp</result>
@@ -37,6 +41,8 @@
             <result name="reservas">/gestionReservas.jsp</result>
             <result name="refuerzos">/gestionRefuerzos.jsp</result>
         </action>
+        
+        
     </package>
     
     <package name="usuario" extends="struts-default">

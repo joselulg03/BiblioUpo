@@ -692,25 +692,25 @@
             </div>
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <form id="post_form" class="contact_form" action="#" method="post">
+                    <s:form action="contactar" method="post" cssClass="contact_form">
                         <div class="row">
                             <div class="col-md-12">
-                                <input class="contact_control" placeholder="Nombre" type="text" name="Name">
+                                <input class="contact_control" placeholder="Nombre" type="text" name="nombre">
                             </div>
                             <div class="col-md-12">
-                                <input class="contact_control" placeholder="Correo Electrónico" type="email" name="Email">
+                                <input class="contact_control" placeholder="Correo Electrónico" type="email" name="correo">
                             </div>
                             <div class="col-md-12">
-                                <input class="contact_control" placeholder="Número de Teléfono" type="tel" name="Phone Number">
+                                <input class="contact_control" placeholder="Número de Teléfono" type="tel" name="telefono">
                             </div>
                             <div class="col-md-12">
-                                <textarea class="textarea" placeholder="Mensaje" name="Message"></textarea>
+                                <textarea class="textarea" placeholder="Mensaje" name="mensaje"></textarea>
                             </div>
                             <div class="col-md-12">
                                 <button type="submit" class="send_btn">Enviar</button>
                             </div>
                         </div>
-                    </form>
+                    </s:form>
                 </div>
             </div>
         </div>
