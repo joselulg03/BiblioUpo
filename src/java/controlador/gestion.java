@@ -1,31 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controlador;
 
-import DAO.LibroDAO;
-import DAO.UsuarioDAO;
+import DAO.*;
+import modelo.*;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
-import modelo.Libro;
-import modelo.Usuario;
 
-/**
- *
- * @author josel
- */
 public class gestion extends ActionSupport {
     
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
     private LibroDAO libroDAO = new LibroDAO();
+    private SalaDAO salaDAO = new SalaDAO();
+    private OrdenadorDAO ordenadorDAO = new OrdenadorDAO();
     
     private String entidad;
     private String rol;
     
     private List<Usuario> usuarios;
     private List<Libro> libros;
+    private List<Sala> salas;
+    private List<Ordenador> ordenadores;
     
     public gestion() {
     }
@@ -78,8 +72,37 @@ public class gestion extends ActionSupport {
         this.libros = libros;
     }
     
+    public SalaDAO getSalaDAO() {
+        return salaDAO;
+    }
+
+    public void setSalaDAO(SalaDAO salaDAO) {
+        this.salaDAO = salaDAO;
+    }
+
+    public List<Sala> getSalas() {
+        return salas;
+    }
+
+    public void setSalas(List<Sala> salas) {
+        this.salas = salas;
+    }
     
-    
+    public OrdenadorDAO getOrdenadorDAO() {
+        return ordenadorDAO;
+    }
+
+    public void setOrdenadorDAO(OrdenadorDAO ordenadorDAO) {
+        this.ordenadorDAO = ordenadorDAO;
+    }
+
+    public List<Ordenador> getOrdenadores() {
+        return ordenadores;
+    }
+
+    public void setOrdenadores(List<Ordenador> ordenadores) {
+        this.ordenadores = ordenadores;
+    }
     
     public String execute() throws Exception {
         if(entidad.equals("usuarios")){
@@ -88,6 +111,10 @@ public class gestion extends ActionSupport {
         }
         else if(entidad.equals("libros")){
             libros = libroDAO.list();
+        } else if(entidad.equals("salas")){
+            salas = salaDAO.list();
+        } else if(entidad.equals("ordenadores")){
+            ordenadores = ordenadorDAO.list();
         }
         return entidad;
     }
