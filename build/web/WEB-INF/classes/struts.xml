@@ -96,6 +96,52 @@
         </action>
     </package>
     
+    <package name="sala" extends="struts-default">
+        <action name="formGestionSala" class="controlador.sala.gestionSala">
+            <result name="alta">/vistas/sala/altaSala.jsp</result>
+            <result name="modificacion">/vistas/sala/modificacionSala.jsp</result>
+        </action>
+        
+        <action name="consultarSala" class="controlador.sala.gestionSala" method="consultar">
+            <result name="success">/vistas/sala/consultaSala.jsp</result>
+        </action>
+        
+        <action name="altaSala" class="controlador.sala.gestionSala" method="alta">
+            <result name="success">/vistas/sala/gestionSalas.jsp</result>
+        </action>
+        
+        <action name="bajaSala" class="controlador.sala.gestionSala" method="baja">
+            <result name="success">/vistas/sala/gestionSalas.jsp</result>
+        </action>
+        
+        <action name="modificacionSala" class="controlador.sala.gestionSala" method="modificar">
+            <result name="success">/vistas/sala/gestionSalas.jsp</result>
+        </action>
+    </package>
+    
+    <package name="ordenador" extends="struts-default">
+        <action name="formGestionOrdenador" class="controlador.ordenador.gestionOrdenador">
+            <result name="alta">/vistas/ordenador/altaOrdenador.jsp</result>
+            <result name="modificacion">/vistas/ordenador/modificacionOrdenador.jsp</result>
+        </action>
+        
+        <action name="consultarOrdenador" class="controlador.ordenador.gestionOrdenador" method="consultar">
+            <result name="success">/vistas/ordenador/consultaOrdenador.jsp</result>
+        </action>
+        
+        <action name="altaOrdenador" class="controlador.ordenador.gestionOrdenador" method="alta">
+            <result name="success">/vistas/ordenador/gestionOrdenadores.jsp</result>
+        </action>
+        
+        <action name="bajaOrdenador" class="controlador.ordenador.gestionOrdenador" method="baja">
+            <result name="success">/vistas/ordenador/gestionOrdenadores.jsp</result>
+        </action>
+        
+        <action name="modificacionOrdenador" class="controlador.ordenador.gestionOrdenador" method="modificar">
+            <result name="success">/vistas/ordenador/gestionOrdenadores.jsp</result>
+        </action>
+    </package>
+    
     <package name="reserva" extends="struts-default">
         <action name="formGestionReserva" class="controlador.reserva.gestionReserva">
             <result name="alta">/vistas/reserva/altaReserva.jsp</result>
