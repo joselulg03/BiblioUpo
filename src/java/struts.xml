@@ -35,7 +35,7 @@
         <action name="gestion" class="controlador.gestion">
             <result name="usuarios">/vistas/usuario/gestionUsuarios.jsp</result>
             <result name="libros">/vistas/libro/gestionLibros.jsp</result>
-            <result name="salas">/gestionSalas.jsp</result>
+            <result name="salas">/vistas/sala/gestionSalas.jsp</result>
             <result name="ordenadores">/gestionOrdenadores.jsp</result>
             <result name="portatiles">/gestionPortatiles.jsp</result>
             <result name="reservas">/gestionReservas.jsp</result>
