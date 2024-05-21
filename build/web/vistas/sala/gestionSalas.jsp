@@ -24,7 +24,7 @@
                 </thead>
 
                 <tbody>
-                    <s:iterator value="usuarios">
+                    <s:iterator value="salas">
                         <tr>
                             <td><s:property value="nombre" /></td>
                             <td>

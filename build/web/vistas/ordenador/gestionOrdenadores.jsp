@@ -4,18 +4,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestión Salas</title>
+        <title>Gestión Ordenadores</title>
     </head>
     <body>
-        <h1>Área de Gestión de Salas</h1>
+        <h1>Área de Gestión de Ordenadores</h1>
         <h2>Rol: <s:property value="#session.rol.tipo" /> </h2>
 
-        <s:form action="formGestionSala" method="post">
+        <s:form action="formGestionOrdenador" method="post">
             <s:hidden name="operacion" value="alta" />
             <s:submit value="Alta" />
         </s:form>
 
-        <s:if test="salas != null">
+        <s:if test="ordenadores != null">
             <table border="1">
                 <thead>
                     <tr>
@@ -24,21 +24,21 @@
                 </thead>
 
                 <tbody>
-                    <s:iterator value="salas">
+                    <s:iterator value="ordenadores">
                         <tr>
                             <td><s:property value="nombre" /></td>
                             <td>
-                                <s:form action="bajaSala" method="post">
+                                <s:form action="bajaOrdenador" method="post">
                                     <s:hidden name="nombre" value="%{nombre}" />
                                     <s:submit value="Baja" />
                                 </s:form>
 
-                                <s:form action="formGestionSala" method="post">
+                                <s:form action="formGestionOrdenador" method="post">
                                     <s:hidden name="operacion" value="modificacion" />
                                     <s:submit value="Modificar" />
                                 </s:form>
 
-                                <s:form action="formGestionSala" method="post">
+                                <s:form action="formGestionOrdenador" method="post">
                                     <s:hidden name="operacion" value="consulta" />
                                     <s:submit value="Consultar" />
                                 </s:form>
@@ -49,7 +49,7 @@
             </table>
         </s:if>
         <s:else>
-            <p>No hay salas que mostrar.</p>
+            <p>No hay ordenadores que mostrar.</p>
         </s:else>
 
         <s:form action="volverGestionEntidades" method="post">
@@ -64,7 +64,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestión Salas</title>
+        <title>Gestión Ordenadores</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="icon" href="images/upo2.png" type="image/gif" />
@@ -85,19 +85,19 @@
     </head>
     <body>
         <div class="container">
-            <h1>Área de Gestión de Salas</h1>
+            <h1>Área de Gestión de Ordenadores</h1>
             <h2>Rol: <s:property value="#session.rol.tipo" /></h2>
 
             <s:form action="volverGestionEntidades" method="post">
                 <s:submit value="Volver" cssClass="btn btn-secondary mt-3" />
             </s:form>
             
-            <s:form action="formGestionSalas" method="post" class="form-inline">
+            <s:form action="formGestionOrdenadores" method="post" class="form-inline">
                 <s:hidden name="operacion" value="alta" />
                 <s:submit value="Alta" cssClass="btn btn-primary mr-2" />
             </s:form>
 
-            <s:if test="salas != null">
+            <s:if test="ordenadores != null">
                 <table>
                     <thead>
                         <tr>
@@ -106,22 +106,22 @@
                     </thead>
 
                     <tbody>
-                        <s:iterator value="salas">
+                        <s:iterator value="ordenadores">
                             <tr>
                                 <td><s:property value="nombre" /></td>
                                 <td>
-                                    <s:form action="bajaSala" method="post" cssClass="form-inline">
+                                    <s:form action="bajaOrdenador" method="post" cssClass="form-inline">
                                         <s:hidden name="nombre" value="%{nombre}" />
                                         <s:submit value="Baja" cssClass="btn btn-danger mr-2" />
                                     </s:form>
 
-                                    <s:form action="formGestionSala" method="post" cssClass="form-inline">
+                                    <s:form action="formGestionOrdenador" method="post" cssClass="form-inline">
                                         <s:hidden name="nombre" value="%{nombre}" />
                                         <s:hidden name="operacion" value="modificacion" />
                                         <s:submit value="Modificar" cssClass="btn btn-warning mr-2" />
                                     </s:form>
 
-                                    <s:form action="consultarSala" method="post" cssClass="form-inline">
+                                    <s:form action="consultarOrdenador" method="post" cssClass="form-inline">
                                         <s:hidden name="nombre" value="%{nombre}" />
                                         <s:submit value="Consultar" cssClass="btn btn-info" />
                                     </s:form>
@@ -132,7 +132,7 @@
                 </table>
             </s:if>
             <s:else>
-                <p>No hay salas que mostrar.</p>
+                <p>No hay ordenadores que mostrar.</p>
             </s:else>
 
             
