@@ -32,7 +32,7 @@
             <s:form action="volverGestionEntidades" method="post">
                 <s:submit value="Volver" cssClass="btn btn-secondary mt-3" />
             </s:form>
-            
+
             <s:form action="formGestionSala" method="post" class="form-inline">
                 <s:hidden name="operacion" value="alta" />
                 <s:submit value="Alta" cssClass="btn btn-primary mr-2" />
@@ -66,6 +66,10 @@
                                         <s:hidden name="nombre" value="%{nombre}" />
                                         <s:submit value="Consultar" cssClass="btn btn-info" />
                                     </s:form>
+                                    <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
+                                        <s:hidden name="idRecurso" value="%{sala.recurso.id}" />
+                                        <s:submit value="Reservar" cssClass="text-center mb-0" />
+                                    </s:form>
                                 </td>
                             </tr>
                         </s:iterator>
@@ -76,7 +80,7 @@
                 <p>No hay salas que mostrar.</p>
             </s:else>
 
-            
+
         </div>
 
         <!-- Bootstrap JS -->
