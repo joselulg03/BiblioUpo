@@ -1,11 +1,13 @@
 package controlador.usuario;
 
+import DAO.RolDAO;
 import DAO.UsuarioDAO;
 import com.opensymphony.xwork2.ActionSupport;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import modelo.Rol;
 import modelo.Usuario;
 import servicios.EmailAutomaticoJerseyClient;
 
@@ -14,6 +16,7 @@ public class gestionUsuario extends ActionSupport {
     private String operacion;
 
     private UsuarioDAO usuarioDAO;
+    private RolDAO rolDAO;
 
     private String dni;
     private String nombre;
@@ -21,9 +24,14 @@ public class gestionUsuario extends ActionSupport {
     private String correo;
     private String fechaNacimiento;
     private String password;
+    private String rol;
+    
+    private int idRol;
 
     private Usuario usuario;
     private List<Usuario> usuarios;
+    
+    private List<Rol> roles;
 
     public gestionUsuario() {
     }
@@ -108,7 +116,46 @@ public class gestionUsuario extends ActionSupport {
         this.operacion = operacion;
     }
 
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public List<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
+    }
+
+    public RolDAO getRolDAO() {
+        return rolDAO;
+    }
+
+    public void setRolDAO(RolDAO rolDAO) {
+        this.rolDAO = rolDAO;
+    }
+
+    public int getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
+    }
+    
+ 
     public String execute() throws Exception {
+        
+        if(operacion.equals("alta")){
+            rolDAO = new RolDAO();
+            roles = rolDAO.list();
+        }
+        
         if (getDni() != null) {
             usuarioDAO = new UsuarioDAO();
             usuario = usuarioDAO.readDni(getDni());
@@ -117,10 +164,16 @@ public class gestionUsuario extends ActionSupport {
     }
 
     public String alta() throws ParseException {
+        rolDAO = new RolDAO();
+        rol = rolDAO.readId(getIdRol()).getTipo();
+        
         usuarioDAO = new UsuarioDAO();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = formato.parse(getFechaNacimiento());
-        usuarioDAO.create(new Usuario(getDni(), getNombre(), getApellidos(), getCorreo(), fecha, getPassword()));
+        
+        String c = generarCorreo(getNombre(), getApellidos(), rol);
+
+        usuarioDAO.create(new Usuario(getDni(), getNombre(), getApellidos(), c, fecha, getPassword()));
         usuarios = usuarioDAO.list();
 
         EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
@@ -129,7 +182,7 @@ public class gestionUsuario extends ActionSupport {
                 "Bienvenido a BiblioUpo!",
                 "Hola "+getNombre()+" "+getApellidos()+", ya formas parte de BiblioUpo.\n"
                         + "Accede a nuestra web para iniciar sesión.\n"
-                        + "Sus credenciales son:\n Usuario: "+getCorreo()+"\nContraseña: "+getPassword()+".");
+                        + "Sus credenciales son:\nUsuario: "+c+"\nContraseña: "+getPassword()+".");
         return SUCCESS;
     }
 
@@ -174,4 +227,9 @@ public class gestionUsuario extends ActionSupport {
         return SUCCESS;
     }
 
+    private static String generarCorreo(java.lang.String arg0, java.lang.String arg1, java.lang.String arg2) {
+        servicios.GeneracionCorreos_Service service = new servicios.GeneracionCorreos_Service();
+        servicios.GeneracionCorreos port = service.getGeneracionCorreosPort();
+        return port.generarCorreo(arg0, arg1, arg2);
+    }
 }

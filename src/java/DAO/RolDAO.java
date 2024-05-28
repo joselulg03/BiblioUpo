@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import java.util.List;
 import modelo.HibernateUtil;
 import modelo.Rol;
 import org.hibernate.Query;
@@ -29,5 +30,24 @@ public class RolDAO {
         Rol r = (Rol) q.uniqueResult();
         tx.commit();
         return r;
+    }
+    
+    public Rol readId(int id){
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Rol where id = :id");
+        q.setParameter("id", id);
+        Rol r = (Rol) q.uniqueResult();
+        tx.commit();
+        return r;
+    }
+    
+    public List<Rol> list() {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Rol");
+        List<Rol> la = (List<Rol>) q.list();
+        tx.commit();
+        return la;
     }
 }
