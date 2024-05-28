@@ -33,8 +33,8 @@
                     <s:textfield name="fecha" type="date" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label for="autor">Autor</label>
-                    <s:select name="id" 
+                    <label>Autor</label>
+                    <s:select name="idAutor" 
                               list="autores" 
                               listKey="id" 
                               listValue="nombre" 
@@ -43,8 +43,8 @@
                               headerValue="Selecciona un autor"/>
                 </div>
                 <div class="form-group">
-                    <label for="editorial">Editorial</label>
-                    <s:select name="id" 
+                    <label>Editorial</label>
+                    <s:select name="idEditorial" 
                               list="editoriales" 
                               listKey="id" 
                               listValue="nombre" 
@@ -53,8 +53,8 @@
                               headerValue="Selecciona una editorial"/>
                 </div>
                 <div class="form-group">
-                    <label for="categoria">Categoría</label>
-                    <s:select name="id" 
+                    <label>Categoría</label>
+                    <s:select name="idCategoria" 
                               list="categorias" 
                               listKey="id" 
                               listValue="nombre" 
@@ -63,8 +63,8 @@
                               headerValue="Selecciona una categoría"/>
                 </div>
                 <div class="form-group">
-                    <label for="idioma">Idioma</label>
-                    <s:select name="id" 
+                    <label>Idioma</label>
+                    <s:select name="idIdioma" 
                               list="idiomas" 
                               listKey="id" 
                               listValue="nombre" 

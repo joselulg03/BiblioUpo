@@ -7,6 +7,8 @@ package controlador.libro;
 
 import DAO.*;
 import com.opensymphony.xwork2.ActionSupport;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import modelo.*;
@@ -33,12 +35,17 @@ public class gestionLibro extends ActionSupport {
     private Recurso recurso;
     private String titulo;
     private String descripcion;
-    private Date fecha;
+    private String fecha;
     private int cantidad;
     
     private String filtro;
     private String seleccion;
     private String operacion;
+    
+    private int idAutor;
+    private int idEditorial;
+    private int idCategoria;
+    private int idIdioma;
 
     private Libro libro;
     private List<Libro> libros;
@@ -123,11 +130,11 @@ public class gestionLibro extends ActionSupport {
         this.descripcion = descripcion;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -250,6 +257,38 @@ public class gestionLibro extends ActionSupport {
     public void setIdiomas(List<Idioma> idiomas) {
         this.idiomas = idiomas;
     }
+
+    public int getIdAutor() {
+        return idAutor;
+    }
+
+    public void setIdAutor(int idAutor) {
+        this.idAutor = idAutor;
+    }
+
+    public int getIdEditorial() {
+        return idEditorial;
+    }
+
+    public void setIdEditorial(int idEditorial) {
+        this.idEditorial = idEditorial;
+    }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
+    public int getIdIdioma() {
+        return idIdioma;
+    }
+
+    public void setIdIdioma(int idIdioma) {
+        this.idIdioma = idIdioma;
+    }
     
     
     
@@ -271,6 +310,26 @@ public class gestionLibro extends ActionSupport {
         
         return operacion;
     }
+    
+    public String alta() throws ParseException{
+        libroDAO = new LibroDAO();
+        autorDAO = new AutorDAO();
+        categoriaDAO = new CategoriaDAO();
+        editorialDAO = new EditorialDAO();
+        idiomaDAO = new IdiomaDAO();
+        recursoDAO = new RecursoDAO();
+        
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = formato.parse(getFecha());
+        
+        Recurso r = new Recurso(true);
+        recursoDAO.create(r);
+        
+        libro = new Libro(getIsbn(), autorDAO.readId(getIdAutor()), categoriaDAO.readId(getIdCategoria()), editorialDAO.readId(getIdEditorial()), idiomaDAO.readId(getIdIdioma()), r, getTitulo(), getDescripcion(), fecha, getCantidad());
+        libroDAO.create(libro);
+        
+        return SUCCESS;
+    }
 
     public String filtrar() {
         if(seleccion != null){
@@ -282,8 +341,14 @@ public class gestionLibro extends ActionSupport {
                 }
             }
             else if(seleccion.equals("Autor")){
-                AutorDAO autorDAO = new AutorDAO();
+                autorDAO = new AutorDAO();
                 autor = autorDAO.read(filtro);
+                libros = libroDAO.readAutor(autor.getId());
+            }
+            else if(seleccion.equals("Editorial")){
+                editorialDAO = new EditorialDAO();
+                editorial = editorialDAO.read(filtro);
+                libros = libroDAO.readEditorial(editorial.getId());
             }
         }
         return SUCCESS;

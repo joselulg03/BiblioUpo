@@ -31,6 +31,17 @@ public class EditorialDAO {
         return a;
     }
 
+    public Editorial readId(int id) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Editorial where id = :id");
+        q.setParameter("id", id);
+        Editorial a = (Editorial) q.uniqueResult();
+        tx.commit();
+        return a;
+    }
+
+    
     public void delete(Editorial a) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();

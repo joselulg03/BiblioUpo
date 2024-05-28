@@ -29,7 +29,7 @@ public class CategoriaDAO {
         tx.commit();
     }
 
-    public Categoria read(String id) {
+    public Categoria readId(int id) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         Query q = session.createQuery("from Categoria where id = :id");

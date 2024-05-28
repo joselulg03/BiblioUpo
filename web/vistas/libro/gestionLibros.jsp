@@ -55,6 +55,8 @@
             <s:select label="Filtrar por" name="seleccion" list="{'Titulo', 'Autor', 'Editorial'}"/>
             <s:submit value="Buscar" />
         </s:form>
+        
+        <hr>
 
         <s:if test="libros != null">
             <div class="row">
@@ -62,7 +64,7 @@
                     <div class="col-md-4">
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0">
-                                <img class="card-img rounded-0 img-fluid" src="images/libro.png"/>
+                                <img class="card-img rounded-4 img-fluid" src="images/<s:property value="isbn" />.jpg" />
                                 <div class="card-body">
                                     <p class="h3 text-decoration-none"><strong>ISBN: </strong><s:property value="isbn" /></p>
                                     <p><strong>Titulo: </strong><s:property value="titulo" /></p>
@@ -92,7 +94,7 @@
             <div class="col-md-4">
                 <div class="card mb-4 product-wap rounded-0">
                     <div class="card rounded-0">
-                        <img class="card-img rounded-0 img-fluid" src="images/libro.png"/>
+                        <img class="card-img rounded-4 img-fluid" src="images/<s:property value="libro.isbn" />.jpg" />
                         <div class="card-body">
                             <p class="h3 text-decoration-none"><strong>ISBN: </strong><s:property value="libro.isbn" /></p>
                             <p><strong>Titulo: </strong><s:property value="libro.titulo" /></p>

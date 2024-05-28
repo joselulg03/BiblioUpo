@@ -29,6 +29,17 @@ public class IdiomaDAO {
         tx.commit();
         return a;
     }
+    
+    public Idioma readId(int id) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Idioma where id = :id");
+        q.setParameter("id", id);
+        Idioma a = (Idioma) q.uniqueResult();
+        tx.commit();
+        return a;
+    }
+
 
     public void delete(Idioma a) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();

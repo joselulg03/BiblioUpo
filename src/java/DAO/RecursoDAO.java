@@ -21,6 +21,13 @@ public class RecursoDAO {
         
     }
     
+    public void create(Recurso a) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        session.save(a);
+        tx.commit();
+    }
+    
     public Recurso read(Integer id){
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();

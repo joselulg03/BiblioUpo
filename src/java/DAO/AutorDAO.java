@@ -39,6 +39,16 @@ public class AutorDAO {
         tx.commit();
         return a;
     }
+    
+    public Autor readId(int id) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Autor where id = :id");
+        q.setParameter("id", id);
+        Autor a = (Autor) q.uniqueResult();
+        tx.commit();
+        return a;
+    }
 
     public void delete(Autor a) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();

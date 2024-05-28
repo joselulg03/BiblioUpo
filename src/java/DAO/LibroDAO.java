@@ -64,4 +64,24 @@ public class LibroDAO {
         tx.commit();
         return u;
     }
+    
+    public List<Libro> readAutor(int idAutor) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Libro where id_autor = :idAutor");
+        q.setParameter("idAutor", idAutor);
+        List<Libro> u = (List<Libro>) q.list();
+        tx.commit();
+        return u;
+    }
+    
+    public List<Libro> readEditorial(int idEditorial) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from Libro where id_editorial = :idEditorial");
+        q.setParameter("idEditorial", idEditorial);
+        List<Libro> u = (List<Libro>) q.list();
+        tx.commit();
+        return u;
+    }
 }
