@@ -37,6 +37,17 @@
     </head>
     <body>
         <h1>Área de Gestión de Libros</h1>
+        
+        <s:if test="#session.rol.tipo.equals('Administrador')">
+            <div>
+                <h2>Administrador</h2>
+                <s:form method="post" action="formGestionLibro">
+                    <s:hidden name="operacion" value="alta" />
+                    <s:submit value="Dar de alta un libro" />
+                </s:form>
+            </div>
+            
+        </s:if>
 
         <h2>Buscar</h2>
         <s:form action="filtrarLibro" method="post">

@@ -1,57 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import java.util.List;
 import modelo.HibernateUtil;
-import modelo.Autor;
+import modelo.Idioma;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-/**
- *
- * @author josel
- */
-public class AutorDAO {
-
+public class IdiomaDAO {
     Session session = null;
 
-    public AutorDAO() {
+    public IdiomaDAO() {
 
     }
 
-    public void create(Autor a) {
+    public void create(Idioma a) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.save(a);
         tx.commit();
     }
 
-    public Autor read(String nombre) {
+    public Idioma read(String nombre) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Autor where nombre = :nombre");
+        Query q = session.createQuery("from Idioma where nombre = :nombre");
         q.setParameter("nombre", nombre);
-        Autor a = (Autor) q.uniqueResult();
+        Idioma a = (Idioma) q.uniqueResult();
         tx.commit();
         return a;
     }
 
-    public void delete(Autor a) {
+    public void delete(Idioma a) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.delete(a);
         tx.commit();
     }
 
-    public List<Autor> list() {
+    public List<Idioma> list() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Autor");
-        List<Autor> la = (List<Autor>) q.list();
+        Query q = session.createQuery("from Idioma");
+        List<Idioma> la = (List<Idioma>) q.list();
         tx.commit();
         return la;
     }

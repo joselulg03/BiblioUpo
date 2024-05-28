@@ -1,57 +1,48 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package DAO;
 
 import java.util.List;
+import modelo.Editorial;
 import modelo.HibernateUtil;
-import modelo.Autor;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-/**
- *
- * @author josel
- */
-public class AutorDAO {
-
+public class EditorialDAO {
     Session session = null;
 
-    public AutorDAO() {
+    public EditorialDAO() {
 
     }
 
-    public void create(Autor a) {
+    public void create(Editorial a) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.save(a);
         tx.commit();
     }
 
-    public Autor read(String nombre) {
+    public Editorial read(String nombre) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Autor where nombre = :nombre");
+        Query q = session.createQuery("from Editorial where nombre = :nombre");
         q.setParameter("nombre", nombre);
-        Autor a = (Autor) q.uniqueResult();
+        Editorial a = (Editorial) q.uniqueResult();
         tx.commit();
         return a;
     }
 
-    public void delete(Autor a) {
+    public void delete(Editorial a) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         session.delete(a);
         tx.commit();
     }
 
-    public List<Autor> list() {
+    public List<Editorial> list() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Autor");
-        List<Autor> la = (List<Autor>) q.list();
+        Query q = session.createQuery("from Editorial");
+        List<Editorial> la = (List<Editorial>) q.list();
         tx.commit();
         return la;
     }

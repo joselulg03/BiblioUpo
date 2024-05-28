@@ -5,17 +5,12 @@
  */
 package controlador.libro;
 
-import DAO.AutorDAO;
-import DAO.LibroDAO;
+import DAO.*;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Date;
 import java.util.List;
-import modelo.Autor;
-import modelo.Categoria;
-import modelo.Editorial;
-import modelo.Idioma;
-import modelo.Libro;
-import modelo.Recurso;
+import modelo.*;
+
 
 /**
  *
@@ -24,6 +19,11 @@ import modelo.Recurso;
 public class gestionLibro extends ActionSupport {
 
     private LibroDAO libroDAO;
+    private AutorDAO autorDAO;
+    private EditorialDAO editorialDAO;
+    private CategoriaDAO categoriaDAO;
+    private IdiomaDAO idiomaDAO;
+    private RecursoDAO recursoDAO;
 
     private String isbn;
     private Autor autor;
@@ -38,9 +38,14 @@ public class gestionLibro extends ActionSupport {
     
     private String filtro;
     private String seleccion;
+    private String operacion;
 
     private Libro libro;
     private List<Libro> libros;
+    private List<Autor> autores;
+    private List<Editorial> editoriales;
+    private List<Categoria> categorias;
+    private List<Idioma> idiomas;
     
 
     public gestionLibro() {
@@ -165,11 +170,106 @@ public class gestionLibro extends ActionSupport {
     public void setSeleccion(String seleccion) {
         this.seleccion = seleccion;
     }
+
+    public String getOperacion() {
+        return operacion;
+    }
+
+    public void setOperacion(String operacion) {
+        this.operacion = operacion;
+    }
+
+    public AutorDAO getAutorDAO() {
+        return autorDAO;
+    }
+
+    public void setAutorDAO(AutorDAO autorDAO) {
+        this.autorDAO = autorDAO;
+    }
+
+    public List<Autor> getAutores() {
+        return autores;
+    }
+
+    public void setAutores(List<Autor> autores) {
+        this.autores = autores;
+    }
+
+    public EditorialDAO getEditorialDAO() {
+        return editorialDAO;
+    }
+
+    public void setEditorialDAO(EditorialDAO editorialDAO) {
+        this.editorialDAO = editorialDAO;
+    }
+
+    public CategoriaDAO getCategoriaDAO() {
+        return categoriaDAO;
+    }
+
+    public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
+        this.categoriaDAO = categoriaDAO;
+    }
+
+    public IdiomaDAO getIdiomaDAO() {
+        return idiomaDAO;
+    }
+
+    public void setIdiomaDAO(IdiomaDAO idiomaDAO) {
+        this.idiomaDAO = idiomaDAO;
+    }
+
+    public RecursoDAO getRecursoDAO() {
+        return recursoDAO;
+    }
+
+    public void setRecursoDAO(RecursoDAO recursoDAO) {
+        this.recursoDAO = recursoDAO;
+    }
+
+    public List<Editorial> getEditoriales() {
+        return editoriales;
+    }
+
+    public void setEditoriales(List<Editorial> editoriales) {
+        this.editoriales = editoriales;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
+
+    public List<Idioma> getIdiomas() {
+        return idiomas;
+    }
+
+    public void setIdiomas(List<Idioma> idiomas) {
+        this.idiomas = idiomas;
+    }
+    
+    
     
     
 
     public String execute() throws Exception {
-        return SUCCESS;
+        
+        if(operacion.equals("alta")){
+            autorDAO = new AutorDAO();
+            editorialDAO = new EditorialDAO();
+            categoriaDAO = new CategoriaDAO();
+            idiomaDAO = new IdiomaDAO();
+            
+            autores = autorDAO.list();
+            editoriales = editorialDAO.list();
+            categorias = categoriaDAO.list();
+            idiomas = idiomaDAO.list();
+        }
+        
+        return operacion;
     }
 
     public String filtrar() {
