@@ -81,9 +81,31 @@
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-    </head>
-    <body>
+        <style>
+            .btn-color{
+                background-color: #0e1c36;
+                color: #fff;
 
+            }
+
+            .profile-image-pic{
+                height: 200px;
+                width: 200px;
+                object-fit: cover;
+            }
+
+
+
+            .cardbody-color{
+                background-color: #ebf2fa;
+            }
+
+            a{
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <%--<body>
         <div class="container">
             <h1>Login</h1>
             <s:form action="iniciarSesion" method="post">
@@ -93,6 +115,36 @@
             </s:form>
             <a href="landing.jsp"><h2>Volver</h2></a>
         </div>
-</body>
+    </body>--%>
+    <body>
+        <div class="container">
+            <h1 class="text-center text-dark mt-5">Iniciar Sesión</h1>
+            <div class="card my-5">
+                <form class="card-body cardbody-color p-lg-5" action="iniciarSesion" method="post">
+
+                    <div class="text-center">
+                        <img src="images/upo2.png"
+                             class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px"
+                             alt="profile">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="Username" aria-describedby="emailHelp"
+                               placeholder="Correo" name="correo">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="password" class="form-control" id="password" placeholder="Contraseña"
+                               name="password">
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-color px-5 mb-5 w-100">Iniciar Sesión</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+
 </html>
 
