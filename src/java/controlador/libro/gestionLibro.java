@@ -46,6 +46,7 @@ public class gestionLibro extends ActionSupport {
     private int idEditorial;
     private int idCategoria;
     private int idIdioma;
+    private String isbnLibro;
 
     private Libro libro;
     private List<Libro> libros;
@@ -289,6 +290,14 @@ public class gestionLibro extends ActionSupport {
     public void setIdIdioma(int idIdioma) {
         this.idIdioma = idIdioma;
     }
+
+    public String getIsbnLibro() {
+        return isbnLibro;
+    }
+
+    public void setIsbnLibro(String isbnLibro) {
+        this.isbnLibro = isbnLibro;
+    }
     
     
     
@@ -306,6 +315,20 @@ public class gestionLibro extends ActionSupport {
             editoriales = editorialDAO.list();
             categorias = categoriaDAO.list();
             idiomas = idiomaDAO.list();
+        }
+        if(operacion.equals("modificacion")){
+            autorDAO = new AutorDAO();
+            editorialDAO = new EditorialDAO();
+            categoriaDAO = new CategoriaDAO();
+            idiomaDAO = new IdiomaDAO();
+            libroDAO = new LibroDAO();
+            
+            autores = autorDAO.list();
+            editoriales = editorialDAO.list();
+            categorias = categoriaDAO.list();
+            idiomas = idiomaDAO.list();
+            
+            libro = libroDAO.read(getIsbnLibro());
         }
         
         return operacion;
@@ -328,6 +351,20 @@ public class gestionLibro extends ActionSupport {
         libro = new Libro(getIsbn(), autorDAO.readId(getIdAutor()), categoriaDAO.readId(getIdCategoria()), editorialDAO.readId(getIdEditorial()), idiomaDAO.readId(getIdIdioma()), r, getTitulo(), getDescripcion(), fecha, getCantidad());
         libroDAO.create(libro);
         
+        return SUCCESS;
+    }
+    
+    public String baja(){
+        if(getIsbnLibro() != null){
+            libroDAO = new LibroDAO();
+            libro = libroDAO.read(getIsbnLibro());
+            libroDAO.delete(libro);
+            return SUCCESS;
+        }
+        return ERROR;
+    }
+    
+    public String modificar(){
         return SUCCESS;
     }
 

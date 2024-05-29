@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/DAO/RecursoDAO.java</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/controlador/usuario/gestionUsuario.java</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/controlador/libro/gestionLibro.java</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/web/vistas/libro/altaLibro.jsp</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/DAO/IdiomaDAO.java</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/web/vistas/libro/gestionLibros.jsp</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/DAO/LibroDAO.java</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/struts.xml</file>
+            <file>file:/C:/Users/josel/Desktop/INGENIERIA%20INFORMATICA/3º%20INGENIERIA%20INFORMATICA/2%20CUATRIMESTRE/IT/--%20TRABAJO%20FINAL%20--/BiblioUpo/src/java/DAO/EditorialDAO.java</file>
+        </group>
     </open-files>
 </project-private>

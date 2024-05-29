@@ -45,6 +45,48 @@
                 <s:textfield label="Correo" name="correo" value="%{usuario.correo}" />
                 <s:textfield label="Fecha de Nacimiento" name="fechaNacimiento" value="%{usuario.fechaNacimiento}" type="date" />
                 <s:textfield label="Contraseña" name="password" value="%{usuario.password}" />
+
+                <div class="form-group">
+                    <label>Autor</label>
+                    <s:select name="idAutor" 
+                              list="autores" 
+                              listKey="id" 
+                              listValue="nombre" 
+                              class="form-control" 
+                              headerKey="" 
+                              headerValue="Selecciona un autor"/>
+                </div>
+                <div class="form-group">
+                    <label>Editorial</label>
+                    <s:select name="idEditorial" 
+                              list="editoriales" 
+                              listKey="id" 
+                              listValue="nombre" 
+                              class="form-control" 
+                              headerKey="" 
+                              headerValue="Selecciona una editorial"/>
+                </div>
+                <div class="form-group">
+                    <label>Categoría</label>
+                    <s:select name="idCategoria" 
+                              list="categorias" 
+                              listKey="id" 
+                              listValue="nombre" 
+                              class="form-control" 
+                              headerKey="" 
+                              headerValue="Selecciona una categoría"/>
+                </div>
+                <div class="form-group">
+                    <label>Idioma</label>
+                    <s:select name="idIdioma" 
+                              list="idiomas" 
+                              listKey="id" 
+                              listValue="nombre" 
+                              class="form-control" 
+                              headerKey="" 
+                              headerValue="Selecciona un idioma"/>
+                </div>
+
                 <s:submit value="Guardar" />
             </s:form>
         </div>

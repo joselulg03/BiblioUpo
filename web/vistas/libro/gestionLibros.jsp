@@ -37,7 +37,7 @@
     </head>
     <body>
         <h1>Área de Gestión de Libros</h1>
-        
+
         <s:if test="#session.rol.tipo.equals('Administrador')">
             <div>
                 <h2>Administrador</h2>
@@ -45,8 +45,7 @@
                     <s:hidden name="operacion" value="alta" />
                     <s:submit value="Dar de alta un libro" />
                 </s:form>
-            </div>
-            
+            </div>       
         </s:if>
 
         <h2>Buscar</h2>
@@ -55,7 +54,7 @@
             <s:select label="Filtrar por" name="seleccion" list="{'Titulo', 'Autor', 'Editorial'}"/>
             <s:submit value="Buscar" />
         </s:form>
-        
+
         <hr>
 
         <s:if test="libros != null">
@@ -80,6 +79,17 @@
                                         <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
                                             <s:hidden name="idRecurso" value="%{recurso.id}" />
                                             <s:submit value="Reservar" cssClass="text-center mb-0" />
+                                        </s:form>
+                                    </s:if>
+                                    <s:if test="#session.rol.tipo.equals('Administrador')">
+                                        <s:form action="bajaLibro" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
+                                            <s:hidden name="isbnLibro" value="%{isbn}" />
+                                            <s:submit value="Borrar" cssClass="text-center mb-0" />
+                                        </s:form>
+                                        <s:form action="formGestionLibro" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
+                                            <s:hidden name="isbnLibro" value="%{isbn}" />
+                                            <s:hidden name="operacion" value="modificacion" />
+                                            <s:submit value="Modificar" cssClass="text-center mb-0" />
                                         </s:form>
                                     </s:if>
                                 </div>
@@ -110,6 +120,17 @@
                                 <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
                                     <s:hidden name="idRecurso" value="%{libro.recurso.id}" />
                                     <s:submit value="Reservar" cssClass="text-center mb-0" />
+                                </s:form>
+                            </s:if>
+                            <s:if test="#session.rol.tipo.equals('Administrador')">
+                                <s:form action="bajaLibro" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
+                                    <s:hidden name="isbnLibro" value="%{libro.isbn}" />
+                                    <s:submit value="Borrar" cssClass="text-center mb-0" />
+                                </s:form>
+                                <s:form action="formGestionLibro" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
+                                    <s:hidden name="isbnLibro" value="%{libro.isbn}" />
+                                    <s:hidden name="operacion" value="modificacion" />
+                                    <s:submit value="Modificar" cssClass="text-center mb-0" />
                                 </s:form>
                             </s:if>
                         </div>

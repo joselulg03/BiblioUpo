@@ -29,11 +29,11 @@ public class LibroDAO {
         tx.commit();
     }
 
-    public Libro read(Integer id) {
+    public Libro read(String isbn) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Libro where id = :id");
-        q.setParameter("id", id);
+        Query q = session.createQuery("from Libro where isbn = :isbn");
+        q.setParameter("isbn", isbn);
         Libro u = (Libro) q.uniqueResult();
         tx.commit();
         return u;
