@@ -7,12 +7,12 @@ package controlador.libro;
 
 import DAO.*;
 import com.opensymphony.xwork2.ActionSupport;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import modelo.*;
-
 
 /**
  *
@@ -37,11 +37,11 @@ public class gestionLibro extends ActionSupport {
     private String descripcion;
     private String fecha;
     private int cantidad;
-    
+
     private String filtro;
     private String seleccion;
     private String operacion;
-    
+
     private int idAutor;
     private int idEditorial;
     private int idCategoria;
@@ -54,7 +54,8 @@ public class gestionLibro extends ActionSupport {
     private List<Editorial> editoriales;
     private List<Categoria> categorias;
     private List<Idioma> idiomas;
-    
+
+    private File imagen;
 
     public gestionLibro() {
     }
@@ -298,64 +299,68 @@ public class gestionLibro extends ActionSupport {
     public void setIsbnLibro(String isbnLibro) {
         this.isbnLibro = isbnLibro;
     }
-    
-    
-    
-    
+
+    public File getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(File imagen) {
+        this.imagen = imagen;
+    }
 
     public String execute() throws Exception {
-        
-        if(operacion.equals("alta")){
+
+        if (operacion.equals("alta")) {
             autorDAO = new AutorDAO();
             editorialDAO = new EditorialDAO();
             categoriaDAO = new CategoriaDAO();
             idiomaDAO = new IdiomaDAO();
-            
+
             autores = autorDAO.list();
             editoriales = editorialDAO.list();
             categorias = categoriaDAO.list();
             idiomas = idiomaDAO.list();
         }
-        if(operacion.equals("modificacion")){
+        if (operacion.equals("modificacion")) {
             autorDAO = new AutorDAO();
             editorialDAO = new EditorialDAO();
             categoriaDAO = new CategoriaDAO();
             idiomaDAO = new IdiomaDAO();
             libroDAO = new LibroDAO();
-            
+
             autores = autorDAO.list();
             editoriales = editorialDAO.list();
             categorias = categoriaDAO.list();
             idiomas = idiomaDAO.list();
-            
+
             libro = libroDAO.read(getIsbnLibro());
         }
-        
+
         return operacion;
     }
-    
-    public String alta() throws ParseException{
+
+    public String alta() throws ParseException {
         libroDAO = new LibroDAO();
         autorDAO = new AutorDAO();
         categoriaDAO = new CategoriaDAO();
         editorialDAO = new EditorialDAO();
         idiomaDAO = new IdiomaDAO();
         recursoDAO = new RecursoDAO();
-        
+
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = formato.parse(getFecha());
-        
+
         Recurso r = new Recurso(true);
         recursoDAO.create(r);
-        
+
         libro = new Libro(getIsbn(), autorDAO.readId(getIdAutor()), categoriaDAO.readId(getIdCategoria()), editorialDAO.readId(getIdEditorial()), idiomaDAO.readId(getIdIdioma()), r, getTitulo(), getDescripcion(), fecha, getCantidad());
         libroDAO.create(libro);
-        
+
         return SUCCESS;
     }
-    
-    public String baja(){
-        if(getIsbnLibro() != null){
+
+    public String baja() {
+        if (getIsbnLibro() != null) {
             libroDAO = new LibroDAO();
             libro = libroDAO.read(getIsbnLibro());
             libroDAO.delete(libro);
@@ -363,32 +368,46 @@ public class gestionLibro extends ActionSupport {
         }
         return ERROR;
     }
-    
-    public String modificar(){
+
+    public String modificar() {
         return SUCCESS;
     }
 
     public String filtrar() {
-        if(seleccion != null){
+        if (seleccion != null) {
             libroDAO = new LibroDAO();
-            if(seleccion.equals("Titulo")){
+            if (seleccion.equals("Titulo")) {
                 libro = libroDAO.readTitulo(filtro);
-                if(libro == null){
+                if (libro == null) {
                     return ERROR;
                 }
-            }
-            else if(seleccion.equals("Autor")){
+            } else if (seleccion.equals("Autor")) {
                 autorDAO = new AutorDAO();
                 autor = autorDAO.read(filtro);
                 libros = libroDAO.readAutor(autor.getId());
-            }
-            else if(seleccion.equals("Editorial")){
+            } else if (seleccion.equals("Editorial")) {
                 editorialDAO = new EditorialDAO();
                 editorial = editorialDAO.read(filtro);
                 libros = libroDAO.readEditorial(editorial.getId());
             }
         }
         return SUCCESS;
+    }
+
+    public String subidaImagen() {
+
+        if (getIsbnLibro() != null && getImagen() != null) {
+            String rutaImagen = getImagen().getPath(); // Obtener la ruta de la imagen
+            subirImagen(getIsbnLibro(), rutaImagen); // Llamar al método subirImagen con la ruta de la imagen
+        }
+
+        return SUCCESS;
+    }
+
+    private static String subirImagen(java.lang.String arg0, java.lang.String arg1) {
+        servicios.GeneracionCorreos_Service service = new servicios.GeneracionCorreos_Service();
+        servicios.GeneracionCorreos port = service.getGeneracionCorreosPort();
+        return port.subirImagen(arg0, arg1);
     }
 
 }

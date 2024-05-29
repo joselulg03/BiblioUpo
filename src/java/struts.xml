@@ -94,6 +94,11 @@
             <result name="success">/vistas/libro/gestionLibros.jsp</result>
             <result name="error">/vistas/libro/gestionLibros.jsp</result>
         </action>
+        
+        <action name="subirImagen" class="controlador.libro.gestionLibro" method="subidaImagen">
+            <result name="success">/vistas/libro/gestionLibros.jsp</result>
+        </action>
+        
     </package>
     
     <package name="sala" extends="struts-default">

@@ -9,7 +9,7 @@
     <client name="GeneracionCorreos">
       <wsdl-url>http://localhost:8080/BiblioUpoSOAP/GeneracionCorreos?WSDL</wsdl-url>
       <local-wsdl-file>localhost_8080/BiblioUpoSOAP/GeneracionCorreos.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">servicios</package-name>
+      <package-name>servicios</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -35,10 +35,6 @@
         <wsimport-option>
           <wsimport-option-name>xendorsed</wsimport-option-name>
           <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>servicios</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

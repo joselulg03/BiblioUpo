@@ -232,4 +232,6 @@ public class gestionUsuario extends ActionSupport {
         servicios.GeneracionCorreos port = service.getGeneracionCorreosPort();
         return port.generarCorreo(arg0, arg1, arg2);
     }
+
+
 }

@@ -45,7 +45,7 @@
     </target>
     <target name="wsimport-client-GeneracionCorreos" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/GeneracionCorreos"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/GeneracionCorreos" destdir="${build.generated.dir}/jax-wsCache/GeneracionCorreos" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/GeneracionCorreos/wsdl/localhost_8080/BiblioUpoSOAP/GeneracionCorreos.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/BiblioUpoSOAP/GeneracionCorreos?WSDL" xnocompile="true" xendorsed="true" package="servicios">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/GeneracionCorreos" destdir="${build.generated.dir}/jax-wsCache/GeneracionCorreos" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/GeneracionCorreos/wsdl/localhost_8080/BiblioUpoSOAP/GeneracionCorreos.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/BiblioUpoSOAP/GeneracionCorreos?WSDL" xnocompile="true" xendorsed="true">
             <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/GeneracionCorreos/wsdl/localhost_8080/BiblioUpoSOAP/GeneracionCorreos.wsdl"/>
             <produces dir="${build.generated.dir}/jax-wsCache/GeneracionCorreos"/>
         </wsimport>

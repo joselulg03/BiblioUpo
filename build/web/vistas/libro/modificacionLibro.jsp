@@ -96,6 +96,16 @@
                 </div>
                 <s:submit value="Guardar" />
             </s:form>
+            
+            <hr>
+
+            <h1>Subir Imagen del Libro con ISBN: <s:property value="%{libro.isbn}" /></h1>
+            <s:form action="subirImagen" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="isbnLibro" value="%{libro.isbn}">
+                <label for="image">Seleccione la imagen:</label>
+                <input type="file" name="imagen" id="imagen">
+                <input type="submit" value="Subir">
+            </s:form>
         </div>
     </body>
 </html>

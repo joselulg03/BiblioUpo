@@ -4,23 +4,6 @@
 
 <xs:element name="generarCorreoResponse" type="tns:generarCorreoResponse"/>
 
-<xs:element name="subirImagen" type="tns:subirImagen"/>
-
-<xs:element name="subirImagenResponse" type="tns:subirImagenResponse"/>
-
-<xs:complexType name="subirImagen">
-<xs:sequence>
-<xs:element name="arg0" type="xs:string" minOccurs="0"/>
-<xs:element name="arg1" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="subirImagenResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="generarCorreo">
 <xs:sequence>
 <xs:element name="arg0" type="xs:string" minOccurs="0"/>

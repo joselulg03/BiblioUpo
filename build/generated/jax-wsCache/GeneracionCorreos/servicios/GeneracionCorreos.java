@@ -26,6 +26,24 @@ public interface GeneracionCorreos {
 
     /**
      * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "subirImagen", targetNamespace = "http://servicios/", className = "servicios.SubirImagen")
+    @ResponseWrapper(localName = "subirImagenResponse", targetNamespace = "http://servicios/", className = "servicios.SubirImagenResponse")
+    @Action(input = "http://servicios/GeneracionCorreos/subirImagenRequest", output = "http://servicios/GeneracionCorreos/subirImagenResponse")
+    public String subirImagen(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1);
+
+    /**
+     * 
      * @param arg2
      * @param arg1
      * @param arg0

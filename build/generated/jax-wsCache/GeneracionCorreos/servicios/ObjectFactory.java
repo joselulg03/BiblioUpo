@@ -26,6 +26,8 @@ public class ObjectFactory {
 
     private final static QName _GenerarCorreo_QNAME = new QName("http://servicios/", "generarCorreo");
     private final static QName _GenerarCorreoResponse_QNAME = new QName("http://servicios/", "generarCorreoResponse");
+    private final static QName _SubirImagen_QNAME = new QName("http://servicios/", "subirImagen");
+    private final static QName _SubirImagenResponse_QNAME = new QName("http://servicios/", "subirImagenResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: servicios
@@ -51,6 +53,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SubirImagen }
+     * 
+     */
+    public SubirImagen createSubirImagen() {
+        return new SubirImagen();
+    }
+
+    /**
+     * Create an instance of {@link SubirImagenResponse }
+     * 
+     */
+    public SubirImagenResponse createSubirImagenResponse() {
+        return new SubirImagenResponse();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GenerarCorreo }{@code >}}
      * 
      */
@@ -66,6 +84,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://servicios/", name = "generarCorreoResponse")
     public JAXBElement<GenerarCorreoResponse> createGenerarCorreoResponse(GenerarCorreoResponse value) {
         return new JAXBElement<GenerarCorreoResponse>(_GenerarCorreoResponse_QNAME, GenerarCorreoResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SubirImagen }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://servicios/", name = "subirImagen")
+    public JAXBElement<SubirImagen> createSubirImagen(SubirImagen value) {
+        return new JAXBElement<SubirImagen>(_SubirImagen_QNAME, SubirImagen.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SubirImagenResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://servicios/", name = "subirImagenResponse")
+    public JAXBElement<SubirImagenResponse> createSubirImagenResponse(SubirImagenResponse value) {
+        return new JAXBElement<SubirImagenResponse>(_SubirImagenResponse_QNAME, SubirImagenResponse.class, null, value);
     }
 
 }
