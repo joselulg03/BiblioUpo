@@ -150,9 +150,8 @@ public class gestionUsuario extends ActionSupport {
     
  
     public String execute() throws Exception {     
-        if(operacion.equals("alta")){
-            roles = rolDAO.list();
-        }
+        roles = rolDAO.list();
+        
         if (getDni() != null) {
             usuario = usuarioDAO.readDni(getDni());
         }

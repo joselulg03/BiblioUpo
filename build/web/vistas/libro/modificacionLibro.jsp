@@ -5,19 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Modificar Usuario - <s:property value="usuario.dni" /></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- basic -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <!-- mobile metas -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-        <!-- site metas -->
-        <title>webwing</title>
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <!-- bootstrap css -->
+        <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <!-- style css -->
         <!-- Responsive-->
@@ -39,72 +27,59 @@
         <div class="container">
             <s:form action="modificacionLibro" method="post">
                 <s:hidden name="isbn" value="%{libro.isbn}" />
-                <s:textfield label="ISBN" name="isbnLibro" value="%{libro.isbn}" disabled="true" />
-                <s:textfield label="Titulo" name="titulo" value="%{libro.titulo}" />
-                <s:textfield label="Descripción" name="descripcion" value="%{libro.descripcion}" />
-                <s:textfield label="Cantidad" name="cantidad" value="%{libro.cantidad}" />
-                <s:textfield label="Fecha de Lanzamiento" name="fecha" value="%{libro.fecha}" type="date" />
                 <div class="form-group">
-                    <label>Disponible</label>
-                    <s:radio name="disponible"
-                             list="#{'true':'Sí', 'false':'No'}"
-                             value="%{libro.recurso.disponible}" />
+                    <s:label for="isbnLibro" value="ISBN" />
+                    <s:textfield name="isbnLibro" id="isbnLibro" value="%{libro.isbn}" disabled="true" cssClass="form-control" />
                 </div>
                 <div class="form-group">
-                    <label>Autor</label>
-                    <s:select name="idAutor" 
-                              list="autores" 
-                              listKey="id" 
-                              listValue="nombre" 
-                              value="%{libro.autor.id}" 
-                              class="form-control" 
-                              headerKey="" 
-                              headerValue="Selecciona un autor"/>
+                    <s:label for="titulo" value="Título" />
+                    <s:textfield name="titulo" id="titulo" value="%{libro.titulo}" cssClass="form-control" />
                 </div>
                 <div class="form-group">
-                    <label>Editorial</label>
-                    <s:select name="idEditorial" 
-                              list="editoriales" 
-                              listKey="id" 
-                              listValue="nombre" 
-                              value="%{libro.editorial.id}" 
-                              class="form-control" 
-                              headerKey="" 
-                              headerValue="Selecciona una editorial"/>
+                    <s:label for="descripcion" value="Descripción" />
+                    <s:textfield name="descripcion" id="descripcion" value="%{libro.descripcion}" cssClass="form-control" />
                 </div>
                 <div class="form-group">
-                    <label>Categoría</label>
-                    <s:select name="idCategoria" 
-                              list="categorias" 
-                              listKey="id" 
-                              listValue="nombre" 
-                              value="%{libro.categoria.id}" 
-                              class="form-control" 
-                              headerKey="" 
-                              headerValue="Selecciona una categoría"/>
+                    <s:label for="cantidad" value="Cantidad" />
+                    <s:textfield name="cantidad" id="cantidad" value="%{libro.cantidad}" cssClass="form-control" />
                 </div>
                 <div class="form-group">
-                    <label>Idioma</label>
-                    <s:select name="idIdioma" 
-                              list="idiomas" 
-                              listKey="id" 
-                              listValue="nombre" 
-                              value="%{libro.idioma.id}" 
-                              class="form-control" 
-                              headerKey="" 
-                              headerValue="Selecciona un idioma"/>
+                    <s:label for="fecha" value="Fecha de Lanzamiento" />
+                    <s:textfield name="fecha" id="fecha" value="%{libro.fecha}" type="date" class="form-control" />
                 </div>
-                <s:submit value="Guardar" />
+                <div class="form-group">
+                    <s:label for="disponible" value="Disponible" />
+                    <s:radio name="disponible" list="#{'true':'Sí', 'false':'No'}" value="%{libro.recurso.disponible}"  />
+                </div>
+                <div class="form-group">
+                    <s:label for="idAutor" value="Autor" />
+                    <s:select name="idAutor" list="autores" listKey="id" listValue="nombre" value="%{libro.autor.id}" cssClass="form-control" headerKey="" headerValue="Selecciona un autor"/>
+                </div>
+                <div class="form-group">
+                    <s:label for="idEditorial" value="Editorial" />
+                    <s:select name="idEditorial" list="editoriales" listKey="id" listValue="nombre" value="%{libro.editorial.id}" cssClass="form-control" headerKey="" headerValue="Selecciona una editorial"/>
+                </div>
+                <div class="form-group">
+                    <s:label for="idCategoria" value="Categoría" />
+                    <s:select name="idCategoria" list="categorias" listKey="id" listValue="nombre" value="%{libro.categoria.id}" cssClass="form-control" headerKey="" headerValue="Selecciona una categoría"/>
+                </div>
+                <div class="form-group">
+                    <s:label for="idIdioma" value="Idioma" />
+                    <s:select name="idIdioma" list="idiomas" listKey="id" listValue="nombre" value="%{libro.idioma.id}" cssClass="form-control" headerKey="" headerValue="Selecciona un idioma"/>
+                </div>
+                <s:submit value="Guardar" cssClass="btn btn-primary"/>
             </s:form>
-            
+
             <hr>
 
             <h1>Subir Imagen del Libro con ISBN: <s:property value="%{libro.isbn}" /></h1>
             <s:form action="subirImagen" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="isbnLibro" value="%{libro.isbn}">
-                <label for="image">Seleccione la imagen:</label>
-                <input type="file" name="imagen" id="imagen">
-                <input type="submit" value="Subir">
+                <s:hidden name="isbnLibro" value="%{libro.isbn}" />
+                    <div class="form-group">
+                        <label for="imagen">Seleccione la imagen:</label>
+                        <input type="file" name="imagen" id="imagen" cssClass="form-control">
+                    </div>
+                    <s:submit value="Subir" cssClass="btn btn-primary" />
             </s:form>
         </div>
     </body>
