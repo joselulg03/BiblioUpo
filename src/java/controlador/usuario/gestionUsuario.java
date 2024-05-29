@@ -15,8 +15,8 @@ public class gestionUsuario extends ActionSupport {
 
     private String operacion;
 
-    private UsuarioDAO usuarioDAO;
-    private RolDAO rolDAO;
+    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private RolDAO rolDAO = new RolDAO();
 
     private String dni;
     private String nombre;
@@ -149,25 +149,19 @@ public class gestionUsuario extends ActionSupport {
     }
     
  
-    public String execute() throws Exception {
-        
+    public String execute() throws Exception {     
         if(operacion.equals("alta")){
-            rolDAO = new RolDAO();
             roles = rolDAO.list();
         }
-        
         if (getDni() != null) {
-            usuarioDAO = new UsuarioDAO();
             usuario = usuarioDAO.readDni(getDni());
         }
         return operacion;
     }
 
     public String alta() throws ParseException {
-        rolDAO = new RolDAO();
         rol = rolDAO.readId(getIdRol()).getTipo();
-        
-        usuarioDAO = new UsuarioDAO();
+
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = formato.parse(getFechaNacimiento());
         
@@ -187,7 +181,6 @@ public class gestionUsuario extends ActionSupport {
     }
 
     public String baja() {
-        usuarioDAO = new UsuarioDAO();
         usuario = usuarioDAO.readDni(getDni());
         usuarioDAO.delete(usuario);
         usuarios = usuarioDAO.list();
@@ -202,24 +195,23 @@ public class gestionUsuario extends ActionSupport {
     }
 
     public String consultar() {
-        usuarioDAO = new UsuarioDAO();
         usuario = usuarioDAO.readDni(getDni());
         return SUCCESS;
     }
 
     public String modificar() throws ParseException {
-        System.out.println("HOLA" + getNombre());
-
-        usuarioDAO = new UsuarioDAO();
         usuario = usuarioDAO.readDni(getDni());
-        System.out.println("DNI: " + usuario.getDni());
+
         usuario.setNombre(getNombre());
         usuario.setApellidos(getApellidos());
         usuario.setCorreo(getCorreo());
+        
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = formato.parse(getFechaNacimiento());
+        
         usuario.setFechaNacimiento(fecha);
         usuario.setPassword(getPassword());
+        
         EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
         client.enviarCorreo(String.class, "", "BiblioUpo ha actualizado su perfil", "Hola " + getNombre() + " " + getApellidos() + ", el administrador de BiblioUpo ha modificado su perfil. Su nueva contraseña es " + getPassword() + ".");
 

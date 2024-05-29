@@ -86,7 +86,6 @@
                               headerKey="" 
                               headerValue="Selecciona un idioma"/>
                 </div>
-
                 <s:submit value="Guardar" />
             </s:form>
         </div>

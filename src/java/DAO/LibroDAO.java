@@ -38,6 +38,13 @@ public class LibroDAO {
         tx.commit();
         return u;
     }
+    
+    public void update(Libro l) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        session.update(l);
+        tx.commit();
+    }
 
     public void delete(Libro l) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();

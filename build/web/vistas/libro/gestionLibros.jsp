@@ -57,37 +57,37 @@
 
         <hr>
 
-        <s:if test="libros != null">
+        <s:if test="libros != null || libro != null">
             <div class="row">
-                <s:iterator value="libros">
+                <s:iterator value="libros" var="libro">
                     <div class="col-md-4">
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0">
-                                <img class="card-img rounded-4 img-fluid" src="images/<s:property value="isbn" />.jpg" />
+                                <img class="card-img rounded-4 img-fluid" src="images/<s:property value="#libro.isbn" />.jpg" />
                                 <div class="card-body">
-                                    <p class="h3 text-decoration-none"><strong>ISBN: </strong><s:property value="isbn" /></p>
-                                    <p><strong>Titulo: </strong><s:property value="titulo" /></p>
-                                    <p><strong>Descripción: </strong><s:property value="descripcion" /></p>
-                                    <p><strong>Autor: </strong><s:property value="autor.nombre" /></p>
-                                    <p><strong>Categoría: </strong><s:property value="categoria.nombre" /></p>
-                                    <p><strong>Editorial: </strong><s:property value="editorial.nombre" /></p>
-                                    <p><strong>Idioma: </strong><s:property value="idioma.nombre" /></p>
-                                    <p><strong>Recurso disponible: </strong><s:property value="recurso.disponible" /></p>
-                                    <p><strong>Fecha lanzamiento: </strong><s:property value="fecha" /></p>
-                                    <p><strong>Cantidad disponible: </strong><s:property value="cantidad" /></p>
-                                    <s:if test="%{cantidad > 0}">
+                                    <p class="h3 text-decoration-none"><strong>ISBN: </strong><s:property value="#libro.isbn" /></p>
+                                    <p><strong>Titulo: </strong><s:property value="#libro.titulo" /></p>
+                                    <p><strong>Descripción: </strong><s:property value="#libro.descripcion" /></p>
+                                    <p><strong>Autor: </strong><s:property value="#libro.autor.nombre" /></p>
+                                    <p><strong>Categoría: </strong><s:property value="#libro.categoria.nombre" /></p>
+                                    <p><strong>Editorial: </strong><s:property value="#libro.editorial.nombre" /></p>
+                                    <p><strong>Idioma: </strong><s:property value="#libro.idioma.nombre" /></p>
+                                    <p><strong>Recurso disponible: </strong><s:property value="#libro.recurso.disponible" /></p>
+                                    <p><strong>Fecha lanzamiento: </strong><s:property value="#libro.fecha" /></p>
+                                    <p><strong>Cantidad disponible: </strong><s:property value="#libro.cantidad" /></p>
+                                    <s:if test="%{#libro.cantidad > 0}">
                                         <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                            <s:hidden name="idRecurso" value="%{recurso.id}" />
+                                            <s:hidden name="idRecurso" value="%{#libro.recurso.id}" />
                                             <s:submit value="Reservar" cssClass="text-center mb-0" />
                                         </s:form>
                                     </s:if>
                                     <s:if test="#session.rol.tipo.equals('Administrador')">
                                         <s:form action="bajaLibro" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                            <s:hidden name="isbnLibro" value="%{isbn}" />
+                                            <s:hidden name="isbnLibro" value="%{#libro.isbn}" />
                                             <s:submit value="Borrar" cssClass="text-center mb-0" />
                                         </s:form>
                                         <s:form action="formGestionLibro" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                            <s:hidden name="isbnLibro" value="%{isbn}" />
+                                            <s:hidden name="isbnLibro" value="%{#libro.isbn}" />
                                             <s:hidden name="operacion" value="modificacion" />
                                             <s:submit value="Modificar" cssClass="text-center mb-0" />
                                         </s:form>
@@ -97,45 +97,6 @@
                         </div>
                     </div>
                 </s:iterator>
-            </div>
-        </s:if>
-
-        <s:if test="libro != null">
-            <div class="col-md-4">
-                <div class="card mb-4 product-wap rounded-0">
-                    <div class="card rounded-0">
-                        <img class="card-img rounded-4 img-fluid" src="images/<s:property value="libro.isbn" />.jpg" />
-                        <div class="card-body">
-                            <p class="h3 text-decoration-none"><strong>ISBN: </strong><s:property value="libro.isbn" /></p>
-                            <p><strong>Titulo: </strong><s:property value="libro.titulo" /></p>
-                            <p><strong>Descripción: </strong><s:property value="libro.descripcion" /></p>
-                            <p><strong>Autor: </strong><s:property value="libro.autor.nombre" /></p>
-                            <p><strong>Categoría: </strong><s:property value="libro.categoria.nombre" /></p>
-                            <p><strong>Editorial: </strong><s:property value="libro.editorial.nombre" /></p>
-                            <p><strong>Idioma: </strong><s:property value="libro.idioma.nombre" /></p>
-                            <p><strong>Recurso disponible: </strong><s:property value="libro.recurso.disponible" /></p>
-                            <p><strong>Fecha lanzamiento: </strong><s:property value="libro.fecha" /></p>
-                            <p><strong>Cantidad disponible: </strong><s:property value="libro.cantidad" /></p>
-                            <s:if test="%{libro.cantidad > 0}">
-                                <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                    <s:hidden name="idRecurso" value="%{libro.recurso.id}" />
-                                    <s:submit value="Reservar" cssClass="text-center mb-0" />
-                                </s:form>
-                            </s:if>
-                            <s:if test="#session.rol.tipo.equals('Administrador')">
-                                <s:form action="bajaLibro" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                    <s:hidden name="isbnLibro" value="%{libro.isbn}" />
-                                    <s:submit value="Borrar" cssClass="text-center mb-0" />
-                                </s:form>
-                                <s:form action="formGestionLibro" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                    <s:hidden name="isbnLibro" value="%{libro.isbn}" />
-                                    <s:hidden name="operacion" value="modificacion" />
-                                    <s:submit value="Modificar" cssClass="text-center mb-0" />
-                                </s:form>
-                            </s:if>
-                        </div>
-                    </div>
-                </div>
             </div>
         </s:if>
 

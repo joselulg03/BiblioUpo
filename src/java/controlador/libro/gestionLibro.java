@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador.libro;
 
 import DAO.*;
@@ -20,12 +15,12 @@ import modelo.*;
  */
 public class gestionLibro extends ActionSupport {
 
-    private LibroDAO libroDAO;
-    private AutorDAO autorDAO;
-    private EditorialDAO editorialDAO;
-    private CategoriaDAO categoriaDAO;
-    private IdiomaDAO idiomaDAO;
-    private RecursoDAO recursoDAO;
+    private LibroDAO libroDAO = new LibroDAO();
+    private AutorDAO autorDAO = new AutorDAO();
+    private EditorialDAO editorialDAO = new EditorialDAO();
+    private CategoriaDAO categoriaDAO = new CategoriaDAO();
+    private IdiomaDAO idiomaDAO = new IdiomaDAO();
+    private RecursoDAO recursoDAO = new RecursoDAO();
 
     private String isbn;
     private Autor autor;
@@ -308,45 +303,22 @@ public class gestionLibro extends ActionSupport {
         this.imagen = imagen;
     }
 
+    private void inicializarDAOs() {
+        autores = autorDAO.list();
+        editoriales = editorialDAO.list();
+        categorias = categoriaDAO.list();
+        idiomas = idiomaDAO.list();
+    }
+
     public String execute() throws Exception {
-
-        if (operacion.equals("alta")) {
-            autorDAO = new AutorDAO();
-            editorialDAO = new EditorialDAO();
-            categoriaDAO = new CategoriaDAO();
-            idiomaDAO = new IdiomaDAO();
-
-            autores = autorDAO.list();
-            editoriales = editorialDAO.list();
-            categorias = categoriaDAO.list();
-            idiomas = idiomaDAO.list();
-        }
+        inicializarDAOs();
         if (operacion.equals("modificacion")) {
-            autorDAO = new AutorDAO();
-            editorialDAO = new EditorialDAO();
-            categoriaDAO = new CategoriaDAO();
-            idiomaDAO = new IdiomaDAO();
-            libroDAO = new LibroDAO();
-
-            autores = autorDAO.list();
-            editoriales = editorialDAO.list();
-            categorias = categoriaDAO.list();
-            idiomas = idiomaDAO.list();
-
             libro = libroDAO.read(getIsbnLibro());
         }
-
         return operacion;
     }
 
     public String alta() throws ParseException {
-        libroDAO = new LibroDAO();
-        autorDAO = new AutorDAO();
-        categoriaDAO = new CategoriaDAO();
-        editorialDAO = new EditorialDAO();
-        idiomaDAO = new IdiomaDAO();
-        recursoDAO = new RecursoDAO();
-
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = formato.parse(getFecha());
 
@@ -355,38 +327,62 @@ public class gestionLibro extends ActionSupport {
 
         libro = new Libro(getIsbn(), autorDAO.readId(getIdAutor()), categoriaDAO.readId(getIdCategoria()), editorialDAO.readId(getIdEditorial()), idiomaDAO.readId(getIdIdioma()), r, getTitulo(), getDescripcion(), fecha, getCantidad());
         libroDAO.create(libro);
+        
+        libros = libroDAO.list();
 
         return SUCCESS;
     }
 
     public String baja() {
         if (getIsbnLibro() != null) {
-            libroDAO = new LibroDAO();
             libro = libroDAO.read(getIsbnLibro());
             libroDAO.delete(libro);
+            
+            libros = libroDAO.list();
+            
             return SUCCESS;
         }
         return ERROR;
     }
 
-    public String modificar() {
-        return SUCCESS;
+    public String modificar() throws ParseException {
+        if (getIsbnLibro() != null) {
+            libro = libroDAO.read(getIsbnLibro());
+            libro.setTitulo(getTitulo());
+            libro.setDescripcion(getDescripcion());
+            libro.setRecurso(getRecurso());
+
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha = formato.parse(getFecha());
+
+            libro.setFecha(fecha);
+            libro.setCantidad(getCantidad());
+
+            libro.setAutor(autorDAO.readId(getIdAutor()));
+            libro.setCategoria(categoriaDAO.readId(getIdCategoria()));
+            libro.setEditorial(editorialDAO.readId(getIdEditorial()));
+            libro.setIdioma(idiomaDAO.readId(getIdIdioma()));
+
+            libroDAO.update(libro);
+            
+            libros = libroDAO.list();
+            
+            return SUCCESS;
+        }
+        return ERROR;
     }
 
     public String filtrar() {
         if (seleccion != null) {
-            libroDAO = new LibroDAO();
             if (seleccion.equals("Titulo")) {
                 libro = libroDAO.readTitulo(filtro);
                 if (libro == null) {
                     return ERROR;
                 }
             } else if (seleccion.equals("Autor")) {
-                autorDAO = new AutorDAO();
                 autor = autorDAO.read(filtro);
                 libros = libroDAO.readAutor(autor.getId());
             } else if (seleccion.equals("Editorial")) {
-                editorialDAO = new EditorialDAO();
                 editorial = editorialDAO.read(filtro);
                 libros = libroDAO.readEditorial(editorial.getId());
             }
@@ -395,12 +391,10 @@ public class gestionLibro extends ActionSupport {
     }
 
     public String subidaImagen() {
-
         if (getIsbnLibro() != null && getImagen() != null) {
-            String rutaImagen = getImagen().getPath(); // Obtener la ruta de la imagen
-            subirImagen(getIsbnLibro(), rutaImagen); // Llamar al método subirImagen con la ruta de la imagen
+            String rutaImagen = getImagen().getPath();
+            subirImagen(getIsbnLibro(), rutaImagen);
         }
-
         return SUCCESS;
     }
 
@@ -409,5 +403,4 @@ public class gestionLibro extends ActionSupport {
         servicios.GeneracionCorreos port = service.getGeneracionCorreosPort();
         return port.subirImagen(arg0, arg1);
     }
-
 }

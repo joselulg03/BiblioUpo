@@ -1,9 +1,3 @@
-<%-- 
-    Document   : consultaLibro
-    Created on : 10-may-2024, 17:41:01
-    Author     : josel
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
