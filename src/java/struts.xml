@@ -47,8 +47,8 @@
     
     <package name="usuario" extends="struts-default">
         <action name="formGestionUsuario" class="controlador.usuario.gestionUsuario">
-            <result name="alta">/vistas/usuario/altaUsuario.jsp</result>
-            <result name="modificacion">/vistas/usuario/modificacionUsuario.jsp</result>
+            <result name="formAlta">/vistas/usuario/altaUsuario.jsp</result>
+            <result name="formModificacion">/vistas/usuario/modificacionUsuario.jsp</result>
         </action>
         
         <action name="consultarUsuario" class="controlador.usuario.gestionUsuario" method="consultar">
@@ -57,6 +57,7 @@
         
         <action name="altaUsuario" class="controlador.usuario.gestionUsuario" method="alta">
             <result name="success">/vistas/usuario/gestionUsuarios.jsp</result>
+            <result name="input">/vistas/usuario/altaUsuario.jsp</result>
         </action>
         
         <action name="bajaUsuario" class="controlador.usuario.gestionUsuario" method="baja">

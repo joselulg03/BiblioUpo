@@ -71,6 +71,7 @@
         <div class="container">
             <h1>Alta Usuario</h1>
             <s:form action="altaUsuario" method="post">
+                <s:hidden name="operacion" value="alta" />
                 <div class="form-group">
                     <s:label for="dni" value="DNI" />
                     <s:textfield name="dni" id="dni" class="form-control" />

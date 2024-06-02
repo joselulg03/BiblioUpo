@@ -133,6 +133,7 @@
         <div class="container">
             <s:form action="modificacionUsuario" method="post">
                 <s:hidden name="dni" value="%{usuario.dni}" />
+                <s:hidden name="operacion" value="modificacion" />
                 <div class="form-group">
                     <s:label for="dniUsuario" value="DNI" />
                     <s:textfield name="dniUsuario" id="dniUsuario" value="%{usuario.dni}" disabled="true" cssClass="form-control" />

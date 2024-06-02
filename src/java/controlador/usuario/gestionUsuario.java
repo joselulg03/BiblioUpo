@@ -224,5 +224,24 @@ public class gestionUsuario extends ActionSupport {
         return port.generarCorreo(arg0, arg1, arg2);
     }
 
-
+    public void validate(){
+        
+        if(operacion.equals("alta") || operacion.equals("modificacion")){
+            if(getDni() == null || getDni().equals("")){
+                addFieldError("dni", getText("campo.requerido"));
+            }
+            
+            if(getNombre() == null || getNombre().equals("")){
+                addFieldError("nombre", getText("campo.requerido"));
+            }
+            
+            if(getApellidos()== null || getApellidos().equals("")){
+                addFieldError("apellidos", getText("campo.requerido"));
+            }
+            
+            if(getFechaNacimiento() == null || getFechaNacimiento().equals("")){
+                addFieldError("fecha", getText("campo.requerido"));
+            }
+        }
+    }
 }

@@ -36,7 +36,7 @@
             </s:form>
             
             <s:form action="formGestionUsuario" method="post" class="form-inline">
-                <s:hidden name="operacion" value="alta" />
+                <s:hidden name="operacion" value="formAlta" />
                 <s:submit value="Alta" cssClass="btn btn-primary mr-2" />
             </s:form>
 
@@ -68,7 +68,7 @@
 
                                     <s:form action="formGestionUsuario" method="post" cssClass="form-inline">
                                         <s:hidden name="dni" value="%{dni}" />
-                                        <s:hidden name="operacion" value="modificacion" />
+                                        <s:hidden name="operacion" value="formModificacion" />
                                         <s:submit value="Modificar" cssClass="btn btn-warning mr-2" />
                                     </s:form>
 
