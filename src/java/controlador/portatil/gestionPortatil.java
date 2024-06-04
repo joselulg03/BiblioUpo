@@ -37,6 +37,7 @@ public class gestionPortatil {
 
     private Portatil portatil;
     private List<Portatil> portatiles;
+    private List<SistemaOperativo> sistemasOperativos;
 
     public gestionPortatil() {
     }
@@ -138,6 +139,7 @@ public class gestionPortatil {
     }
 
     public String execute() throws Exception {
+        sistemasOperativos = sistemaOperativoDAO.list();
         if (getNumSerie() != null) {
             portatilDAO = new PortatilDAO();
             portatil = portatilDAO.read(getNumSerie());
