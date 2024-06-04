@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
-import DAO.RolDAO;
-import DAO.UsuarioDAO;
 import com.opensymphony.xwork2.ActionSupport;
+import entidades.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpSession;
-import modelo.Rol;
-import modelo.Usuario;
 import org.apache.struts2.ServletActionContext;
-import servicios.EmailAutomaticoJerseyClient;
+import servicios.*;
 
 /**
  *
@@ -22,8 +14,8 @@ import servicios.EmailAutomaticoJerseyClient;
  */
 public class iniciarSesion extends ActionSupport {
 
-    private UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private RolDAO rolDAO = new RolDAO();
+    private UsuarioJerseyClient usuarioClient = new UsuarioJerseyClient();
+    private RolJerseyClient rolClient = new RolJerseyClient();
 
     private String correo;
     private String password;
@@ -32,14 +24,6 @@ public class iniciarSesion extends ActionSupport {
     private Rol rol;
 
     public iniciarSesion() {
-    }
-
-    public UsuarioDAO getUsuarioDAO() {
-        return usuarioDAO;
-    }
-
-    public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
-        this.usuarioDAO = usuarioDAO;
     }
 
     public String getCorreo() {
@@ -66,14 +50,6 @@ public class iniciarSesion extends ActionSupport {
         this.usuario = usuario;
     }
 
-    public RolDAO getRolDAO() {
-        return rolDAO;
-    }
-
-    public void setRolDAO(RolDAO rolDAO) {
-        this.rolDAO = rolDAO;
-    }
-
     public Rol getRol() {
         return rol;
     }
@@ -93,14 +69,15 @@ public class iniciarSesion extends ActionSupport {
     }
 
     public String iniciarSesion() {
-        usuario = usuarioDAO.readCorreo(getCorreo());
+        
+        usuario = buscarPorCorreo(correo);
 
         if (usuario != null) {
             if (!usuario.getPassword().equals(getPassword())) {
                 return ERROR;
             } else {
 
-                rol = rolDAO.read(usuario.getCorreo().split("@")[1]);
+                rol = buscarPorDominio(usuario.getCorreo().split("@")[1]);
 
                 if (rol == null) {
                     setRol(new Rol(usuario.getCorreo().split("@")[1], "Invitado"));
@@ -112,10 +89,7 @@ public class iniciarSesion extends ActionSupport {
 
                 session.setAttribute("rol", rol);
 
-                // Obtener la fecha y hora actual
                 Date fechaActual = new Date();
-
-                // Formatear la fecha y hora
                 SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
                 SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
                 String fechaFormateada = formatoFecha.format(fechaActual);
@@ -125,11 +99,33 @@ public class iniciarSesion extends ActionSupport {
                 client.enviarCorreo(String.class,
                         usuario.getCorreo(),
                         "Inicio de sesión en BiblioUpo",
-                        "Has iniciado sesión en BiblioUpo hoy día " + fechaFormateada + " a las " + horaFormateada+".");
+                        "Has iniciado sesión en BiblioUpo hoy día " + fechaFormateada + " a las " + horaFormateada + ".");
                 return SUCCESS;
             }
         }
         return ERROR;
+    }
+
+    public Usuario buscarPorCorreo(String correo) {
+        Usuario[] usuarios = usuarioClient.findAll_XML(Usuario[].class);
+
+        for (Usuario u : usuarios) {
+            if (u.getCorreo().equals(correo)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    public Rol buscarPorDominio(String dominio) {
+        Rol[] roles = rolClient.findAll_XML(Rol[].class);
+
+        for (Rol r : roles) {
+            if (r.getDominio().equals(dominio)) {
+                return r;
+            }
+        }
+        return null;
     }
 
 }
