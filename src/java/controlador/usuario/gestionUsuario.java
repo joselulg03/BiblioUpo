@@ -1,22 +1,23 @@
 package controlador.usuario;
 
-import DAO.RolDAO;
-import DAO.UsuarioDAO;
 import com.opensymphony.xwork2.ActionSupport;
+import entidades.Rol;
+import entidades.Usuario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import modelo.Rol;
-import modelo.Usuario;
+import javax.ws.rs.core.GenericType;
 import servicios.EmailAutomaticoJerseyClient;
+import servicios.JerseyClient;
 
 public class gestionUsuario extends ActionSupport {
 
     private String operacion;
-
-    private UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private RolDAO rolDAO = new RolDAO();
+    
+    private JerseyClient usuarioClient = new JerseyClient("usuario");
+    private JerseyClient rolClient = new JerseyClient("rol");
+    private EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
 
     private String dni;
     private String nombre;
@@ -25,23 +26,36 @@ public class gestionUsuario extends ActionSupport {
     private String fechaNacimiento;
     private String password;
     private String rol;
-    
+
     private int idRol;
 
     private Usuario usuario;
     private List<Usuario> usuarios;
-    
+
     private List<Rol> roles;
+    
+    GenericType<List<Usuario>> gtu = new GenericType<List<Usuario>>(){};
+    
+    GenericType<List<Rol>> gtr = new GenericType<List<Rol>>(){};
 
     public gestionUsuario() {
     }
 
-    public UsuarioDAO getUsuarioDAO() {
-        return usuarioDAO;
+
+    public JerseyClient getUsuarioClient() {
+        return usuarioClient;
     }
 
-    public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
-        this.usuarioDAO = usuarioDAO;
+    public void setUsuarioClient(JerseyClient usuarioClient) {
+        this.usuarioClient = usuarioClient;
+    }
+
+    public JerseyClient getRolClient() {
+        return rolClient;
+    }
+
+    public void setRolClient(JerseyClient rolClient) {
+        this.rolClient = rolClient;
     }
 
     public String getDni() {
@@ -132,14 +146,6 @@ public class gestionUsuario extends ActionSupport {
         this.roles = roles;
     }
 
-    public RolDAO getRolDAO() {
-        return rolDAO;
-    }
-
-    public void setRolDAO(RolDAO rolDAO) {
-        this.rolDAO = rolDAO;
-    }
-
     public int getIdRol() {
         return idRol;
     }
@@ -147,74 +153,110 @@ public class gestionUsuario extends ActionSupport {
     public void setIdRol(int idRol) {
         this.idRol = idRol;
     }
+
+    public GenericType<List<Usuario>> getGtu() {
+        return gtu;
+    }
+
+    public void setGtu(GenericType<List<Usuario>> gtu) {
+        this.gtu = gtu;
+    }
+
+    public GenericType<List<Rol>> getGtr() {
+        return gtr;
+    }
+
+    public void setGtr(GenericType<List<Rol>> gtr) {
+        this.gtr = gtr;
+    }
+
+    public EmailAutomaticoJerseyClient getClient() {
+        return client;
+    }
+
+    public void setClient(EmailAutomaticoJerseyClient client) {
+        this.client = client;
+    }
     
- 
-    public String execute() throws Exception {     
-        roles = rolDAO.list();
-        
+    
+    
+
+    public String execute() throws Exception {
+        roles = (List<Rol>)rolClient.findAll_XML(gtr.getClass());
+
         if (getDni() != null) {
-            usuario = usuarioDAO.readDni(getDni());
+            usuario = usuarioClient.find_XML(Usuario.class, dni);
         }
         return operacion;
     }
 
     public String alta() throws ParseException {
-        rol = rolDAO.readId(getIdRol()).getTipo();
+        
+        rol = rolClient.find_XML(Rol.class, String.valueOf(getIdRol())).getTipo();
 
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = formato.parse(getFechaNacimiento());
-        
+
         String c = generarCorreo(getNombre(), getApellidos(), rol);
 
-        usuarioDAO.create(new Usuario(getDni(), getNombre(), getApellidos(), c, fecha, getPassword()));
-        usuarios = usuarioDAO.list();
+        usuarioClient.create_XML(
+                "<usuario>"
+                + "<apellidos>"+getApellidos()+"</apellidos>"
+                + "<correo>"+c+"</correo>"
+                + "<dni>"+getDni()+"</dni>"
+                + "<fechaNacimiento>"+fecha+"</fechaNacimiento>"
+                + "<nombre>"+getNombre()+"</nombre>"
+                + "<password>"+getPassword()+"</password>"
+                + "</usuario>"
+        );
+        
+        
 
-        EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
+        usuarios = (List<Usuario>)usuarioClient.findAll_XML(gtu.getClass());
+        
         client.enviarCorreo(String.class,
                 getCorreo(),
                 "Bienvenido a BiblioUpo!",
-                "Hola "+getNombre()+" "+getApellidos()+", ya formas parte de BiblioUpo.\n"
-                        + "Accede a nuestra web para iniciar sesión.\n"
-                        + "Sus credenciales son:\nUsuario: "+c+"\nContraseña: "+getPassword()+".");
+                "Hola " + getNombre() + " " + getApellidos() + ", ya formas parte de BiblioUpo.\n"
+                + "Accede a nuestra web para iniciar sesión.\n"
+                + "Sus credenciales son:\nUsuario: " + c + "\nContraseña: " + getPassword() + ".");
         return SUCCESS;
     }
 
     public String baja() {
-        usuario = usuarioDAO.readDni(getDni());
-        usuarioDAO.delete(usuario);
-        usuarios = usuarioDAO.list();
+        usuarioClient.remove(getDni());
         
-        EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
+        usuarios = (List<Usuario>)usuarioClient.findAll_XML(gtu.getClass());
+
         client.enviarCorreo(String.class,
                 getCorreo(),
                 "Hasta pronto!",
                 "Hola, ya no formas parte de BiblioUpo.\n"
-                        + "Esperamos que vuelvas pronto.\n");
+                + "Esperamos que vuelvas pronto.\n");
         return SUCCESS;
     }
 
     public String consultar() {
-        usuario = usuarioDAO.readDni(getDni());
+        usuario = usuarioClient.find_XML(Usuario.class, dni);
         return SUCCESS;
     }
 
     public String modificar() throws ParseException {
-        usuario = usuarioDAO.readDni(getDni());
+        usuario = usuarioClient.find_XML(Usuario.class, dni);
 
         usuario.setNombre(getNombre());
         usuario.setApellidos(getApellidos());
         usuario.setCorreo(getCorreo());
-        
+
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = formato.parse(getFechaNacimiento());
-        
+
         usuario.setFechaNacimiento(fecha);
         usuario.setPassword(getPassword());
-        
-        EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
+
         client.enviarCorreo(String.class, "", "BiblioUpo ha actualizado su perfil", "Hola " + getNombre() + " " + getApellidos() + ", el administrador de BiblioUpo ha modificado su perfil. Su nueva contraseña es " + getPassword() + ".");
 
-        usuarios = usuarioDAO.list();
+        usuarios = (List<Usuario>)usuarioClient.findAll_XML(gtu.getClass());
         return SUCCESS;
     }
 
@@ -224,22 +266,22 @@ public class gestionUsuario extends ActionSupport {
         return port.generarCorreo(arg0, arg1, arg2);
     }
 
-    public void validate(){
-        
-        if(operacion.equals("alta") || operacion.equals("modificacion")){
-            if(getDni() == null || getDni().equals("")){
+    public void validate() {
+
+        if (operacion.equals("alta") || operacion.equals("modificacion")) {
+            if (getDni() == null || getDni().equals("")) {
                 addFieldError("dni", getText("campo.requerido"));
             }
-            
-            if(getNombre() == null || getNombre().equals("")){
+
+            if (getNombre() == null || getNombre().equals("")) {
                 addFieldError("nombre", getText("campo.requerido"));
             }
-            
-            if(getApellidos()== null || getApellidos().equals("")){
+
+            if (getApellidos() == null || getApellidos().equals("")) {
                 addFieldError("apellidos", getText("campo.requerido"));
             }
-            
-            if(getFechaNacimiento() == null || getFechaNacimiento().equals("")){
+
+            if (getFechaNacimiento() == null || getFechaNacimiento().equals("")) {
                 addFieldError("fecha", getText("campo.requerido"));
             }
         }

@@ -1,17 +1,16 @@
-
 package controlador;
 
-import DAO.*;
-import modelo.*;
+import entidades.*;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
+import servicios.JerseyClient;
 
 public class gestion extends ActionSupport {
     
-    private UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private LibroDAO libroDAO = new LibroDAO();
-    private SalaDAO salaDAO = new SalaDAO();
-    private OrdenadorDAO ordenadorDAO = new OrdenadorDAO();
+    private JerseyClient usuarioClient = new JerseyClient("usuario");
+    private JerseyClient libroClient = new JerseyClient("libro");
+    private JerseyClient salaClient = new JerseyClient("sala");
+    private JerseyClient ordenadorClient = new JerseyClient("ordenador");
     
     private String entidad;
     private String rol;
