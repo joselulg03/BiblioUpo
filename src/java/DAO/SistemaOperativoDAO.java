@@ -6,8 +6,8 @@
 package DAO;
 
 import java.util.List;
-import modelo.Portatil;
 import modelo.HibernateUtil;
+import modelo.SistemaOperativo;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -15,50 +15,55 @@ import org.hibernate.Session;
  *
  * @author Jose
  */
-public class PortatilDAO {
+public class SistemaOperativoDAO {
     
     Session session = null;
 
-    public PortatilDAO() {
+    public SistemaOperativoDAO() {
     }
     
-    public void create(Portatil p) {
+    
+    public void create(SistemaOperativo a) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
-        session.save(p);
+        session.save(a);
         tx.commit();
+    }
+
+    public SistemaOperativo read(String nombre) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from SistemaOperativo where nombre = :nombre");
+        q.setParameter("nombre", nombre);
+        SistemaOperativo a = (SistemaOperativo) q.uniqueResult();
+        tx.commit();
+        return a;
     }
     
-    public Portatil read(String numSerie) {
+    public SistemaOperativo readId(int id) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Portatil where numSerie = :numSerie");
-        q.setParameter("numSerie", numSerie);
-        Portatil p = (Portatil) q.uniqueResult();
+        Query q = session.createQuery("from SistemaOperativo where id = :id");
+        q.setParameter("id", id);
+        SistemaOperativo a = (SistemaOperativo) q.uniqueResult();
         tx.commit();
-        return p;
+        return a;
+    }
+
+    public void delete(SistemaOperativo a) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        session.delete(a);
+        tx.commit();
+    }
+
+    public List<SistemaOperativo> list() {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        Query q = session.createQuery("from SistemaOperativo");
+        List<SistemaOperativo> la = (List<SistemaOperativo>) q.list();
+        tx.commit();
+        return la;
     }
     
-    public void delete(Portatil p) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        org.hibernate.Transaction tx = session.beginTransaction();
-        session.delete(p);
-        tx.commit();
-    }
-    
-    public void update(Portatil l) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        org.hibernate.Transaction tx = session.beginTransaction();
-        session.update(l);
-        tx.commit();
-    }
-    
-    public List<Portatil> list() {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        org.hibernate.Transaction tx = session.beginTransaction();
-        Query q = session.createQuery("from Portatil");
-        List<Portatil> lp = (List<Portatil>) q.list();
-        tx.commit();
-        return lp;
-    }
 }

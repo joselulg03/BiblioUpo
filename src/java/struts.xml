@@ -175,4 +175,27 @@
             <result name="error">/vistas/reserva/gestionReservas.jsp</result>
         </action>
     </package>
+    
+    <package name="portatil" extends="struts-default">
+        <action name="formGestionPortatil" class="controlador.portatil.gestionPortatil">
+            <result name="alta">/vistas/portatil/altaPortatil.jsp</result>
+            <result name="modificacion">/vistas/portatil/modificacionPortatil.jsp</result>
+        </action>
+        
+        <action name="consultaPortatil" class="controlador.portatil.gestionPortatil" method="consultar">
+            <result name="success">/vistas/portatil/consultaPortatil.jsp</result>
+        </action>
+        
+        <action name="altaPortatil" class="controlador.portatil.gestionPortatil" method="alta">
+            <result name="success">/vistas/portatil/gestionPortatil.jsp</result>
+        </action>
+        
+        <action name="bajaPortatil" class="controlador.portatil.gestionPortatil" method="baja">
+            <result name="success">vistas/portatil/gestionPortatil.jsp</result>
+        </action>
+        
+        <action name="modificacionPortatil" class="controlador.portatil.gestionPortatil" method="modificar">
+            <result name="success">vistas/portatil/gestionPortatil.jsp</result>
+        </action>
+    </package>
 </struts>
