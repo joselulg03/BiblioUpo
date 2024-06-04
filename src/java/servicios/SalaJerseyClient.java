@@ -10,11 +10,11 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 
 /**
- * Jersey REST client generated for REST resource:UsuarioFacadeREST
- * [entidades.usuario]<br>
+ * Jersey REST client generated for REST resource:SalaFacadeREST
+ * [entidades.sala]<br>
  * USAGE:
  * <pre>
- *        JerseyClient client = new JerseyClient();
+ *        SalaJerseyClient client = new SalaJerseyClient();
  *        Object response = client.XXX(...);
  *        // do whatever with response
  *        client.close();
@@ -22,15 +22,15 @@ import javax.ws.rs.client.WebTarget;
  *
  * @author josel
  */
-public class JerseyClient {
+public class SalaJerseyClient {
 
     private WebTarget webTarget;
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/BiblioUpoREST/webresources";
 
-    public JerseyClient(String entidad) {
+    public SalaJerseyClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
-        webTarget = client.target(BASE_URI).path("entidades."+entidad);
+        webTarget = client.target(BASE_URI).path("entidades.sala");
     }
 
     public String countREST() throws ClientErrorException {

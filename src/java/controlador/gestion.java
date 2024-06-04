@@ -3,17 +3,23 @@ package controlador;
 import entidades.*;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
-import servicios.JerseyClient;
+import javax.ws.rs.core.GenericType;
+import servicios.*;
 
 public class gestion extends ActionSupport {
     
-    private JerseyClient usuarioClient = new JerseyClient("usuario");
-    private JerseyClient libroClient = new JerseyClient("libro");
-    private JerseyClient salaClient = new JerseyClient("sala");
-    private JerseyClient ordenadorClient = new JerseyClient("ordenador");
+    private UsuarioJerseyClient usuarioClient = new UsuarioJerseyClient();
+    private LibroJerseyClient libroClient = new LibroJerseyClient();
+    private SalaJerseyClient salaClient = new SalaJerseyClient();
+    private OrdenadorJerseyClient ordenadorClient = new OrdenadorJerseyClient();
     
     private String entidad;
     private String rol;
+    
+    GenericType<List<Usuario>> gtu = new GenericType<List<Usuario>>(){};
+    GenericType<List<Libro>> gtl = new GenericType<List<Libro>>(){};
+    GenericType<List<Sala>> gts = new GenericType<List<Sala>>(){};
+    GenericType<List<Ordenador>> gto = new GenericType<List<Ordenador>>(){};
     
     private List<Usuario> usuarios;
     private List<Libro> libros;
@@ -39,14 +45,6 @@ public class gestion extends ActionSupport {
         this.rol = rol;
     }
 
-    public UsuarioDAO getUsuarioDAO() {
-        return usuarioDAO;
-    }
-
-    public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
-        this.usuarioDAO = usuarioDAO;
-    }
-
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
@@ -55,28 +53,12 @@ public class gestion extends ActionSupport {
         this.usuarios = usuarios;
     }
 
-    public LibroDAO getLibroDAO() {
-        return libroDAO;
-    }
-
-    public void setLibroDAO(LibroDAO libroDAO) {
-        this.libroDAO = libroDAO;
-    }
-
     public List<Libro> getLibros() {
         return libros;
     }
 
     public void setLibros(List<Libro> libros) {
         this.libros = libros;
-    }
-    
-    public SalaDAO getSalaDAO() {
-        return salaDAO;
-    }
-
-    public void setSalaDAO(SalaDAO salaDAO) {
-        this.salaDAO = salaDAO;
     }
 
     public List<Sala> getSalas() {
@@ -87,14 +69,6 @@ public class gestion extends ActionSupport {
         this.salas = salas;
     }
     
-    public OrdenadorDAO getOrdenadorDAO() {
-        return ordenadorDAO;
-    }
-
-    public void setOrdenadorDAO(OrdenadorDAO ordenadorDAO) {
-        this.ordenadorDAO = ordenadorDAO;
-    }
-
     public List<Ordenador> getOrdenadores() {
         return ordenadores;
     }
@@ -102,18 +76,86 @@ public class gestion extends ActionSupport {
     public void setOrdenadores(List<Ordenador> ordenadores) {
         this.ordenadores = ordenadores;
     }
+
+    public UsuarioJerseyClient getUsuarioClient() {
+        return usuarioClient;
+    }
+
+    public void setUsuarioClient(UsuarioJerseyClient usuarioClient) {
+        this.usuarioClient = usuarioClient;
+    }
+
+    public LibroJerseyClient getLibroClient() {
+        return libroClient;
+    }
+
+    public void setLibroClient(LibroJerseyClient libroClient) {
+        this.libroClient = libroClient;
+    }
+
+    public SalaJerseyClient getSalaClient() {
+        return salaClient;
+    }
+
+    public void setSalaClient(SalaJerseyClient salaClient) {
+        this.salaClient = salaClient;
+    }
+
+    public OrdenadorJerseyClient getOrdenadorClient() {
+        return ordenadorClient;
+    }
+
+    public void setOrdenadorClient(OrdenadorJerseyClient ordenadorClient) {
+        this.ordenadorClient = ordenadorClient;
+    }
+
+    
+
+    public GenericType<List<Usuario>> getGtu() {
+        return gtu;
+    }
+
+    public void setGtu(GenericType<List<Usuario>> gtu) {
+        this.gtu = gtu;
+    }
+
+    public GenericType<List<Libro>> getGtl() {
+        return gtl;
+    }
+
+    public void setGtl(GenericType<List<Libro>> gtl) {
+        this.gtl = gtl;
+    }
+
+    public GenericType<List<Sala>> getGts() {
+        return gts;
+    }
+
+    public void setGts(GenericType<List<Sala>> gts) {
+        this.gts = gts;
+    }
+
+    public GenericType<List<Ordenador>> getGto() {
+        return gto;
+    }
+
+    public void setGto(GenericType<List<Ordenador>> gto) {
+        this.gto = gto;
+    }
+    
+    
+    
     
     public String execute() throws Exception {
         if(entidad.equals("usuarios")){
-            usuarios = usuarioDAO.list();
-            //System.out.println("-- USUARIOS --");
+            usuarios = (List<Usuario>)usuarioClient.findAll_XML(gtu.getClass());
         }
         else if(entidad.equals("libros")){
-            libros = libroDAO.list();
+            libros = (List<Libro>)libroClient.findAll_XML(gtl.getClass());
         } else if(entidad.equals("salas")){
-            salas = salaDAO.list();
+            salas = (List<Sala>)salaClient.findAll_XML(gts.getClass());
         } else if(entidad.equals("ordenadores")){
-            ordenadores = ordenadorDAO.list();
+            ordenadores = (List<Ordenador>)ordenadorClient.findAll_XML(gto.getClass());
         }
         return entidad;
     }

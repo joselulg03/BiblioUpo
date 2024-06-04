@@ -57,8 +57,7 @@ public class Rol implements Serializable {
         this.id = id;
     }
 
-    public Rol(Integer id, String dominio, String tipo) {
-        this.id = id;
+    public Rol(String dominio, String tipo) {
         this.dominio = dominio;
         this.tipo = tipo;
     }

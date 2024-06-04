@@ -1,22 +1,20 @@
 package controlador.usuario;
 
 import com.opensymphony.xwork2.ActionSupport;
-import entidades.Rol;
-import entidades.Usuario;
+import entidades.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.ws.rs.core.GenericType;
-import servicios.EmailAutomaticoJerseyClient;
-import servicios.JerseyClient;
+import servicios.*;
 
 public class gestionUsuario extends ActionSupport {
 
     private String operacion;
     
-    private JerseyClient usuarioClient = new JerseyClient("usuario");
-    private JerseyClient rolClient = new JerseyClient("rol");
+    private UsuarioJerseyClient usuarioClient = new UsuarioJerseyClient();
+    private RolJerseyClient rolClient = new RolJerseyClient();
     private EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
 
     private String dni;
@@ -42,19 +40,19 @@ public class gestionUsuario extends ActionSupport {
     }
 
 
-    public JerseyClient getUsuarioClient() {
+    public UsuarioJerseyClient getUsuarioClient() {
         return usuarioClient;
     }
 
-    public void setUsuarioClient(JerseyClient usuarioClient) {
+    public void setUsuarioClient(UsuarioJerseyClient usuarioClient) {
         this.usuarioClient = usuarioClient;
     }
 
-    public JerseyClient getRolClient() {
+    public RolJerseyClient getRolClient() {
         return rolClient;
     }
 
-    public void setRolClient(JerseyClient rolClient) {
+    public void setRolClient(RolJerseyClient rolClient) {
         this.rolClient = rolClient;
     }
 
