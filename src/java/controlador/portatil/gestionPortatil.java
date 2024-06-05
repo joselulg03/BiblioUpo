@@ -39,6 +39,7 @@ public class gestionPortatil extends ActionSupport{
     
     private int idSistemaOperativo;
     private String numSeriePortatil;
+    private int idRecurso;
 
     private Portatil portatil;
     private List<Portatil> portatiles;
@@ -160,6 +161,16 @@ public class gestionPortatil extends ActionSupport{
         this.numSeriePortatil = numSeriePortatil;
     }
 
+    public int getIdRecurso() {
+        return idRecurso;
+    }
+
+    public void setIdRecurso(int idRecurso) {
+        this.idRecurso = idRecurso;
+    }
+    
+    
+
     public String execute() throws Exception {
 
         sistemasOperativos = Arrays.asList(sistemaOperativoClient.findAll_XML(SistemaOperativo[].class));
@@ -179,12 +190,12 @@ public class gestionPortatil extends ActionSupport{
             + "<numSerie>"+getNumSerie()+"</numSerie>"
             + "<marca>"+getMarca()+"</marca>"
             + "<modelo>"+getModelo()+"</modelo>"    
-            + "<id_sistema_operativo>"
+            + "<idSistemaOperativo>"
             + "<id>"+getIdSistemaOperativo()+"</id>"
-            +"</id_sistema_operativo>"  
-            + "<id_recurso>"
+            +"</idSistemaOperativo>"  
+            + "<idRecurso>"
             + "<id>"+r[r.length-1].getId()+"</id>"   
-            +"</id_recurso>"        
+            +"</idRecurso>"        
             + "</portatil>"
         );
         
@@ -212,12 +223,16 @@ public class gestionPortatil extends ActionSupport{
             + "<numSerie>"+getNumSerie()+"</numSerie>"
             + "<marca>"+getMarca()+"</marca>"
             + "<modelo>"+getModelo()+"</modelo>"    
-            + "<id_sistema_operativo>"
+            + "<idSistemaOperativo>"
             + "<id>"+getIdSistemaOperativo()+"</id>"
-            +"</id_sistema_operativo>"         
+            +"</idSistemaOperativo>" 
+            + "<idRecurso>"
+            + "<id>"+getIdRecurso()+"</id>"   
+            +"</idRecurso>"
             + "</portatil>", getNumSeriePortatil());
         
         portatiles = Arrays.asList(portatilClient.findAll_XML(Portatil[].class));
-        return SUCCESS;
+        
+        return "modificado";
     }
 }

@@ -196,11 +196,11 @@
         </action>
         
         <action name="bajaPortatil" class="controlador.portatil.gestionPortatil" method="baja">
-            <result name="success">vistas/portatil/gestionPortatil.jsp</result>
+            <result name="success">/vistas/portatil/gestionPortatil.jsp</result>
         </action>
         
         <action name="modificacionPortatil" class="controlador.portatil.gestionPortatil" method="modificar">
-            <result name="success">vistas/portatil/gestionPortatil.jsp</result>
+            <result name="modificado">/vistas/portatil/gestionPortatil.jsp</result>
         </action>
     </package>
 </struts>

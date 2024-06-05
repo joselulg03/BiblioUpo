@@ -58,6 +58,7 @@
                             <th>Marca</th>
                             <th>Modelo</th>
                             <th>Sistema Operativo</th>
+                            <th>¿Disponible?</th>
                         </tr>
                     </thead>
 
@@ -67,7 +68,8 @@
                                 <td><s:property value="numSerie" /></td>
                                 <td><s:property value="marca" /></td>
                                 <td><s:property value="modelo" /></td>
-                                <td><s:property value="sistemaOperativo.nombre" /></td>
+                                <td><s:property value="idSistemaOperativo.nombre" /></td>
+                                <td><s:property value="idRecurso.disponible" /></td>
                                 <td>
                                     <s:form action="bajaPortatil" method="post" cssClass="form-inline">
                                         <s:hidden name="numSerie" value="%{numSerie}" />

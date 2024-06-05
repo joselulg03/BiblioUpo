@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group">
                     <s:label for="disponible" value="Disponible" />
-                    <s:radio name="disponible" list="#{'true':'Sí', 'false':'No'}" value="%{portatil.iDrecurso.disponible}"  />
+                    <s:radio name="idRecurso" list="#{'true':'Sí', 'false':'No'}" value="%{portatil.iDrecurso.disponible}"  />
                 </div>
                 <s:submit value="Guardar" />
             </s:form>
