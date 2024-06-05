@@ -12,6 +12,7 @@ public class gestion extends ActionSupport {
     private LibroJerseyClient libroClient = new LibroJerseyClient();
     private SalaJerseyClient salaClient = new SalaJerseyClient();
     private OrdenadorJerseyClient ordenadorClient = new OrdenadorJerseyClient();
+    private PortatilJerseyClient portatilClient = new PortatilJerseyClient();
     
     private String entidad;
     private String rol;
@@ -20,6 +21,7 @@ public class gestion extends ActionSupport {
     private List<Libro> libros;
     private Sala[] salas;
     private Ordenador[] ordenadores;
+    private Portatil[] portatiles;
     
     public gestion() {
     }
@@ -107,6 +109,24 @@ public class gestion extends ActionSupport {
     public void setOrdenadorClient(OrdenadorJerseyClient ordenadorClient) {
         this.ordenadorClient = ordenadorClient;
     }
+
+    public PortatilJerseyClient getPortatilClient() {
+        return portatilClient;
+    }
+
+    public void setPortatilClient(PortatilJerseyClient portatilClient) {
+        this.portatilClient = portatilClient;
+    }
+
+    public Portatil[] getPortatiles() {
+        return portatiles;
+    }
+
+    public void setPortatiles(Portatil[] portatiles) {
+        this.portatiles = portatiles;
+    }
+    
+    
     
     
     public String execute() throws Exception {
@@ -119,6 +139,9 @@ public class gestion extends ActionSupport {
             salas = salaClient.findAll_XML(Sala[].class);
         } else if(entidad.equals("ordenadores")){
             ordenadores = ordenadorClient.findAll_XML(Ordenador[].class);
+        }
+        else if (entidad.equals("portatiles")) {
+            portatiles = portatilClient.findAll_XML(Portatil[].class);
         }
         return entidad;
     }

@@ -12,6 +12,8 @@ import java.util.List;
 import entidades.Portatil;
 import entidades.Recurso;
 import entidades.SistemaOperativo;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import javax.ws.rs.core.GenericType;
 import servicios.PortatilJerseyClient;
 import servicios.RecursoJerseyClient;
@@ -41,9 +43,6 @@ public class gestionPortatil extends ActionSupport{
     private List<Portatil> portatiles;
     private List<SistemaOperativo> sistemasOperativos;
     
-    GenericType<List<Portatil>> gtp = new GenericType<List<Portatil>>(){};
-    GenericType<List<SistemaOperativo>> gtso = new GenericType<List<SistemaOperativo>>(){};
-
 
     public gestionPortatil() {
     }
@@ -152,25 +151,9 @@ public class gestionPortatil extends ActionSupport{
         this.sistemasOperativos = sistemasOperativos;
     }
 
-    public GenericType<List<Portatil>> getGtp() {
-        return gtp;
-    }
-
-    public void setGtp(GenericType<List<Portatil>> gtp) {
-        this.gtp = gtp;
-    }
-
-    public GenericType<List<SistemaOperativo>> getGtso() {
-        return gtso;
-    }
-
-    public void setGtso(GenericType<List<SistemaOperativo>> gtso) {
-        this.gtso = gtso;
-    }
-
     public String execute() throws Exception {
-        portatiles = (List<Portatil>)portatilClient.findAll_XML(gtp.getClass());
-        sistemasOperativos = (List<SistemaOperativo>)sistemaOperativoClient.findAll_XML(gtso.getClass());
+
+        sistemasOperativos = Arrays.asList(sistemaOperativoClient.findAll_XML(SistemaOperativo[].class));
         if (getNumSerie() != null) {
             portatil = portatilClient.find_XML(Portatil.class, getNumSerie());
         }
@@ -179,17 +162,26 @@ public class gestionPortatil extends ActionSupport{
 
     public String alta() throws ParseException {
         
-        Recurso r = recursoClient.find_XML(Recurso.class, "1");
+        recursoClient.create_XML("<recurso>"
+                + "<disponible>true</disponible>"
+                + "</recurso>");
+
+        Recurso[] r = recursoClient.findAll_XML(Recurso[].class);
         
         portatilClient.create_XML("<portatil>"
+            + "<numSerie>"+getNumSerie()+"</numSerie>"
             + "<marca>"+getMarca()+"</marca>"
             + "<modelo>"+getModelo()+"</modelo>"    
-            + "<id_sistema_operativo>"+getIdSistemaOperativo()+"</id_sistema_operativo>"  
-            + "<id_recurso>"+r.getId()+"</id_recurso>"        
+            + "<id_sistema_operativo>"
+            + "<id>"+getIdSistemaOperativo()+"</id>"
+            +"</id_sistema_operativo>"  
+            + "<id_recurso>"
+            + "<id>"+r[r.length-1].getId()+"</id>"   
+            +"</id_recurso>"        
             + "</portatil>"
         );
         
-        portatiles = (List<Portatil>)portatilClient.findAll_XML(gtp.getClass());
+        portatiles = Arrays.asList(portatilClient.findAll_XML(Portatil[].class));
         
         return SUCCESS;
     }
@@ -197,7 +189,7 @@ public class gestionPortatil extends ActionSupport{
     public String baja() {
         portatilClient.remove(getNumSerie());
         
-        portatiles = (List<Portatil>)portatilClient.findAll_XML(gtp.getClass());
+        portatiles = Arrays.asList(portatilClient.findAll_XML(Portatil[].class));
         
         return SUCCESS;
     }
@@ -208,13 +200,17 @@ public class gestionPortatil extends ActionSupport{
     }
 
     public String modificar() throws ParseException {
-        portatil = portatilClient.find_XML(Portatil.class, numSerie);
         
-        portatil.setIdSistemaOperativo(getSistemaOperativo());
-        portatil.setMarca(getMarca());
-        portatil.setModelo(getModelo());
+        portatilClient.edit_XML("<portatil>"
+            + "<numSerie>"+getNumSerie()+"</numSerie>"
+            + "<marca>"+getMarca()+"</marca>"
+            + "<modelo>"+getModelo()+"</modelo>"    
+            + "<id_sistema_operativo>"
+            + "<id>"+getIdSistemaOperativo()+"</id>"
+            +"</id_sistema_operativo>"         
+            + "</portatil>", getNumSerie());
         
-        portatiles = (List<Portatil>)portatilClient.findAll_XML(gtp.getClass());
+        portatiles = Arrays.asList(portatilClient.findAll_XML(Portatil[].class));
         return SUCCESS;
     }
 }
