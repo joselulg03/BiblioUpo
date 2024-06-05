@@ -225,8 +225,6 @@ public class gestionRefuerzo {
     
     public String alta() throws ParseException {
         
-        Recurso r = recursoClient.find_XML(Recurso.class, "1");
-        
         refuerzoClient.create_XML("<refuerzo>"
             + "<id>"+getId()+"</id>"
             + "<descripcion>"+getDescripcion()+"</descripcion>"    
@@ -240,6 +238,33 @@ public class gestionRefuerzo {
         
         refuerzos = (List<Refuerzo>)refuerzoClient.findAll_XML(gtr.getClass());
         
+        return SUCCESS;
+    }
+    
+    public String baja() {
+        refuerzoClient.remove(getId());
+        
+        refuerzos = (List<Refuerzo>)refuerzoClient.findAll_XML(gtr.getClass());
+        
+        return SUCCESS;
+    }
+
+    public String consultar() {
+        refuerzo = refuerzoClient.find_XML(Refuerzo.class, getId());
+        return SUCCESS;
+    }
+    
+    public String modificar() throws ParseException {
+        refuerzo = refuerzoClient.find_XML(Refuerzo.class, getId());
+        
+        refuerzo.setAsignatura(getAsigantura());
+        refuerzo.setDescripcion(getDescripcion());
+        refuerzo.setTipo(getTipo());
+        refuerzo.setDniUsuario(getUsuario());
+        refuerzo.setIdRecurso(getRecurso());
+        refuerzo.setNombreSala(getSala());
+        
+        refuerzos = (List<Refuerzo>)refuerzoClient.findAll_XML(gtr.getClass());
         return SUCCESS;
     }
 }

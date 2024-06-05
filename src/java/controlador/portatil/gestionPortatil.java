@@ -11,7 +11,6 @@ import java.util.List;
 import entidades.Portatil;
 import entidades.Recurso;
 import entidades.SistemaOperativo;
-import entidades.Usuario;
 import javax.ws.rs.core.GenericType;
 import servicios.PortatilJerseyClient;
 import servicios.RecursoJerseyClient;
