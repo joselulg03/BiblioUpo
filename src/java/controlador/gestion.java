@@ -2,6 +2,8 @@ package controlador;
 
 import entidades.*;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.Arrays;
+import java.util.List;
 import servicios.*;
 
 public class gestion extends ActionSupport {
@@ -15,7 +17,7 @@ public class gestion extends ActionSupport {
     private String rol;
     
     private Usuario[] usuarios;
-    private Libro[] libros;
+    private List<Libro> libros;
     private Sala[] salas;
     private Ordenador[] ordenadores;
     
@@ -46,13 +48,15 @@ public class gestion extends ActionSupport {
         this.usuarios = usuarios;
     }
 
-    public Libro[] getLibros() {
+    public List<Libro> getLibros() {
         return libros;
     }
 
-    public void setLibros(Libro[] libros) {
+    public void setLibros(List<Libro> libros) {
         this.libros = libros;
     }
+
+    
 
     public Sala[] getSalas() {
         return salas;
@@ -110,7 +114,7 @@ public class gestion extends ActionSupport {
             usuarios = usuarioClient.findAll_XML(Usuario[].class);
         }
         else if(entidad.equals("libros")){
-            libros = libroClient.findAll_XML(Libro[].class);
+            libros = Arrays.asList(libroClient.findAll_XML(Libro[].class));
         } else if(entidad.equals("salas")){
             salas = salaClient.findAll_XML(Sala[].class);
         } else if(entidad.equals("ordenadores")){

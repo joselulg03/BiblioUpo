@@ -5,7 +5,10 @@ import entidades.*;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import servicios.*;
 
 /**
@@ -43,263 +46,269 @@ public class gestionLibro extends ActionSupport {
     private String isbnLibro;
     
     private Libro libro;
-    private Libro[] libros;
-    private Autor[] autores;
-    private Editorial[] editoriales;
-    private Categoria[] categorias;
-    private Idioma[] idiomas;
+    private List<Libro> libros;
+    private List<Autor> autores;
+    private List<Editorial> editoriales;
+    private List<Categoria> categorias;
+    private List<Idioma> idiomas;
     
     private File imagen;
     
     public gestionLibro() {
     }
-    
+
     public LibroJerseyClient getLibroClient() {
         return libroClient;
     }
-    
+
     public void setLibroClient(LibroJerseyClient libroClient) {
         this.libroClient = libroClient;
     }
-    
+
     public AutorJerseyClient getAutorClient() {
         return autorClient;
     }
-    
+
     public void setAutorClient(AutorJerseyClient autorClient) {
         this.autorClient = autorClient;
     }
-    
+
     public EditorialJerseyClient getEditorialClient() {
         return editorialClient;
     }
-    
+
     public void setEditorialClient(EditorialJerseyClient editorialClient) {
         this.editorialClient = editorialClient;
     }
-    
+
     public CategoriaJerseyClient getCategoriaClient() {
         return categoriaClient;
     }
-    
+
     public void setCategoriaClient(CategoriaJerseyClient categoriaClient) {
         this.categoriaClient = categoriaClient;
     }
-    
+
     public IdiomaJerseyClient getIdiomaClient() {
         return idiomaClient;
     }
-    
+
     public void setIdiomaClient(IdiomaJerseyClient idiomaClient) {
         this.idiomaClient = idiomaClient;
     }
-    
+
     public RecursoJerseyClient getRecursoClient() {
         return recursoClient;
     }
-    
+
     public void setRecursoClient(RecursoJerseyClient recursoClient) {
         this.recursoClient = recursoClient;
     }
-    
+
     public String getIsbn() {
         return isbn;
     }
-    
+
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-    
+
     public Autor getAutor() {
         return autor;
     }
-    
+
     public void setAutor(Autor autor) {
         this.autor = autor;
     }
-    
+
     public Categoria getCategoria() {
         return categoria;
     }
-    
+
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-    
+
     public Editorial getEditorial() {
         return editorial;
     }
-    
+
     public void setEditorial(Editorial editorial) {
         this.editorial = editorial;
     }
-    
+
     public Idioma getIdioma() {
         return idioma;
     }
-    
+
     public void setIdioma(Idioma idioma) {
         this.idioma = idioma;
     }
-    
+
     public Recurso getRecurso() {
         return recurso;
     }
-    
+
     public void setRecurso(Recurso recurso) {
         this.recurso = recurso;
     }
-    
+
     public String getTitulo() {
         return titulo;
     }
-    
+
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    
+
     public String getDescripcion() {
         return descripcion;
     }
-    
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
+
     public String getFecha() {
         return fecha;
     }
-    
+
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-    
+
     public int getCantidad() {
         return cantidad;
     }
-    
+
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    
+
     public String getFiltro() {
         return filtro;
     }
-    
+
     public void setFiltro(String filtro) {
         this.filtro = filtro;
     }
-    
+
     public String getSeleccion() {
         return seleccion;
     }
-    
+
     public void setSeleccion(String seleccion) {
         this.seleccion = seleccion;
     }
-    
+
     public String getOperacion() {
         return operacion;
     }
-    
+
     public void setOperacion(String operacion) {
         this.operacion = operacion;
     }
-    
+
     public int getIdAutor() {
         return idAutor;
     }
-    
+
     public void setIdAutor(int idAutor) {
         this.idAutor = idAutor;
     }
-    
+
     public int getIdEditorial() {
         return idEditorial;
     }
-    
+
     public void setIdEditorial(int idEditorial) {
         this.idEditorial = idEditorial;
     }
-    
+
     public int getIdCategoria() {
         return idCategoria;
     }
-    
+
     public void setIdCategoria(int idCategoria) {
         this.idCategoria = idCategoria;
     }
-    
+
     public int getIdIdioma() {
         return idIdioma;
     }
-    
+
     public void setIdIdioma(int idIdioma) {
         this.idIdioma = idIdioma;
     }
-    
+
     public String getIsbnLibro() {
         return isbnLibro;
     }
-    
+
     public void setIsbnLibro(String isbnLibro) {
         this.isbnLibro = isbnLibro;
     }
-    
+
     public Libro getLibro() {
         return libro;
     }
-    
+
     public void setLibro(Libro libro) {
         this.libro = libro;
     }
-    
-    public Libro[] getLibros() {
+
+    public List<Libro> getLibros() {
         return libros;
     }
-    
-    public void setLibros(Libro[] libros) {
+
+    public void setLibros(List<Libro> libros) {
         this.libros = libros;
     }
-    
-    public Autor[] getAutores() {
+
+    public List<Autor> getAutores() {
         return autores;
     }
-    
-    public void setAutores(Autor[] autores) {
+
+    public void setAutores(List<Autor> autores) {
         this.autores = autores;
     }
-    
-    public Editorial[] getEditoriales() {
+
+    public List<Editorial> getEditoriales() {
         return editoriales;
     }
-    
-    public void setEditoriales(Editorial[] editoriales) {
+
+    public void setEditoriales(List<Editorial> editoriales) {
         this.editoriales = editoriales;
     }
-    
-    public Categoria[] getCategorias() {
+
+    public List<Categoria> getCategorias() {
         return categorias;
     }
-    
-    public void setCategorias(Categoria[] categorias) {
+
+    public void setCategorias(List<Categoria> categorias) {
         this.categorias = categorias;
     }
-    
-    public Idioma[] getIdiomas() {
+
+    public List<Idioma> getIdiomas() {
         return idiomas;
     }
-    
-    public void setIdiomas(Idioma[] idiomas) {
+
+    public void setIdiomas(List<Idioma> idiomas) {
         this.idiomas = idiomas;
     }
-    
+
     public File getImagen() {
         return imagen;
     }
-    
+
     public void setImagen(File imagen) {
         this.imagen = imagen;
+    }
+    
+    
+    
+    public String execute(){
+        return operacion;
     }
     
     public String alta() throws ParseException {
@@ -335,7 +344,7 @@ public class gestionLibro extends ActionSupport {
                 + "<titulo>"+getTitulo()+"</titulo>"
                 + "</libro>");
         
-        libros = libroClient.findAll_XML(Libro[].class);
+        libros = Arrays.asList(libroClient.findAll_XML(Libro[].class));
         
         return SUCCESS;
     }
@@ -345,7 +354,7 @@ public class gestionLibro extends ActionSupport {
             
             libroClient.remove(getIsbnLibro());
             
-            libros = libroClient.findAll_XML(Libro[].class);
+            libros = Arrays.asList(libroClient.findAll_XML(Libro[].class));
             
             return SUCCESS;
         }
@@ -379,7 +388,7 @@ public class gestionLibro extends ActionSupport {
                 + "</libro>", getIsbnLibro());
             
             
-            libros = libroClient.findAll_XML(Libro[].class);
+            libros = Arrays.asList(libroClient.findAll_XML(Libro[].class));
             
             return SUCCESS;
         }
@@ -417,7 +426,7 @@ public class gestionLibro extends ActionSupport {
     }
 
     private Libro readTitulo(String filtro) {
-        libros = libroClient.findAll_XML(Libro[].class);
+        libros = Arrays.asList(libroClient.findAll_XML(Libro[].class));
         
         for(Libro l : libros){
             if(l.getTitulo().equals(filtro)){
@@ -427,25 +436,25 @@ public class gestionLibro extends ActionSupport {
         return null;
     }
 
-    private Libro[] readAutor(String filtro) {
-        libros = libroClient.findAll_XML(Libro[].class);
+    private List<Libro> readAutor(String filtro) {
+        libros = Arrays.asList(libroClient.findAll_XML(Libro[].class));
         
-        Libro[] libs = new Libro[0];
+        List<Libro> libs = new ArrayList<>();
         for(Libro l : libros){
             if(l.getIdAutor().getId() == Integer.parseInt(filtro)){
-                libs[libs.length] = l;
+                libs.add(l);
             }
         }
         return libs;
     }
 
-    private Libro[] readEditorial(String filtro) {
-        libros = libroClient.findAll_XML(Libro[].class);
+    private List<Libro> readEditorial(String filtro) {
+        libros = Arrays.asList(libroClient.findAll_XML(Libro[].class));
         
-        Libro[] libs = new Libro[0];
+        List<Libro> libs = new ArrayList<>();
         for(Libro l : libros){
             if(l.getIdEditorial().getId() == Integer.parseInt(filtro)){
-                libs[libs.length] = l;
+                libs.add(l);
             }
         }
         return libs;
