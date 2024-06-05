@@ -1,7 +1,6 @@
 
 package servicios;
 
-import java.io.File;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;

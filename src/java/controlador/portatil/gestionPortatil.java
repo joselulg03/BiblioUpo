@@ -5,27 +5,29 @@
  */
 package controlador.portatil;
 
-import DAO.PortatilDAO;
-import DAO.RecursoDAO;
-import DAO.SistemaOperativoDAO;
 import static com.opensymphony.xwork2.Action.*;
+import com.opensymphony.xwork2.ActionSupport;
 import java.text.ParseException;
 import java.util.List;
-import modelo.Portatil;
-import modelo.Recurso;
-import modelo.SistemaOperativo;
+import entidades.Portatil;
+import entidades.Recurso;
+import entidades.SistemaOperativo;
+import javax.ws.rs.core.GenericType;
+import servicios.PortatilJerseyClient;
+import servicios.RecursoJerseyClient;
+import servicios.SistemaOperativoJerseyClient;
 
 /**
  *
  * @author Jose
  */
-public class gestionPortatil {
+public class gestionPortatil extends ActionSupport{
 
     private String operacion;
 
-    private PortatilDAO portatilDAO = new PortatilDAO();
-    private SistemaOperativoDAO sistemaOperativoDAO = new SistemaOperativoDAO();
-    private RecursoDAO recursoDAO = new RecursoDAO();
+    private PortatilJerseyClient portatilClient = new PortatilJerseyClient();
+    private SistemaOperativoJerseyClient sistemaOperativoClient = new SistemaOperativoJerseyClient();
+    private RecursoJerseyClient recursoClient = new RecursoJerseyClient();
 
     private String numSerie;
     private Recurso recurso;
@@ -38,6 +40,10 @@ public class gestionPortatil {
     private Portatil portatil;
     private List<Portatil> portatiles;
     private List<SistemaOperativo> sistemasOperativos;
+    
+    GenericType<List<Portatil>> gtp = new GenericType<List<Portatil>>(){};
+    GenericType<List<SistemaOperativo>> gtso = new GenericType<List<SistemaOperativo>>(){};
+
 
     public gestionPortatil() {
     }
@@ -50,28 +56,28 @@ public class gestionPortatil {
         this.operacion = operacion;
     }
 
-    public PortatilDAO getPortatilDAO() {
-        return portatilDAO;
+    public PortatilJerseyClient getPortatilClient() {
+        return portatilClient;
     }
 
-    public void setPortatilDAO(PortatilDAO portatilDAO) {
-        this.portatilDAO = portatilDAO;
+    public void setPortatilClient(PortatilJerseyClient portatilClient) {
+        this.portatilClient = portatilClient;
     }
 
-    public SistemaOperativoDAO getSistemaOperativoDAO() {
-        return sistemaOperativoDAO;
+    public SistemaOperativoJerseyClient getSistemaOperativoClient() {
+        return sistemaOperativoClient;
     }
 
-    public void setSistemaOperativoDAO(SistemaOperativoDAO sistemaOperativoDAO) {
-        this.sistemaOperativoDAO = sistemaOperativoDAO;
+    public void setSistemaOperativoClient(SistemaOperativoJerseyClient sistemaOperativoClient) {
+        this.sistemaOperativoClient = sistemaOperativoClient;
     }
 
-    public RecursoDAO getRecursoDAO() {
-        return recursoDAO;
+    public RecursoJerseyClient getRecursoClient() {
+        return recursoClient;
     }
 
-    public void setRecursoDAO(RecursoDAO recursoDAO) {
-        this.recursoDAO = recursoDAO;
+    public void setRecursoClient(RecursoJerseyClient recursoClient) {
+        this.recursoClient = recursoClient;
     }
 
     public String getNumSerie() {
@@ -114,6 +120,14 @@ public class gestionPortatil {
         this.modelo = modelo;
     }
 
+    public int getIdSistemaOperativo() {
+        return idSistemaOperativo;
+    }
+
+    public void setIdSistemaOperativo(int idSistemaOperativo) {
+        this.idSistemaOperativo = idSistemaOperativo;
+    }
+
     public Portatil getPortatil() {
         return portatil;
     }
@@ -130,67 +144,77 @@ public class gestionPortatil {
         this.portatiles = portatiles;
     }
 
-    public int getIdSistemaOperativo() {
-        return idSistemaOperativo;
+    public List<SistemaOperativo> getSistemasOperativos() {
+        return sistemasOperativos;
     }
 
-    public void setIdSistemaOperativo(int idSistemaOperativo) {
-        this.idSistemaOperativo = idSistemaOperativo;
+    public void setSistemasOperativos(List<SistemaOperativo> sistemasOperativos) {
+        this.sistemasOperativos = sistemasOperativos;
+    }
+
+    public GenericType<List<Portatil>> getGtp() {
+        return gtp;
+    }
+
+    public void setGtp(GenericType<List<Portatil>> gtp) {
+        this.gtp = gtp;
+    }
+
+    public GenericType<List<SistemaOperativo>> getGtso() {
+        return gtso;
+    }
+
+    public void setGtso(GenericType<List<SistemaOperativo>> gtso) {
+        this.gtso = gtso;
     }
 
     public String execute() throws Exception {
-        sistemasOperativos = sistemaOperativoDAO.list();
+        portatiles = (List<Portatil>)portatilClient.findAll_XML(gtp.getClass());
+        sistemasOperativos = (List<SistemaOperativo>)sistemaOperativoClient.findAll_XML(gtso.getClass());
         if (getNumSerie() != null) {
-            portatilDAO = new PortatilDAO();
-            portatil = portatilDAO.read(getNumSerie());
+            portatil = portatilClient.find_XML(Portatil.class, getNumSerie());
         }
         return operacion;
     }
 
     public String alta() throws ParseException {
         
-        Recurso r = new Recurso(true);
-        recursoDAO.create(r);
+        Recurso r = recursoClient.find_XML(Recurso.class, "1");
         
-        portatil = new Portatil(getNumSerie(), r, sistemaOperativoDAO.readId(getIdSistemaOperativo()), getMarca(), getModelo());
-        portatilDAO.create(portatil);
+        portatilClient.create_XML("<portatil>"
+            + "<marca>"+getMarca()+"</marca>"
+            + "<modelo>"+getModelo()+"</modelo>"    
+            + "<id_sistema_operativo>"+getIdSistemaOperativo()+"</id_sistema_operativo>"  
+            + "<id_recurso>"+r.getId()+"</id_recurso>"        
+            + "</portatil>"
+        );
         
-        portatiles = portatilDAO.list();
+        portatiles = (List<Portatil>)portatilClient.findAll_XML(gtp.getClass());
         
         return SUCCESS;
     }
 
     public String baja() {
-        if (getNumSerie()!= null) {
-            portatil = portatilDAO.read(getNumSerie());
-            portatilDAO.delete(portatil);
-            
-            portatiles = portatilDAO.list();
-            
-            return SUCCESS;
-        }
-        return ERROR;
+        portatilClient.remove(getNumSerie());
+        
+        portatiles = (List<Portatil>)portatilClient.findAll_XML(gtp.getClass());
+        
+        return SUCCESS;
     }
 
     public String consultar() {
-        portatil = portatilDAO.read(getNumSerie());
+        portatil = portatilClient.find_XML(Portatil.class, getNumSerie());
         return SUCCESS;
     }
 
     public String modificar() throws ParseException {
-        if (getNumSerie() != null) {
-            portatil = portatilDAO.read(getNumSerie());
-            portatil.setMarca(getMarca());
-            portatil.setModelo(getModelo());
-            portatil.setRecurso(getRecurso());
-            
-            portatil.setSistemaOperativo(sistemaOperativoDAO.readId(getIdSistemaOperativo()));
-            
-            portatilDAO.update(portatil);
-            portatiles = portatilDAO.list();
-            
-            return SUCCESS;
-        }
-        return ERROR;
+        portatil = portatilClient.find_XML(Portatil.class, numSerie);
+        
+        portatil.setIdSistemaOperativo(getSistemaOperativo());
+        portatil.setMarca(getMarca());
+        portatil.setModelo(getModelo());
+        
+        portatiles = (List<Portatil>)portatilClient.findAll_XML(gtp.getClass());
+        return SUCCESS;
     }
 }

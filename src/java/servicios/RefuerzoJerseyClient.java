@@ -10,27 +10,27 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 
 /**
- * Jersey REST client generated for REST resource:UsuarioFacadeREST
- * [entidades.usuario]<br>
+ * Jersey REST client generated for REST resource:RefuerzoFacadeREST
+ * [entidades.refuerzo]<br>
  * USAGE:
  * <pre>
- *        JerseyClient client = new JerseyClient();
+ *        RefuerzoJerseyClient client = new RefuerzoJerseyClient();
  *        Object response = client.XXX(...);
  *        // do whatever with response
  *        client.close();
  * </pre>
  *
- * @author josel
+ * @author Jose
  */
-public class UsuarioJerseyClient {
+public class RefuerzoJerseyClient {
 
     private WebTarget webTarget;
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/BiblioUpoRESTful/webresources";
 
-    public UsuarioJerseyClient() {
+    public RefuerzoJerseyClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
-        webTarget = client.target(BASE_URI).path("entidades.usuario");
+        webTarget = client.target(BASE_URI).path("entidades.refuerzo");
     }
 
     public String countREST() throws ClientErrorException {
@@ -96,7 +96,5 @@ public class UsuarioJerseyClient {
     public void close() {
         client.close();
     }
-
     
-
 }
