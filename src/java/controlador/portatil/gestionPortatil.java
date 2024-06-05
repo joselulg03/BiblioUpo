@@ -13,6 +13,8 @@ import entidades.Recurso;
 import entidades.SistemaOperativo;
 import entidades.Usuario;
 import javax.ws.rs.core.GenericType;
+import servicios.PortatilJerseyClient;
+import servicios.RecursoJerseyClient;
 import servicios.SistemaOperativoJerseyClient;
 
 /**
@@ -23,9 +25,9 @@ public class gestionPortatil {
 
     private String operacion;
 
-    private JerseyClient portatilClient = new JerseyClient("portatil");
-    private SistemaOperativoJerseyClient sistemaOperativoClient = new JSistemaOperativoerseyClient();
-    private JerseyClient recursoClient = new JerseyClient("recurso");
+    private PortatilJerseyClient portatilClient = new PortatilJerseyClient();
+    private SistemaOperativoJerseyClient sistemaOperativoClient = new SistemaOperativoJerseyClient();
+    private RecursoJerseyClient recursoClient = new RecursoJerseyClient();
 
     private String numSerie;
     private Recurso recurso;
@@ -54,27 +56,27 @@ public class gestionPortatil {
         this.operacion = operacion;
     }
 
-    public JerseyClient getPortatilClient() {
+    public PortatilJerseyClient getPortatilClient() {
         return portatilClient;
     }
 
-    public void setPortatilClient(JerseyClient portatilClient) {
+    public void setPortatilClient(PortatilJerseyClient portatilClient) {
         this.portatilClient = portatilClient;
     }
 
-    public JerseyClient getSistemaOperativoClient() {
+    public SistemaOperativoJerseyClient getSistemaOperativoClient() {
         return sistemaOperativoClient;
     }
 
-    public void setSistemaOperativoClient(JerseyClient sistemaOperativoClient) {
+    public void setSistemaOperativoClient(SistemaOperativoJerseyClient sistemaOperativoClient) {
         this.sistemaOperativoClient = sistemaOperativoClient;
     }
 
-    public JerseyClient getRecursoClient() {
+    public RecursoJerseyClient getRecursoClient() {
         return recursoClient;
     }
 
-    public void setRecursoClient(JerseyClient recursoClient) {
+    public void setRecursoClient(RecursoJerseyClient recursoClient) {
         this.recursoClient = recursoClient;
     }
 
@@ -192,7 +194,7 @@ public class gestionPortatil {
     }
 
     public String baja() {
-        portatilClient.remove(numSerie);
+        portatilClient.remove(getNumSerie());
         
         portatiles = (List<Portatil>)portatilClient.findAll_XML(gtp.getClass());
         
@@ -200,16 +202,16 @@ public class gestionPortatil {
     }
 
     public String consultar() {
-        portatil = portatilClient.find_XML(Portatil.class, numSerie);
+        portatil = portatilClient.find_XML(Portatil.class, getNumSerie());
         return SUCCESS;
     }
 
     public String modificar() throws ParseException {
         portatil = portatilClient.find_XML(Portatil.class, numSerie);
         
-        portatil.setIdSistemaOperativo(getIdSistemaOperativo());
+        portatil.setIdSistemaOperativo(getSistemaOperativo());
         portatil.setMarca(getMarca());
-        portatil.setModelo(modelo);
+        portatil.setModelo(getModelo());
         
         portatiles = (List<Portatil>)portatilClient.findAll_XML(gtp.getClass());
         return SUCCESS;
