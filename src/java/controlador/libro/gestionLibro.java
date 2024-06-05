@@ -354,25 +354,32 @@ public class gestionLibro extends ActionSupport {
     
     public String modificar() throws ParseException {
         if (getIsbnLibro() != null) {
-            libro = libroDAO.read(getIsbnLibro());
-            libro.setTitulo(getTitulo());
-            libro.setDescripcion(getDescripcion());
-            libro.setRecurso(getRecurso());
             
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha = formato.parse(getFecha());
             
-            libro.setFecha(fecha);
-            libro.setCantidad(getCantidad());
+            libroClient.edit_XML("<libro>"
+                + "<cantidad>"+getCantidad()+"</cantidad>"
+                + "<descripcion>"+getDescripcion()+"</descripcion>"
+                + "<fecha>"+fecha+"</fecha>"
+                + "<idAutor>"
+                + "<id>"+getIdAutor()+"</id>"
+                + "</idAutor>"
+                + "<idCategoria>"
+                + "<id>"+getIdCategoria()+"</id>"
+                + "</idCategoria>"
+                + "<idEditorial>"
+                + "<id>"+getIdEditorial()+"</id>"
+                + "</idEditorial>"
+                + "<idIdioma>"
+                + "<id>"+getIdioma().getId()+"</id>"
+                + "</idIdioma>"
+                + "<isbn>"+getIsbn()+"</isbn>"
+                + "<titulo>"+getTitulo()+"</titulo>"
+                + "</libro>", getIsbnLibro());
             
-            libro.setAutor(autorDAO.readId(getIdAutor()));
-            libro.setCategoria(categoriaDAO.readId(getIdCategoria()));
-            libro.setEditorial(editorialDAO.readId(getIdEditorial()));
-            libro.setIdioma(idiomaDAO.readId(getIdIdioma()));
             
-            libroDAO.update(libro);
-            
-            libros = libroDAO.list();
+            libros = libroClient.findAll_XML(Libro[].class);
             
             return SUCCESS;
         }
@@ -382,16 +389,14 @@ public class gestionLibro extends ActionSupport {
     public String filtrar() {
         if (seleccion != null) {
             if (seleccion.equals("Titulo")) {
-                libro = libroDAO.readTitulo(filtro);
+                libro = readTitulo(filtro);
                 if (libro == null) {
                     return ERROR;
                 }
             } else if (seleccion.equals("Autor")) {
-                autor = autorDAO.read(filtro);
-                libros = libroDAO.readAutor(autor.getId());
+                libros = readAutor(filtro);
             } else if (seleccion.equals("Editorial")) {
-                editorial = editorialDAO.read(filtro);
-                libros = libroDAO.readEditorial(editorial.getId());
+                libros = readEditorial(filtro);
             }
         }
         return SUCCESS;
@@ -409,5 +414,40 @@ public class gestionLibro extends ActionSupport {
         servicios.GeneracionCorreos_Service service = new servicios.GeneracionCorreos_Service();
         servicios.GeneracionCorreos port = service.getGeneracionCorreosPort();
         return port.subirImagen(arg0, arg1);
+    }
+
+    private Libro readTitulo(String filtro) {
+        libros = libroClient.findAll_XML(Libro[].class);
+        
+        for(Libro l : libros){
+            if(l.getTitulo().equals(filtro)){
+                return l;
+            }
+        }
+        return null;
+    }
+
+    private Libro[] readAutor(String filtro) {
+        libros = libroClient.findAll_XML(Libro[].class);
+        
+        Libro[] libs = new Libro[0];
+        for(Libro l : libros){
+            if(l.getIdAutor().getId() == Integer.parseInt(filtro)){
+                libs[libs.length] = l;
+            }
+        }
+        return libs;
+    }
+
+    private Libro[] readEditorial(String filtro) {
+        libros = libroClient.findAll_XML(Libro[].class);
+        
+        Libro[] libs = new Libro[0];
+        for(Libro l : libros){
+            if(l.getIdEditorial().getId() == Integer.parseInt(filtro)){
+                libs[libs.length] = l;
+            }
+        }
+        return libs;
     }
 }
