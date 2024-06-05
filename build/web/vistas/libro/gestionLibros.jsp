@@ -69,16 +69,16 @@
                                 <h5 class="card-title"><s:property value="#libro.titulo" /></h5>
                                 <p class="card-text"><strong>ISBN: </strong><s:property value="#libro.isbn" /></p>
                                 <p class="card-text"><strong>Descripción: </strong><s:property value="#libro.descripcion" /></p>
-                                <p class="card-text"><strong>Autor: </strong><s:property value="#libro.autor.nombre" /></p>
-                                <p class="card-text"><strong>Categoría: </strong><s:property value="#libro.categoria.nombre" /></p>
-                                <p class="card-text"><strong>Editorial: </strong><s:property value="#libro.editorial.nombre" /></p>
-                                <p class="card-text"><strong>Idioma: </strong><s:property value="#libro.idioma.nombre" /></p>
-                                <p class="card-text"><strong>Recurso disponible: </strong><s:property value="#libro.recurso.disponible" /></p>
+                                <p class="card-text"><strong>Autor: </strong><s:property value="#libro.idAutor.nombre" /></p>
+                                <p class="card-text"><strong>Categoría: </strong><s:property value="#libro.idCategoria.nombre" /></p>
+                                <p class="card-text"><strong>Editorial: </strong><s:property value="#libro.idEditorial.nombre" /></p>
+                                <p class="card-text"><strong>Idioma: </strong><s:property value="#libro.idIdioma.nombre" /></p>
+                                <p class="card-text"><strong>Recurso disponible: </strong><s:property value="#libro.idRecurso.disponible" /></p>
                                 <p class="card-text"><strong>Fecha lanzamiento: </strong><s:property value="#libro.fecha" /></p>
                                 <p class="card-text"><strong>Cantidad disponible: </strong><s:property value="#libro.cantidad" /></p>
                                 <s:if test="%{#libro.cantidad > 0}">
                                     <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                        <s:hidden name="idRecurso" value="%{#libro.recurso.id}" />
+                                        <s:hidden name="idRecurso" value="%{#libro.idRecurso.id}" />
                                         <s:submit value="Reservar" cssClass="btn btn-info" />
                                     </s:form>
                                 </s:if>

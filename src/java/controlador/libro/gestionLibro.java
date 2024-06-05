@@ -308,6 +308,12 @@ public class gestionLibro extends ActionSupport {
     
     
     public String execute(){
+        autores = Arrays.asList(autorClient.findAll_XML(Autor[].class));
+        editoriales = Arrays.asList(editorialClient.findAll_XML(Editorial[].class));
+        categorias = Arrays.asList(categoriaClient.findAll_XML(Categoria[].class));
+        idiomas = Arrays.asList(idiomaClient.findAll_XML(Idioma[].class));
+        
+        libro = libroClient.find_XML(Libro.class, getIsbnLibro());
         return operacion;
     }
     
@@ -335,7 +341,7 @@ public class gestionLibro extends ActionSupport {
                 + "<id>"+getIdEditorial()+"</id>"
                 + "</idEditorial>"
                 + "<idIdioma>"
-                + "<id>"+getIdioma().getId()+"</id>"
+                + "<id>"+getIdIdioma()+"</id>"
                 + "</idIdioma>"
                 + "<idRecurso>"
                 + "<id>"+r[r.length-1].getId()+"</id>"
@@ -345,7 +351,7 @@ public class gestionLibro extends ActionSupport {
                 + "</libro>");
         
         libros = Arrays.asList(libroClient.findAll_XML(Libro[].class));
-        
+
         return SUCCESS;
     }
     
@@ -362,7 +368,8 @@ public class gestionLibro extends ActionSupport {
     }
     
     public String modificar() throws ParseException {
-        if (getIsbnLibro() != null) {
+
+        if (getIsbn() != null) {
             
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             Date fecha = formato.parse(getFecha());
@@ -381,7 +388,7 @@ public class gestionLibro extends ActionSupport {
                 + "<id>"+getIdEditorial()+"</id>"
                 + "</idEditorial>"
                 + "<idIdioma>"
-                + "<id>"+getIdioma().getId()+"</id>"
+                + "<id>"+getIdIdioma()+"</id>"
                 + "</idIdioma>"
                 + "<isbn>"+getIsbn()+"</isbn>"
                 + "<titulo>"+getTitulo()+"</titulo>"
