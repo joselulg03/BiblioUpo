@@ -9,7 +9,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.text.ParseException;
 import servicios.*;
 import entidades.*;
-
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -22,11 +23,10 @@ public class gestionOrdenador extends ActionSupport {
     private OrdenadorJerseyClient ordenadorClient = new OrdenadorJerseyClient();
     private RecursoJerseyClient recursoClient = new RecursoJerseyClient();
 
-    
     private String nombre;
 
     private Ordenador ordenador;
-    private Ordenador[] ordenadores;
+    private List<Ordenador> ordenadores;
 
     public gestionOrdenador() {
     }
@@ -47,16 +47,13 @@ public class gestionOrdenador extends ActionSupport {
         this.recursoClient = recursoClient;
     }
 
-    public Ordenador[] getOrdenadores() {
+    public List<Ordenador> getOrdenadores() {
         return ordenadores;
     }
 
-    public void setOrdenadores(Ordenador[] ordenadores) {
-        this.ordenadores = ordenadores;
+    public void setOrdenadores(List<Ordenador> Ordenadores) {
+        this.ordenadores = Ordenadores;
     }
-
-  
-
 
     public String getNombre() {
         return nombre;
@@ -65,7 +62,7 @@ public class gestionOrdenador extends ActionSupport {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
+
     public Ordenador getOrdenador() {
         return ordenador;
     }
@@ -74,8 +71,6 @@ public class gestionOrdenador extends ActionSupport {
         this.ordenador = ordenador;
     }
 
-  
-
     public String getOperacion() {
         return operacion;
     }
@@ -83,61 +78,55 @@ public class gestionOrdenador extends ActionSupport {
     public void setOperacion(String operacion) {
         this.operacion = operacion;
     }
-/*
+
+    /**/
     public String execute() throws Exception {
-        if (getNombre()!= null) {
-            ordenadorDAO = new OrdenadorDAO();
-            ordenador = ordenadorDAO.read(getNombre());
-        }
+
+        ordenador = ordenadorClient.find_XML(Ordenador.class, getNombre());
         return operacion;
     }
-*/
+
     public String alta() throws ParseException {
         recursoClient.create_XML("<recurso>"
                 + "<disponible>true</disponible>"
                 + "</recurso>");
 
         Recurso[] r = recursoClient.findAll_XML(Recurso[].class);
-        
+
         ordenadorClient.create_XML("<ordenador>"
                 + "<idRecurso>"
-                + "<id>"+r[r.length-1].getId()+"</id>"
+                + "<id>" + r[r.length - 1].getId() + "</id>"
                 + "</idRecurso>"
-                + "<nombre>"+getNombre()+"</nombre>"
+                + "<nombre>" + getNombre() + "</nombre>"
                 + "</ordenador>");
-        
-        ordenadores = ordenadorClient.findAll_XML(Ordenador[].class);
-        
+
+        ordenadores = Arrays.asList(ordenadorClient.findAll_XML(Ordenador[].class));
+
         return SUCCESS;
     }
 
     public String baja() {
-       if (getNombre()!= null) {
+        if (getNombre() != null) {
             ordenadorClient.remove(getNombre());
-            ordenadores = ordenadorClient.findAll_XML(Ordenador[].class);
-            
+            ordenadores = Arrays.asList(ordenadorClient.findAll_XML(Ordenador[].class));
+
             return SUCCESS;
         }
         return ERROR;
     }
 
-    public String consultar() {
-        ordenadorDAO = new OrdenadorDAO();
-        ordenador = ordenadorDAO.read(getNombre());
-        return SUCCESS;
-    }
 
     public String modificar() throws ParseException {
-        System.out.println("Ordenador :" + getNombre());
+        if (getNombre() != null) {
+            ordenadorClient.create_XML("<ordenador>"
+                    + "<nombre>" + getNombre() + "</nombre>"
+                    + "</ordenador>");
 
-        ordenadorDAO = new OrdenadorDAO();
-        ordenador = ordenadorDAO.read(getNombre());
-        
-        ordenador.setNombre(getNombre());
-        
-        ordenadores = ordenadorDAO.list();
-        return SUCCESS;
+            ordenadores = Arrays.asList(ordenadorClient.findAll_XML(Ordenador[].class));
+
+            return SUCCESS;
+        }
+        return ERROR;
     }
 
 }
-
