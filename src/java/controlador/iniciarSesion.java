@@ -98,6 +98,8 @@ public class iniciarSesion extends ActionSupport {
                 SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
                 String fechaFormateada = formatoFecha.format(fechaActual);
                 String horaFormateada = formatoHora.format(fechaActual);
+                
+                System.out.println("Correo: "+usuario.getCorreo());
 
                 EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
                 client.enviarCorreo(String.class,
