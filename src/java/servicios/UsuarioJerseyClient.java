@@ -5,7 +5,6 @@
  */
 package servicios;
 
-import entidades.Rol;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;

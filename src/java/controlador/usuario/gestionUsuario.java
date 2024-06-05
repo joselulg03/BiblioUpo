@@ -5,8 +5,6 @@ import entidades.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import javax.ws.rs.core.GenericType;
 import servicios.*;
 
 public class gestionUsuario extends ActionSupport {
@@ -28,13 +26,9 @@ public class gestionUsuario extends ActionSupport {
     private int idRol;
 
     private Usuario usuario;
-    private List<Usuario> usuarios;
+    private Usuario [] usuarios;
 
-    private List<Rol> roles;
-    
-    GenericType<List<Usuario>> gtu = new GenericType<List<Usuario>>(){};
-    
-    GenericType<List<Rol>> gtr = new GenericType<List<Rol>>(){};
+    private Rol[] roles;
 
     public gestionUsuario() {
     }
@@ -112,11 +106,11 @@ public class gestionUsuario extends ActionSupport {
         this.usuario = usuario;
     }
 
-    public List<Usuario> getUsuarios() {
+    public Usuario[] getUsuarios() {
         return usuarios;
     }
 
-    public void setUsuarios(List<Usuario> usuarios) {
+    public void setUsuarios(Usuario[] usuarios) {
         this.usuarios = usuarios;
     }
 
@@ -136,11 +130,11 @@ public class gestionUsuario extends ActionSupport {
         this.rol = rol;
     }
 
-    public List<Rol> getRoles() {
+    public Rol[] getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Rol> roles) {
+    public void setRoles(Rol[] roles) {
         this.roles = roles;
     }
 
@@ -152,22 +146,6 @@ public class gestionUsuario extends ActionSupport {
         this.idRol = idRol;
     }
 
-    public GenericType<List<Usuario>> getGtu() {
-        return gtu;
-    }
-
-    public void setGtu(GenericType<List<Usuario>> gtu) {
-        this.gtu = gtu;
-    }
-
-    public GenericType<List<Rol>> getGtr() {
-        return gtr;
-    }
-
-    public void setGtr(GenericType<List<Rol>> gtr) {
-        this.gtr = gtr;
-    }
-
     public EmailAutomaticoJerseyClient getClient() {
         return client;
     }
@@ -177,10 +155,9 @@ public class gestionUsuario extends ActionSupport {
     }
     
     
-    
 
     public String execute() throws Exception {
-        roles = (List<Rol>)rolClient.findAll_XML(gtr.getClass());
+        roles = rolClient.findAll_XML(Rol[].class);
 
         if (getDni() != null) {
             usuario = usuarioClient.find_XML(Usuario.class, dni);
@@ -210,7 +187,7 @@ public class gestionUsuario extends ActionSupport {
         
         
 
-        usuarios = (List<Usuario>)usuarioClient.findAll_XML(gtu.getClass());
+        usuarios = usuarioClient.findAll_XML(Usuario[].class);
         
         client.enviarCorreo(String.class,
                 getCorreo(),
@@ -224,7 +201,7 @@ public class gestionUsuario extends ActionSupport {
     public String baja() {
         usuarioClient.remove(getDni());
         
-        usuarios = (List<Usuario>)usuarioClient.findAll_XML(gtu.getClass());
+        usuarios = usuarioClient.findAll_XML(Usuario[].class);
 
         client.enviarCorreo(String.class,
                 getCorreo(),
@@ -254,7 +231,7 @@ public class gestionUsuario extends ActionSupport {
 
         client.enviarCorreo(String.class, "", "BiblioUpo ha actualizado su perfil", "Hola " + getNombre() + " " + getApellidos() + ", el administrador de BiblioUpo ha modificado su perfil. Su nueva contraseña es " + getPassword() + ".");
 
-        usuarios = (List<Usuario>)usuarioClient.findAll_XML(gtu.getClass());
+        usuarios = usuarioClient.findAll_XML(Usuario[].class);
         return SUCCESS;
     }
 

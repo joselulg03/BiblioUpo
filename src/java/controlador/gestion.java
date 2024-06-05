@@ -16,15 +16,10 @@ public class gestion extends ActionSupport {
     private String entidad;
     private String rol;
     
-    GenericType<List<Usuario>> gtu = new GenericType<List<Usuario>>(){};
-    GenericType<List<Libro>> gtl = new GenericType<List<Libro>>(){};
-    GenericType<List<Sala>> gts = new GenericType<List<Sala>>(){};
-    GenericType<List<Ordenador>> gto = new GenericType<List<Ordenador>>(){};
-    
-    private List<Usuario> usuarios;
-    private List<Libro> libros;
-    private List<Sala> salas;
-    private List<Ordenador> ordenadores;
+    private Usuario[] usuarios;
+    private Libro[] libros;
+    private Sala[] salas;
+    private Ordenador[] ordenadores;
     
     public gestion() {
     }
@@ -45,37 +40,39 @@ public class gestion extends ActionSupport {
         this.rol = rol;
     }
 
-    public List<Usuario> getUsuarios() {
+    public Usuario[] getUsuarios() {
         return usuarios;
     }
 
-    public void setUsuarios(List<Usuario> usuarios) {
+    public void setUsuarios(Usuario[] usuarios) {
         this.usuarios = usuarios;
     }
 
-    public List<Libro> getLibros() {
+    public Libro[] getLibros() {
         return libros;
     }
 
-    public void setLibros(List<Libro> libros) {
+    public void setLibros(Libro[] libros) {
         this.libros = libros;
     }
 
-    public List<Sala> getSalas() {
+    public Sala[] getSalas() {
         return salas;
     }
 
-    public void setSalas(List<Sala> salas) {
+    public void setSalas(Sala[] salas) {
         this.salas = salas;
     }
-    
-    public List<Ordenador> getOrdenadores() {
+
+    public Ordenador[] getOrdenadores() {
         return ordenadores;
     }
 
-    public void setOrdenadores(List<Ordenador> ordenadores) {
+    public void setOrdenadores(Ordenador[] ordenadores) {
         this.ordenadores = ordenadores;
     }
+
+    
 
     public UsuarioJerseyClient getUsuarioClient() {
         return usuarioClient;
@@ -108,54 +105,18 @@ public class gestion extends ActionSupport {
     public void setOrdenadorClient(OrdenadorJerseyClient ordenadorClient) {
         this.ordenadorClient = ordenadorClient;
     }
-
-    
-
-    public GenericType<List<Usuario>> getGtu() {
-        return gtu;
-    }
-
-    public void setGtu(GenericType<List<Usuario>> gtu) {
-        this.gtu = gtu;
-    }
-
-    public GenericType<List<Libro>> getGtl() {
-        return gtl;
-    }
-
-    public void setGtl(GenericType<List<Libro>> gtl) {
-        this.gtl = gtl;
-    }
-
-    public GenericType<List<Sala>> getGts() {
-        return gts;
-    }
-
-    public void setGts(GenericType<List<Sala>> gts) {
-        this.gts = gts;
-    }
-
-    public GenericType<List<Ordenador>> getGto() {
-        return gto;
-    }
-
-    public void setGto(GenericType<List<Ordenador>> gto) {
-        this.gto = gto;
-    }
-    
-    
     
     
     public String execute() throws Exception {
         if(entidad.equals("usuarios")){
-            usuarios = (List<Usuario>)usuarioClient.findAll_XML(gtu.getClass());
+            usuarios = usuarioClient.findAll_XML(Usuario[].class);
         }
         else if(entidad.equals("libros")){
-            libros = (List<Libro>)libroClient.findAll_XML(gtl.getClass());
+            libros = libroClient.findAll_XML(Libro[].class);
         } else if(entidad.equals("salas")){
-            salas = (List<Sala>)salaClient.findAll_XML(gts.getClass());
+            salas = salaClient.findAll_XML(Sala[].class);
         } else if(entidad.equals("ordenadores")){
-            ordenadores = (List<Ordenador>)ordenadorClient.findAll_XML(gto.getClass());
+            ordenadores = ordenadorClient.findAll_XML(Ordenador[].class);
         }
         return entidad;
     }
