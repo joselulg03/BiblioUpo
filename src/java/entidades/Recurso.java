@@ -65,7 +65,8 @@ public class Recurso implements Serializable {
         this.id = id;
     }
 
-    public Recurso(boolean disponible) {
+    public Recurso(Integer id, boolean disponible) {
+        this.id = id;
         this.disponible = disponible;
     }
 
