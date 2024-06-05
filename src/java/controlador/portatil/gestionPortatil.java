@@ -13,7 +13,7 @@ import entidades.Recurso;
 import entidades.SistemaOperativo;
 import entidades.Usuario;
 import javax.ws.rs.core.GenericType;
-import servicios.JerseyClient;
+import servicios.SistemaOperativoJerseyClient;
 
 /**
  *
@@ -24,7 +24,7 @@ public class gestionPortatil {
     private String operacion;
 
     private JerseyClient portatilClient = new JerseyClient("portatil");
-    private JerseyClient sistemaOperativoClient = new JerseyClient("sistemaOperativo");
+    private SistemaOperativoJerseyClient sistemaOperativoClient = new JSistemaOperativoerseyClient();
     private JerseyClient recursoClient = new JerseyClient("recurso");
 
     private String numSerie;
