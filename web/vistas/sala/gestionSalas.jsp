@@ -29,20 +29,33 @@
             <h1>Área de Gestión de Salas</h1>
             <h2>Rol: <s:property value="#session.rol.tipo" /></h2>
 
+
+            <s:if test="#session.rol.tipo.equals('Administrador')">
+                <s:form action="formGestionSala" method="post" class="form-inline">
+                    <s:hidden name="operacion" value="alta" />
+                    <s:submit value="Alta" cssClass="btn btn-primary mr-2" />
+                </s:form>
+            </s:if>
             <s:form action="volverGestionEntidades" method="post">
                 <s:submit value="Volver" cssClass="btn btn-secondary mt-3" />
             </s:form>
 
-            <s:form action="formGestionSala" method="post" class="form-inline">
-                <s:hidden name="operacion" value="alta" />
-                <s:submit value="Alta" cssClass="btn btn-primary mr-2" />
+            <h2>Buscar</h2>
+            <s:form action="filtrarSala" method="post">
+                <s:textfield name="filtro" />
+                <s:select label="Filtrar por" name="aforo" list="{'1', '2', '3'}" />
+                <s:submit value="Buscar" cssClass="btn btn-primary" />
             </s:form>
 
+            <hr>
             <s:if test="salas != null">
                 <table>
                     <thead>
                         <tr>
                             <th>Nombre</th>
+                        </tr>
+                        <tr>
+                            <th>Aforo</th>
                         </tr>
                     </thead>
 
@@ -50,26 +63,30 @@
                         <s:iterator value="salas">
                             <tr>
                                 <td><s:property value="nombre" /></td>
+                                <td><s:property value="aforo" /></td>
                                 <td>
-                                    <s:form action="bajaSala" method="post" cssClass="form-inline">
-                                        <s:hidden name="nombre" value="%{nombre}" />
-                                        <s:submit value="Baja" cssClass="btn btn-danger mr-2" />
-                                    </s:form>
+                                    <s:if test="#session.rol.tipo.equals('Administrador')">
+                                        <s:form action="bajaSala" method="post" cssClass="form-inline">
+                                            <s:hidden name="nombre" value="%{nombre}" />
+                                            <s:submit value="Baja" cssClass="btn btn-danger mr-2" />
+                                        </s:form>
 
-                                    <s:form action="formGestionSala" method="post" cssClass="form-inline">
-                                        <s:hidden name="nombre" value="%{nombre}" />
-                                        <s:hidden name="operacion" value="modificacion" />
-                                        <s:submit value="Modificar" cssClass="btn btn-warning mr-2" />
-                                    </s:form>
-
+                                        <s:form action="formGestionSala" method="post" cssClass="form-inline">
+                                            <s:hidden name="nombre" value="%{nombre}" />
+                                            <s:hidden name="operacion" value="modificacion" />
+                                            <s:submit value="Modificar" cssClass="btn btn-warning mr-2" />
+                                        </s:form>
+                                    </s:if>
                                     <s:form action="consultarSala" method="post" cssClass="form-inline">
                                         <s:hidden name="nombre" value="%{nombre}" />
                                         <s:submit value="Consultar" cssClass="btn btn-info" />
                                     </s:form>
-                                    <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                        <s:hidden name="idRecurso" value="%{sala.recurso.id}" />
-                                        <s:submit value="Reservar" cssClass="text-center mb-0" />
-                                    </s:form>
+                                    <s:if test="%{#libro.cantidad > 0}">
+                                        <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
+                                            <s:hidden name="idRecurso" value="%{sala.recurso.id}" />
+                                            <s:submit value="Reservar" cssClass="text-center mb-0" />
+                                        </s:form>
+                                    </s:if>
                                 </td>
                             </tr>
                         </s:iterator>

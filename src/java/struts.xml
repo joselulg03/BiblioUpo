@@ -120,6 +120,11 @@
             <result name="success">/vistas/sala/gestionSalas.jsp</result>
         </action>
         
+        <action name="filtrarSala" class="controlador.sala.gestionSala" method="consultar">
+            <result name="success">/vistas/sala/gestionSalas.jsp</result>
+            <result name="error">/vistas/sala/gestionSalas.jsp</result>
+        </action>
+        
         <action name="modificacionSala" class="controlador.sala.gestionSala" method="modificar">
             <result name="success">/vistas/sala/gestionSalas.jsp</result>
         </action>
