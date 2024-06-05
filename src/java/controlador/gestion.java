@@ -2,8 +2,6 @@ package controlador;
 
 import entidades.*;
 import com.opensymphony.xwork2.ActionSupport;
-import java.util.List;
-import javax.ws.rs.core.GenericType;
 import servicios.*;
 
 public class gestion extends ActionSupport {
