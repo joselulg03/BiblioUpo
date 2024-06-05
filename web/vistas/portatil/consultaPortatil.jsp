@@ -43,20 +43,16 @@
             <p><s:property value="portatil.modelo" /></p>
         </div>
         <div class="container">
-            <h2>Marca</h2>
-            <p><s:property value="portatil.marca" /></p>
-        </div>
-        <div class="container">
             <h2>Número de serie</h2>
             <p><s:property value="portatil.numSerie" /></p>
         </div>
         <div class="container">
             <h2>Sistema Operativo</h2>
-            <p><s:property value="portatil.sistemaOperativo.nombre" /></p>
+            <p><s:property value="portatil.idSistemaOperativo.nombre" /></p>
         </div>
         <div class="container">
             <h2>Disponible</h2>
-            <p><s:property value="portatil.recurso.disponible" /></p>
+            <p><s:property value="portatil.idRecurso.disponible" /></p>
         </div>
     </body>
 </html>
