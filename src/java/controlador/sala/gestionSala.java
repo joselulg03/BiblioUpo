@@ -5,11 +5,10 @@
  */
 package controlador.sala;
 
-import DAO.SalaDAO;
 import com.opensymphony.xwork2.ActionSupport;
 import java.text.ParseException;
-import java.util.List;
-import modelo.Sala;
+import servicios.*;
+import entidades.*;
 
 /**
  *
@@ -19,25 +18,41 @@ public class gestionSala extends ActionSupport {
 
     private String operacion;
 
-    private SalaDAO salaDAO;
+    private SalaJerseyClient salaClient = new SalaJerseyClient();
+    private RecursoJerseyClient recursoClient = new RecursoJerseyClient();
 
     private String nombre;
     private int aforo;
 
     private Sala sala;
-    private List<Sala> salas;
+    private Sala[] salas;
 
     public gestionSala() {
     }
 
-    public SalaDAO getSalaDAO() {
-        return salaDAO;
+    public SalaJerseyClient getSalaClient() {
+        return salaClient;
     }
 
-    public void setSalaDAO(SalaDAO salaDAO) {
-        this.salaDAO = salaDAO;
+    public void setSalaClient(SalaJerseyClient salaClient) {
+        this.salaClient = salaClient;
     }
 
+    public RecursoJerseyClient getRecursoClient() {
+        return recursoClient;
+    }
+
+    public void setRecursoClient(RecursoJerseyClient recursoClient) {
+        this.recursoClient = recursoClient;
+    }
+
+    public Sala[] getSalas() {
+        return salas;
+    }
+
+    public void setSalas(Sala[] salas) {
+        this.salas = salas;
+    }
 
     public String getNombre() {
         return nombre;
@@ -46,8 +61,8 @@ public class gestionSala extends ActionSupport {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-     public int getAforo() {
+
+    public int getAforo() {
         return aforo;
     }
 
@@ -63,14 +78,6 @@ public class gestionSala extends ActionSupport {
         this.sala = sala;
     }
 
-    public List<Sala> getSalas() {
-        return salas;
-    }
-
-    public void setSalas(List<Sala> salas) {
-        this.salas = salas;
-    }
-
     public String getOperacion() {
         return operacion;
     }
@@ -79,30 +86,43 @@ public class gestionSala extends ActionSupport {
         this.operacion = operacion;
     }
 
+    /*
     public String execute() throws Exception {
         if (getNombre()!= null) {
             salaDAO = new SalaDAO();
             sala = salaDAO.read(getNombre());
         }
         return operacion;
-    }
+    }*/
 
     public String alta() throws ParseException {
-       // salaDAO = new SalaDAO();
-        
-       // salaDAO.create(new Sala(getNombre(), getAforo()));
-      //  salas = salaDAO.list();
+        recursoClient.create_XML("<recurso>"
+                + "<disponible>true</disponible>"
+                + "</recurso>");
+
+        Recurso[] r = recursoClient.findAll_XML(Recurso[].class);
+
+        salaClient.create_XML("<sala>"
+                + "<aforo>" + getAforo() + "</aforo>"
+                + "<idRecurso>"
+                + "<id>" + r[r.length - 1].getId() + "</id>"
+                + "</idRecurso>"
+                + "<nombre>" + getNombre() + "</nombre>"
+                + "</sala>");
+
+        salas = salaClient.findAll_XML(Sala[].class);
 
         return SUCCESS;
     }
 
     public String baja() {
-        salaDAO = new SalaDAO();
-        sala = salaDAO.read(getNombre());
-        salaDAO.delete(sala);
-        salas = salaDAO.list();
-        
-        return SUCCESS;
+        if (getNombre() != null) {
+            salaClient.remove(getNombre());
+            salas = salaClient.findAll_XML(Sala[].class);
+            
+            return SUCCESS;
+        }
+        return ERROR;
     }
 
     public String consultar() {
@@ -116,12 +136,11 @@ public class gestionSala extends ActionSupport {
 
         salaDAO = new SalaDAO();
         sala = salaDAO.read(getNombre());
-        
+
         sala.setNombre(getNombre());
-        
+
         salas = salaDAO.list();
         return SUCCESS;
     }
 
 }
-
