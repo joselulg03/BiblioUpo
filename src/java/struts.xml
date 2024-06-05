@@ -39,7 +39,7 @@
             <result name="ordenadores">/vistas/ordenador/gestionOrdenadores.jsp</result>
             <result name="portatiles">/vistas/portatil/gestionPortatil.jsp</result>
             <result name="reservas">/gestionReservas.jsp</result>
-            <result name="refuerzos">/gestionRefuerzos.jsp</result>
+            <result name="refuerzos">/vistas/refuerzo/gestionRefuerzo.jsp</result>
         </action>
         
         
@@ -200,7 +200,7 @@
         </action>
         
         <action name="modificacionPortatil" class="controlador.portatil.gestionPortatil" method="modificar">
-            <result name="modificado">/vistas/portatil/gestionPortatil.jsp</result>
+            <result name="success">/vistas/portatil/gestionPortatil.jsp</result>
         </action>
     </package>
 </struts>

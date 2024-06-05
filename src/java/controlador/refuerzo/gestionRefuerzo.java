@@ -12,6 +12,7 @@ import entidades.Refuerzo;
 import entidades.Sala;
 import entidades.Usuario;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.List;
 import javax.ws.rs.core.GenericType;
 import servicios.RefuerzoJerseyClient;
@@ -39,18 +40,15 @@ public class gestionRefuerzo extends ActionSupport{
     private Recurso recurso;
     private Usuario usuario;
     private Sala sala;
-
+    
     private String idRecurso;
     private String dniUsuario;
-    private String idSala;
+    private String nombreSala;
 
     private List<Refuerzo> refuerzos;
     private List<Usuario> usuarios;
     private List<Sala> salas;
 
-    GenericType<List<Usuario>> gtu = new GenericType<List<Usuario>>() {};
-    GenericType<List<Refuerzo>> gtr = new GenericType<List<Refuerzo>>() {};
-    GenericType<List<Sala>> gts = new GenericType<List<Sala>>() {};
 
     public gestionRefuerzo() {
     }
@@ -135,12 +133,12 @@ public class gestionRefuerzo extends ActionSupport{
         this.dniUsuario = dniUsuario;
     }
 
-    public String getIdSala() {
-        return idSala;
+    public String getNombreSala() {
+        return nombreSala;
     }
 
-    public void setIdSala(String idSala) {
-        this.idSala = idSala;
+    public void setNombreSala(String nombreSala) {
+        this.nombreSala = nombreSala;
     }
 
     public List<Refuerzo> getRefuerzos() {
@@ -165,30 +163,6 @@ public class gestionRefuerzo extends ActionSupport{
 
     public void setSalas(List<Sala> salas) {
         this.salas = salas;
-    }
-
-    public GenericType<List<Usuario>> getGtu() {
-        return gtu;
-    }
-
-    public void setGtu(GenericType<List<Usuario>> gtu) {
-        this.gtu = gtu;
-    }
-
-    public GenericType<List<Refuerzo>> getGtr() {
-        return gtr;
-    }
-
-    public void setGtr(GenericType<List<Refuerzo>> gtr) {
-        this.gtr = gtr;
-    }
-
-    public GenericType<List<Sala>> getGts() {
-        return gts;
-    }
-
-    public void setGts(GenericType<List<Sala>> gts) {
-        this.gts = gts;
     }
 
     public RefuerzoJerseyClient getRefuerzoClient() {
@@ -216,11 +190,9 @@ public class gestionRefuerzo extends ActionSupport{
     }
 
     public String execute() throws Exception {
-        salas = (List<Sala>)salaClient.findAll_XML(gts.getClass());
-        usuarios = (List<Usuario>)usuarioClient.findAll_XML(gtu.getClass());
-        if (getId() != null) {
-            refuerzo = refuerzoClient.find_XML(Refuerzo.class, getId());
-        }
+        salas = Arrays.asList(salaClient.findAll_XML(Sala[].class));
+        usuarios = Arrays.asList(usuarioClient.findAll_XML(Usuario[].class));
+        refuerzo = refuerzoClient.find_XML(Refuerzo.class, getId());
         return operacion;
     }
     

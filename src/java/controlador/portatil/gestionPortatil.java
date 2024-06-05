@@ -233,6 +233,6 @@ public class gestionPortatil extends ActionSupport{
         
         portatiles = Arrays.asList(portatilClient.findAll_XML(Portatil[].class));
         
-        return "modificado";
+        return SUCCESS;
     }
 }

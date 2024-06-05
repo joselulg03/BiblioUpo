@@ -13,6 +13,7 @@ public class gestion extends ActionSupport {
     private SalaJerseyClient salaClient = new SalaJerseyClient();
     private OrdenadorJerseyClient ordenadorClient = new OrdenadorJerseyClient();
     private PortatilJerseyClient portatilClient = new PortatilJerseyClient();
+    private RefuerzoJerseyClient refuerzoClient = new RefuerzoJerseyClient();
     
     private String entidad;
     private String rol;
@@ -22,6 +23,7 @@ public class gestion extends ActionSupport {
     private Sala[] salas;
     private Ordenador[] ordenadores;
     private Portatil[] portatiles;
+    private Refuerzo[] refuerzos;
     
     public gestion() {
     }
@@ -125,6 +127,22 @@ public class gestion extends ActionSupport {
     public void setPortatiles(Portatil[] portatiles) {
         this.portatiles = portatiles;
     }
+
+    public RefuerzoJerseyClient getRefuerzoClient() {
+        return refuerzoClient;
+    }
+
+    public void setRefuerzoClient(RefuerzoJerseyClient refuerzoClient) {
+        this.refuerzoClient = refuerzoClient;
+    }
+
+    public Refuerzo[] getRefuerzos() {
+        return refuerzos;
+    }
+
+    public void setRefuerzos(Refuerzo[] refuerzos) {
+        this.refuerzos = refuerzos;
+    }
     
     
     
@@ -142,6 +160,9 @@ public class gestion extends ActionSupport {
         }
         else if (entidad.equals("portatiles")) {
             portatiles = portatilClient.findAll_XML(Portatil[].class);
+        }
+        else if (entidad.equals("refuerzos")) {
+            refuerzos = refuerzoClient.findAll_XML(Refuerzo[].class);
         }
         return entidad;
     }

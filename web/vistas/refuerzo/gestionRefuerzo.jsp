@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestión Portatiles</title>
+        <title>Gestión Refuerzos</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- basic -->
         <meta charset="utf-8">
@@ -38,52 +38,56 @@
     </head>
     <body>
         <div class="container">
-            <h1>Área Gestión de Portatiles</h1>
+            <h1>Área Gestión de Refuerzos</h1>
             <h2>Rol: <s:property value="#session.rol.tipo" /></h2>
 
             <s:form action="volverGestionEntidades" method="post">
                 <s:submit value="Volver" cssClass="btn btn-secondary mt-3" />
             </s:form>
 
-            <s:form action="formGestionPortatil" method="post" class="form-inline">
+            <s:form action="formGestionRefuerzo" method="post" class="form-inline">
                 <s:hidden name="operacion" value="alta" />
                 <s:submit value="Alta" cssClass="btn btn-primary mr-2" />
             </s:form>
 
-            <s:if test="portatiles != null">
+            <s:if test="refuerzos != null">
                 <table border="1">
                     <thead>
                         <tr>
-                            <th>Número de Serie</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Sistema Operativo</th>
+                            <th>ID</th>
+                            <th>Asignatura</th>
+                            <th>Descripcion</th>
+                            <th>Usuario</th>
                             <th>¿Disponible?</th>
+                            <th>Sala</th>
+                            <th>Tipo</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <s:iterator value="portatiles">
+                        <s:iterator value="refuerzos">
                             <tr>
-                                <td><s:property value="numSerie" /></td>
-                                <td><s:property value="marca" /></td>
-                                <td><s:property value="modelo" /></td>
-                                <td><s:property value="idSistemaOperativo.nombre" /></td>
+                                <td><s:property value="id" /></td>
+                                <td><s:property value="asignatura" /></td>
+                                <td><s:property value="descripcion" /></td>
+                                <td><s:property value="dniUsuario.nombre" /></td>
                                 <td><s:property value="idRecurso.disponible" /></td>
+                                <td><s:property value="nombreSala.nombre" /></td>
+                                <td><s:property value="tipo" /></td>
                                 <td>
-                                    <s:form action="bajaPortatil" method="post" cssClass="form-inline">
-                                        <s:hidden name="numSerie" value="%{numSerie}" />
+                                    <s:form action="bajaRefuerzo" method="post" cssClass="form-inline">
+                                        <s:hidden name="id" value="%{id}" />
                                         <s:submit value="Baja" cssClass="btn btn-danger mr-2" />
                                     </s:form>
 
-                                    <s:form action="formGestionPortatil" method="post" cssClass="form-inline">
-                                        <s:hidden name="numSerie" value="%{numSerie}" />
+                                    <s:form action="formGestionRefuerzo" method="post" cssClass="form-inline">
+                                        <s:hidden name="id" value="%{id}" />
                                         <s:hidden name="operacion" value="modificacion" />
                                         <s:submit value="Modificar" cssClass="btn btn-warning mr-2" />
                                     </s:form>
 
-                                    <s:form action="consultarPortatil" method="post" cssClass="form-inline">
-                                        <s:hidden name="numSerie" value="%{numSerie}" />
+                                    <s:form action="consultarRefuerzo" method="post" cssClass="form-inline">
+                                        <s:hidden name="id" value="%{id}" />
                                         <s:submit value="Consultar" cssClass="btn btn-info" />
                                     </s:form>
                                 </td>
@@ -93,7 +97,7 @@
                 </table>
             </s:if>
             <s:else>
-                <p>No hay ordenadores que mostrar.</p>
+                <p>No hay refuerzos que mostrar.</p>
             </s:else>
         </div>
     </body>
