@@ -38,6 +38,7 @@ public class gestionPortatil extends ActionSupport{
     private String modelo;
     
     private int idSistemaOperativo;
+    private String numSeriePortatil;
 
     private Portatil portatil;
     private List<Portatil> portatiles;
@@ -151,12 +152,18 @@ public class gestionPortatil extends ActionSupport{
         this.sistemasOperativos = sistemasOperativos;
     }
 
+    public String getNumSeriePortatil() {
+        return numSeriePortatil;
+    }
+
+    public void setNumSeriePortatil(String numSeriePortatil) {
+        this.numSeriePortatil = numSeriePortatil;
+    }
+
     public String execute() throws Exception {
 
         sistemasOperativos = Arrays.asList(sistemaOperativoClient.findAll_XML(SistemaOperativo[].class));
-        if (getNumSerie() != null) {
-            portatil = portatilClient.find_XML(Portatil.class, getNumSerie());
-        }
+        portatil = portatilClient.find_XML(Portatil.class, getNumSerie());
         return operacion;
     }
 
@@ -208,7 +215,7 @@ public class gestionPortatil extends ActionSupport{
             + "<id_sistema_operativo>"
             + "<id>"+getIdSistemaOperativo()+"</id>"
             +"</id_sistema_operativo>"         
-            + "</portatil>", getNumSerie());
+            + "</portatil>", getNumSeriePortatil());
         
         portatiles = Arrays.asList(portatilClient.findAll_XML(Portatil[].class));
         return SUCCESS;

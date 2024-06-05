@@ -39,16 +39,25 @@
         <div class="container">
             <s:form action="modificacionPortatil" method="post">
                 <s:hidden name="numSerie" value="%{portatil.numSerie}" />
-                <s:textfield label="Número de Serie" name="numSerie" value="%{portatil.numSerie}" />
-                <s:textfield label="Marca" name="marca" value="%{portatil.marca}" />
-                <s:textfield label="Modelo" name="modelo" value="%{portatil.modelo}" />
+                <div class="form-group">
+                    <s:label for="numSeriePortatil" value="Número de serie:" />
+                    <s:textfield name="numSeriePortatil" id = "numSeriePortatil" value="%{portatil.numSerie}" />
+                </div>
+                <div class="form-group">
+                    <s:label for="marca" value="Marca:" />
+                    <s:textfield name="marca" id = "marca" value="%{portatil.marca}" />
+                </div>
+                <div class="form-group">
+                    <s:label for="modelo" value="Modelo:" />
+                    <s:textfield name="modelo" id = "modelo" value="%{portatil.modelo}" />
+                </div>
                 <div class="form-group">
                     <s:label for="idSistemaOperativo" value="Sistema Operativo" />
-                    <s:select name="idSistemaOperativo" list="sistemasOperativos" listKey="id" listValue="nombre" value="%{portatil.sistemaOperativo.id}" cssClass="form-control" headerKey="" headerValue="Selecciona un Sistema Operativo"/>
+                    <s:select name="idSistemaOperativo" list="sistemasOperativos" listKey="id" listValue="nombre" value="%{portatil.iDsistemaOperativo.id}" cssClass="form-control" headerKey="" headerValue="Selecciona un Sistema Operativo"/>
                 </div>
                 <div class="form-group">
                     <s:label for="disponible" value="Disponible" />
-                    <s:radio name="disponible" list="#{'true':'Sí', 'false':'No'}" value="%{portatil.recurso.disponible}"  />
+                    <s:radio name="disponible" list="#{'true':'Sí', 'false':'No'}" value="%{portatil.iDrecurso.disponible}"  />
                 </div>
                 <s:submit value="Guardar" />
             </s:form>

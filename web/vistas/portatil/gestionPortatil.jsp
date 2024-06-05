@@ -70,18 +70,18 @@
                                 <td><s:property value="sistemaOperativo.nombre" /></td>
                                 <td>
                                     <s:form action="bajaPortatil" method="post" cssClass="form-inline">
-                                        <s:hidden name="nombre" value="%{numSerie}" />
+                                        <s:hidden name="numSerie" value="%{numSerie}" />
                                         <s:submit value="Baja" cssClass="btn btn-danger mr-2" />
                                     </s:form>
 
                                     <s:form action="formGestionPortatil" method="post" cssClass="form-inline">
-                                        <s:hidden name="nombre" value="%{numSerie}" />
+                                        <s:hidden name="numSerie" value="%{numSerie}" />
                                         <s:hidden name="operacion" value="modificacion" />
                                         <s:submit value="Modificar" cssClass="btn btn-warning mr-2" />
                                     </s:form>
 
                                     <s:form action="consultarPortatil" method="post" cssClass="form-inline">
-                                        <s:hidden name="nombre" value="%{numSerie}" />
+                                        <s:hidden name="numSerie" value="%{numSerie}" />
                                         <s:submit value="Consultar" cssClass="btn btn-info" />
                                     </s:form>
                                 </td>
