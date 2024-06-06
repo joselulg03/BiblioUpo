@@ -38,6 +38,8 @@
         <div class="container">
             <h2>Nombre</h2>
             <p><s:property value="sala.nombre" /></p>
+            <h2>Aforo</h2>
+            <p><s:property value="sala.aforo" /></p>
         </div>
     </body>
 </html>
