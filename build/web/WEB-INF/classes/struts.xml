@@ -28,29 +28,171 @@
             <result name="success">/gestionEntidades.jsp</result>
         </action>
         
+        <action name="contactar" class="controlador.contactar" >
+            <result name="success" type="redirectAction">inicio</result>
+        </action>
+        
         <action name="gestion" class="controlador.gestion">
-            <result name="usuarios">/gestionUsuarios.jsp</result>
-            <result name="libros">/gestionLibros.jsp</result>
-            <result name="salas">/gestionSalas.jsp</result>
-            <result name="ordenadores">/gestionOrdenadores.jsp</result>
-            <result name="portatiles">/gestionPortatiles.jsp</result>
-            <result name="reservas">/gestionReservas.jsp</result>
+            <result name="usuarios">/vistas/usuario/gestionUsuarios.jsp</result>
+            <result name="libros">/vistas/libro/gestionLibros.jsp</result>
+            <result name="salas">/vistas/sala/gestionSalas.jsp</result>
+            <result name="ordenadores">/vistas/ordenador/gestionOrdenadores.jsp</result>
+            <result name="portatiles">/vistas/portatil/gestionPortatil.jsp</result>
+            <result name="reservas">/vistas/reserva/gestionReservas.jsp</result>
             <result name="refuerzos">/gestionRefuerzos.jsp</result>
         </action>
+        
+        
     </package>
     
     <package name="usuario" extends="struts-default">
         <action name="formGestionUsuario" class="controlador.usuario.gestionUsuario">
-            <result name="alta">/altaUsuario.jsp</result>
-            <result name="modificacion">/modificacionUsuario.jsp</result>
+            <result name="formAlta">/vistas/usuario/altaUsuario.jsp</result>
+            <result name="formModificacion">/vistas/usuario/modificacionUsuario.jsp</result>
+        </action>
+        
+        <action name="consultarUsuario" class="controlador.usuario.gestionUsuario" method="consultar">
+            <result name="success">/vistas/usuario/consultaUsuario.jsp</result>
         </action>
         
         <action name="altaUsuario" class="controlador.usuario.gestionUsuario" method="alta">
-            <result name="success">/gestionUsuarios.jsp</result>
+            <result name="success">/vistas/usuario/gestionUsuarios.jsp</result>
+            <result name="input">/vistas/usuario/altaUsuario.jsp</result>
         </action>
         
         <action name="bajaUsuario" class="controlador.usuario.gestionUsuario" method="baja">
-            <result name="success">/gestionUsuarios.jsp</result>
+            <result name="success">/vistas/usuario/gestionUsuarios.jsp</result>
+        </action>
+        
+        <action name="modificacionUsuario" class="controlador.usuario.gestionUsuario" method="modificar">
+            <result name="success">/vistas/usuario/gestionUsuarios.jsp</result>
+        </action>
+    </package>
+    
+    <package name="libro" extends="struts-default">
+        <action name="formGestionLibro" class="controlador.libro.gestionLibro">
+            <result name="alta">/vistas/libro/altaLibro.jsp</result>
+            <result name="modificacion">/vistas/libro/modificacionLibro.jsp</result>
+        </action>
+        
+        <action name="consultarLibro" class="controlador.libro.gestionLibro" method="consultar">
+            <result name="success">/vistas/libro/consultaLibro.jsp</result>
+        </action>
+        
+        <action name="altaLibro" class="controlador.libro.gestionLibro" method="alta">
+            <result name="success">/vistas/libro/gestionLibros.jsp</result>
+        </action>
+        
+        <action name="bajaLibro" class="controlador.libro.gestionLibro" method="baja">
+            <result name="success">/vistas/libro/gestionLibros.jsp</result>
+        </action>
+        
+        <action name="modificacionLibro" class="controlador.libro.gestionLibro" method="modificar">
+            <result name="success">/vistas/libro/gestionLibros.jsp</result>
+        </action>
+        
+        <action name="filtrarLibro" class="controlador.libro.gestionLibro" method="filtrar">
+            <result name="success">/vistas/libro/gestionLibros.jsp</result>
+            <result name="error">/vistas/libro/gestionLibros.jsp</result>
+        </action>
+        
+        <action name="subirImagen" class="controlador.libro.gestionLibro" method="subidaImagen">
+            <result name="success">/vistas/libro/gestionLibros.jsp</result>
+        </action>
+        
+    </package>
+    
+    <package name="sala" extends="struts-default">
+        <action name="formGestionSala" class="controlador.sala.gestionSala">
+            <result name="alta">/vistas/sala/altaSala.jsp</result>
+            <result name="modificacion">/vistas/sala/modificacionSala.jsp</result>
+        </action>
+        
+        <action name="consultarSala" class="controlador.sala.gestionSala" method="consultar">
+            <result name="success">/vistas/sala/consultaSala.jsp</result>
+        </action>
+        
+        <action name="altaSala" class="controlador.sala.gestionSala" method="alta">
+            <result name="success">/vistas/sala/gestionSalas.jsp</result>
+        </action>
+        
+        <action name="bajaSala" class="controlador.sala.gestionSala" method="baja">
+            <result name="success">/vistas/sala/gestionSalas.jsp</result>
+        </action>
+        
+        <action name="modificacionSala" class="controlador.sala.gestionSala" method="modificar">
+            <result name="success">/vistas/sala/gestionSalas.jsp</result>
+        </action>
+    </package>
+    
+    <package name="ordenador" extends="struts-default">
+        <action name="formGestionOrdenador" class="controlador.ordenador.gestionOrdenador">
+            <result name="alta">/vistas/ordenador/altaOrdenador.jsp</result>
+            <result name="modificacion">/vistas/ordenador/modificacionOrdenador.jsp</result>
+        </action>
+        
+        <action name="consultarOrdenador" class="controlador.ordenador.gestionOrdenador" method="consultar">
+            <result name="success">/vistas/ordenador/consultaOrdenador.jsp</result>
+        </action>
+        
+        <action name="altaOrdenador" class="controlador.ordenador.gestionOrdenador" method="alta">
+            <result name="success">/vistas/ordenador/gestionOrdenadores.jsp</result>
+        </action>
+        
+        <action name="bajaOrdenador" class="controlador.ordenador.gestionOrdenador" method="baja">
+            <result name="success">/vistas/ordenador/gestionOrdenadores.jsp</result>
+        </action>
+        
+        <action name="modificacionOrdenador" class="controlador.ordenador.gestionOrdenador" method="modificar">
+            <result name="success">/vistas/ordenador/gestionOrdenadores.jsp</result>
+        </action>
+    </package>
+    
+    <package name="reserva" extends="struts-default">
+        <action name="formGestionReserva" class="controlador.reserva.gestionReserva">
+            <result name="formAlta">/vistas/reserva/altaReserva.jsp</result>
+            <result name="formModificacion">/vistas/reserva/modificacionReserva.jsp</result>
+        </action>
+
+        <action name="consultarReserva" class="controlador.reserva.gestionReserva" method="consultar">
+            <result name="success">/vistas/reserva/consultaReserva.jsp</result>
+        </action>
+
+        <action name="altaReserva" class="controlador.reserva.gestionReserva" method="alta">
+            <result name="success">/vistas/reserva/gestionReservas.jsp</result>
+            <result name="input">/vistas/reserva/altaReserva.jsp</result>
+        </action>
+
+        <action name="bajaReserva" class="controlador.reserva.gestionReserva" method="baja">
+            <result name="success">/vistas/reserva/gestionReservas.jsp</result>
+        </action>
+
+        <action name="modificacionReserva" class="controlador.reserva.gestionReserva" method="modificar">
+            <result name="success">/vistas/reserva/gestionReservas.jsp</result>
+        </action>
+    </package>
+
+
+    <package name="portatil" extends="struts-default">
+        <action name="formGestionPortatil" class="controlador.portatil.gestionPortatil">
+            <result name="alta">/vistas/portatil/altaPortatil.jsp</result>
+            <result name="modificacion">/vistas/portatil/modificacionPortatil.jsp</result>
+        </action>
+        
+        <action name="consultaPortatil" class="controlador.portatil.gestionPortatil" method="consultar">
+            <result name="success">/vistas/portatil/consultaPortatil.jsp</result>
+        </action>
+        
+        <action name="altaPortatil" class="controlador.portatil.gestionPortatil" method="alta">
+            <result name="success">/vistas/portatil/gestionPortatil.jsp</result>
+        </action>
+        
+        <action name="bajaPortatil" class="controlador.portatil.gestionPortatil" method="baja">
+            <result name="success">vistas/portatil/gestionPortatil.jsp</result>
+        </action>
+        
+        <action name="modificacionPortatil" class="controlador.portatil.gestionPortatil" method="modificar">
+            <result name="success">vistas/portatil/gestionPortatil.jsp</result>
         </action>
     </package>
 </struts>
