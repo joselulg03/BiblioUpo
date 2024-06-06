@@ -46,6 +46,7 @@ public class gestionRefuerzo extends ActionSupport{
     private String idRecurso;
     private String dniUsuario;
     private String nombreSala;
+    private String idRefuerzo;
 
     private List<Refuerzo> refuerzos;
     private List<Usuario> usuarios;
@@ -58,6 +59,32 @@ public class gestionRefuerzo extends ActionSupport{
     public String getOperacion() {
         return operacion;
     }
+
+    public RecursoJerseyClient getRecursoClient() {
+        return recursoClient;
+    }
+
+    public void setRecursoClient(RecursoJerseyClient recursoClient) {
+        this.recursoClient = recursoClient;
+    }
+
+    public Refuerzo getRefuerzo() {
+        return refuerzo;
+    }
+
+    public void setRefuerzo(Refuerzo refuerzo) {
+        this.refuerzo = refuerzo;
+    }
+
+    public String getIdRefuerzo() {
+        return idRefuerzo;
+    }
+
+    public void setIdRefuerzo(String idRefuerzo) {
+        this.idRefuerzo = idRefuerzo;
+    }
+    
+    
 
     public void setOperacion(String operacion) {
         this.operacion = operacion;
@@ -242,16 +269,23 @@ public class gestionRefuerzo extends ActionSupport{
     }
     
     public String modificar() throws ParseException {
-        refuerzo = refuerzoClient.find_XML(Refuerzo.class, getId());
+        refuerzoClient.edit_XML("<refuerzo>"
+            + "<id>"+getId()+"</id>"
+            + "<descripcion>"+getDescripcion()+"</descripcion>"    
+            + "<asignatura>"+getAsigantura()+"</asignatura>"  
+            + "<tipo>"+getTipo()+"</tipo>" 
+            + "<idRecurso>"
+            + "<id>"+getIdRecurso()+"</id>"   
+            +"</idRecurso>"
+            + "<dniUsuario>"
+            + "<dni>"+getDniUsuario()+"</dni>"   
+            +"</dniUsuario>"
+            + "<nombreSala>"
+            + "<nombre>"+getNombreSala()+"</nombre>"   
+            +"</nombreSala>" 
+            + "</refuerzo>", getIdRefuerzo());
         
-        refuerzo.setAsignatura(getAsigantura());
-        refuerzo.setDescripcion(getDescripcion());
-        refuerzo.setTipo(getTipo());
-        refuerzo.setDniUsuario(getUsuario());
-        refuerzo.setIdRecurso(getRecurso());
-        refuerzo.setNombreSala(getSala());
-        
-        refuerzos = (List<Refuerzo>)refuerzoClient.findAll_XML(gtr.getClass());
+        refuerzos = Arrays.asList(refuerzoClient.findAll_XML(Refuerzo[].class));
         return SUCCESS;
     }
 }
