@@ -211,7 +211,7 @@
         </action>
         
         <action name="consultarRefuerzo" class="controlador.refuerzo.gestionRefuerzo" method="consultar">
-            <result name="success">/vistas/refuerzo/consultaRefuerzo.jsp</result>
+            <result name="success">/vistas/refuerzo/consultarRefuerzo.jsp</result>
         </action>
         
         <action name="altaRefuerzo" class="controlador.refuerzo.gestionRefuerzo" method="alta">

@@ -37,7 +37,7 @@ public class gestionRefuerzo extends ActionSupport{
 
     private String id;
     private String descripcion;
-    private String asigantura;
+    private String asignatura;
     private String tipo;
     private Recurso recurso;
     private Usuario usuario;
@@ -106,12 +106,12 @@ public class gestionRefuerzo extends ActionSupport{
         this.descripcion = descripcion;
     }
 
-    public String getAsigantura() {
-        return asigantura;
+    public String getAsignatura() {
+        return asignatura;
     }
 
-    public void setAsigantura(String asigantura) {
-        this.asigantura = asigantura;
+    public void setAsignatura(String asignatura) {
+        this.asignatura = asignatura;
     }
 
     public String getTipo() {
@@ -236,7 +236,7 @@ public class gestionRefuerzo extends ActionSupport{
         refuerzoClient.create_XML("<refuerzo>"
             + "<id>"+getId()+"</id>"
             + "<descripcion>"+getDescripcion()+"</descripcion>"    
-            + "<asignatura>"+getAsigantura()+"</asignatura>"  
+            + "<asignatura>"+getAsignatura()+"</asignatura>"  
             + "<tipo>"+getTipo()+"</tipo>" 
             + "<idRecurso>"
             + "<id>"+r[r.length-1].getId()+"</id>"   
@@ -272,7 +272,7 @@ public class gestionRefuerzo extends ActionSupport{
         refuerzoClient.edit_XML("<refuerzo>"
             + "<id>"+getId()+"</id>"
             + "<descripcion>"+getDescripcion()+"</descripcion>"    
-            + "<asignatura>"+getAsigantura()+"</asignatura>"  
+            + "<asignatura>"+getAsignatura()+"</asignatura>"  
             + "<tipo>"+getTipo()+"</tipo>" 
             + "<idRecurso>"
             + "<id>"+getIdRecurso()+"</id>"   
