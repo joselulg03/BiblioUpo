@@ -221,7 +221,9 @@ public class gestionRefuerzo extends ActionSupport{
     public String execute() throws Exception {
         salas = Arrays.asList(salaClient.findAll_XML(Sala[].class));
         usuarios = Arrays.asList(usuarioClient.findAll_XML(Usuario[].class));
-        refuerzo = refuerzoClient.find_XML(Refuerzo.class, getId());
+        if (getId() != null) {
+            refuerzo = refuerzoClient.find_XML(Refuerzo.class, getId());
+        }
         return operacion;
     }
     
