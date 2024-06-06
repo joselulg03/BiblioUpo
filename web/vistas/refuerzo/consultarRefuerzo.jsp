@@ -60,7 +60,7 @@
         </div>
         <div class="container">
             <h2>¿Disponible?</h2>
-            <p><s:property value="refuerzo.idRecurso.dsiponible" /></p>
+            <p><s:property value="refuerzo.idRecurso.disponible" /></p>
         </div>
     </body>
 </html>

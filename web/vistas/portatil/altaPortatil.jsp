@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class="container">
-            <h1>Alta Libro</h1>
+            <h1>Alta Portatil</h1>
             <s:form action="altaPortatil" method="post">
                 <div class="form-group">
                     <s:label for="numSerie" value="Numero de Serie" />

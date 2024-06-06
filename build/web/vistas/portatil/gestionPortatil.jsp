@@ -45,19 +45,20 @@
                 <s:submit value="Volver" cssClass="btn btn-secondary mt-3" />
             </s:form>
 
-            <s:form action="formGestionPortatiles" method="post" class="form-inline">
+            <s:form action="formGestionPortatil" method="post" class="form-inline">
                 <s:hidden name="operacion" value="alta" />
                 <s:submit value="Alta" cssClass="btn btn-primary mr-2" />
             </s:form>
 
             <s:if test="portatiles != null">
-                <table>
+                <table border="1">
                     <thead>
                         <tr>
                             <th>Número de Serie</th>
                             <th>Marca</th>
                             <th>Modelo</th>
                             <th>Sistema Operativo</th>
+                            <th>¿Disponible?</th>
                         </tr>
                     </thead>
 
@@ -67,21 +68,22 @@
                                 <td><s:property value="numSerie" /></td>
                                 <td><s:property value="marca" /></td>
                                 <td><s:property value="modelo" /></td>
-                                <td><s:property value="sistemaOperativo.nombre" /></td>
+                                <td><s:property value="idSistemaOperativo.nombre" /></td>
+                                <td><s:property value="idRecurso.disponible" /></td>
                                 <td>
-                                    <s:form action="bajaOrdenador" method="post" cssClass="form-inline">
-                                        <s:hidden name="nombre" value="%{numSerie}" />
+                                    <s:form action="bajaPortatil" method="post" cssClass="form-inline">
+                                        <s:hidden name="numSerie" value="%{numSerie}" />
                                         <s:submit value="Baja" cssClass="btn btn-danger mr-2" />
                                     </s:form>
 
-                                    <s:form action="formGestionOrdenador" method="post" cssClass="form-inline">
-                                        <s:hidden name="nombre" value="%{numSerie}" />
+                                    <s:form action="formGestionPortatil" method="post" cssClass="form-inline">
+                                        <s:hidden name="numSerie" value="%{numSerie}" />
                                         <s:hidden name="operacion" value="modificacion" />
                                         <s:submit value="Modificar" cssClass="btn btn-warning mr-2" />
                                     </s:form>
 
-                                    <s:form action="consultarOrdenador" method="post" cssClass="form-inline">
-                                        <s:hidden name="nombre" value="%{numSerie}" />
+                                    <s:form action="consultarPortatil" method="post" cssClass="form-inline">
+                                        <s:hidden name="numSerie" value="%{numSerie}" />
                                         <s:submit value="Consultar" cssClass="btn btn-info" />
                                     </s:form>
                                 </td>
