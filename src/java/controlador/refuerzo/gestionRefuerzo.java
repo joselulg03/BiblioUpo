@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 import javax.ws.rs.core.GenericType;
+import servicios.RecursoJerseyClient;
 import servicios.RefuerzoJerseyClient;
 import servicios.SalaJerseyClient;
 import servicios.UsuarioJerseyClient;
@@ -30,6 +31,7 @@ public class gestionRefuerzo extends ActionSupport{
     private RefuerzoJerseyClient refuerzoClient = new RefuerzoJerseyClient();
     private UsuarioJerseyClient usuarioClient = new UsuarioJerseyClient();
     private SalaJerseyClient salaClient = new SalaJerseyClient();
+    private RecursoJerseyClient recursoClient = new RecursoJerseyClient();
     
     private Refuerzo refuerzo;
 
@@ -198,18 +200,30 @@ public class gestionRefuerzo extends ActionSupport{
     
     public String alta() throws ParseException {
         
+        recursoClient.create_XML("<recurso>"
+                + "<disponible>true</disponible>"
+                + "</recurso>");
+
+        Recurso[] r = recursoClient.findAll_XML(Recurso[].class);
+        
         refuerzoClient.create_XML("<refuerzo>"
             + "<id>"+getId()+"</id>"
             + "<descripcion>"+getDescripcion()+"</descripcion>"    
             + "<asignatura>"+getAsigantura()+"</asignatura>"  
             + "<tipo>"+getTipo()+"</tipo>" 
-            + "<id_recurso>"+getRecurso().getId()+"</id_recurso>"
-            + "<dni_usuario>"+getUsuario().getDni()+"</dni_usuario>"
-            + "<nombre_sala>"+getSala().getNombre()+"</nombre_sala>" 
+            + "<idRecurso>"
+            + "<id>"+r[r.length-1].getId()+"</id>"   
+            +"</idRecurso>"
+            + "<dniUsuario>"
+            + "<dni>"+getDniUsuario()+"</dni>"   
+            +"</dniUsuario>"
+            + "<nombreSala>"
+            + "<nombre>"+getNombreSala()+"</nombre>"   
+            +"</nombreSala>" 
             + "</refuerzo>"
         );
         
-        refuerzos = (List<Refuerzo>)refuerzoClient.findAll_XML(gtr.getClass());
+        refuerzos = Arrays.asList(refuerzoClient.findAll_XML(Refuerzo[].class));
         
         return SUCCESS;
     }

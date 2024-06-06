@@ -203,4 +203,27 @@
             <result name="success">/vistas/portatil/gestionPortatil.jsp</result>
         </action>
     </package>
+    
+    <package name="refuerzo" extends="struts-default">
+        <action name="formGestionRefuerzo" class="controlador.refuerzo.gestionRefuerzo">
+            <result name="alta">/vistas/refuerzo/altaRefuerzo.jsp</result>
+            <result name="modificacion">/vistas/refuerzo/modificacionRefuerzo.jsp</result>
+        </action>
+        
+        <action name="consultarRefuerzo" class="controlador.refuerzo.gestionRefuerzo" method="consultar">
+            <result name="success">/vistas/refuerzo/consultaRefuerzo.jsp</result>
+        </action>
+        
+        <action name="altaRefuerzo" class="controlador.refuerzo.gestionRefuerzo" method="alta">
+            <result name="success">/vistas/refuerzo/gestionRefuerzo.jsp</result>
+        </action>
+        
+        <action name="bajaRefuerzo" class="controlador.refuerzo.gestionRefuerzo" method="baja">
+            <result name="success">/vistas/refuerzo/gestionRefuerzo.jsp</result>
+        </action>
+        
+        <action name="modificacionRefuerzo" class="controlador.refuerzo.gestionRefuerzo" method="modificar">
+            <result name="success">/vistas/refuerzo/gestionRefuerzo.jsp</result>
+        </action>
+    </package>
 </struts>
