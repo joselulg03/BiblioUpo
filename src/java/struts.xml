@@ -108,7 +108,7 @@
             <result name="modificacion">/vistas/sala/modificacionSala.jsp</result>
         </action>
         
-        <action name="consultarSala" class="controlador.sala.gestionSala" method="consultar">
+        <action name="consultarSala" class="controlador.sala.gestionSala" method="consulta">
             <result name="success">/vistas/sala/consultaSala.jsp</result>
         </action>
         

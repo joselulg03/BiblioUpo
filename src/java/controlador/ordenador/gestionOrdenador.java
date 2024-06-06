@@ -19,6 +19,8 @@ import java.util.List;
 public class gestionOrdenador extends ActionSupport {
 
     private String operacion;
+        private String nom;
+
 
     private OrdenadorJerseyClient ordenadorClient = new OrdenadorJerseyClient();
     private RecursoJerseyClient recursoClient = new RecursoJerseyClient();
@@ -71,6 +73,14 @@ public class gestionOrdenador extends ActionSupport {
         this.ordenador = ordenador;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
     public String getOperacion() {
         return operacion;
     }
@@ -105,6 +115,11 @@ public class gestionOrdenador extends ActionSupport {
         return SUCCESS;
     }
 
+    public String consultar() {
+        ordenador = ordenadorClient.find_XML(Ordenador.class, getNombre());
+        return SUCCESS;
+    }
+
     public String baja() {
         if (getNombre() != null) {
             ordenadorClient.remove(getNombre());
@@ -115,12 +130,11 @@ public class gestionOrdenador extends ActionSupport {
         return ERROR;
     }
 
-
     public String modificar() throws ParseException {
-        if (getNombre() != null) {
-            ordenadorClient.create_XML("<ordenador>"
+        if (getNom() != null) {
+            ordenadorClient.edit_XML("<ordenador>"
                     + "<nombre>" + getNombre() + "</nombre>"
-                    + "</ordenador>");
+                    + "</ordenador>",getNom());
 
             ordenadores = Arrays.asList(ordenadorClient.findAll_XML(Ordenador[].class));
 

@@ -53,10 +53,11 @@
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                        </tr>
-                        <tr>
                             <th>Aforo</th>
+
                         </tr>
+
+
                     </thead>
 
                     <tbody>

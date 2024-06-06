@@ -20,6 +20,24 @@ import java.util.List;
 public class gestionSala extends ActionSupport {
 
     private String operacion;
+    private String nom;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public int getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(int filtro) {
+        this.filtro = filtro;
+    }
+
     private int filtro;
 
     private SalaJerseyClient salaClient = new SalaJerseyClient();
@@ -126,6 +144,11 @@ public class gestionSala extends ActionSupport {
         return ERROR;
     }
 
+    public String consulta() {
+        sala = salaClient.find_XML(Sala.class, getNombre());
+        return SUCCESS;
+    }
+
     public String consultar() {
         if (filtro != 0) {
             salas = muestra(filtro);
@@ -137,11 +160,11 @@ public class gestionSala extends ActionSupport {
     }
 
     public String modificar() throws ParseException {
-        if (getNombre() != null) {
-            salaClient.create_XML("<sala>"
+        if (getNom() != null) {
+            salaClient.edit_XML("<sala>"
                     + "<aforo>" + getAforo() + "</aforo>"
-                    + "<nombre>" + getNombre() + "</nombre>"
-                    + "</sala>");
+                    + "<nombre>" + getNom()+ "</nombre>"
+                    + "</sala>", getNombre());
 
             salas = Arrays.asList(salaClient.findAll_XML(Sala[].class));
 

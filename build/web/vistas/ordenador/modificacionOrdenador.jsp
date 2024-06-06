@@ -40,7 +40,7 @@
         <div class="container">
             <s:form action="modificacionOrdenador" method="post">
                 <s:hidden name="nombre" value="%{ordenador.nombre}" />
-                <s:textfield label="Nombre" name="nombre" value="%{ordenador.nombre}" />
+                <s:textfield label="Nombre" name="nom" value="%{ordenador.nombre}" />
                 <s:submit value="Guardar" />
             </s:form>
         </div>

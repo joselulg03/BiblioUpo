@@ -40,8 +40,8 @@
         <div class="container">
             <s:form action="modificacionSala" method="post">
                 <s:hidden name="nombre" value="%{sala.nombre}" />
-                <s:textfield label="Nombre" name="nombre" value="%{sala.nombre}" />
-                <s:textfield label="Aforo" name="afor" value="%{sala.aforo}" />
+                <s:textfield label="Nombre" name="nom" value="%{sala.nombre}" />
+                <s:textfield label="Aforo" name="aforo" value="%{sala.aforo}" />
                 <s:submit value="Guardar" />
             </s:form>
         </div>
