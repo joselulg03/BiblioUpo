@@ -56,8 +56,8 @@
                     <s:select name="idSistemaOperativo" list="sistemasOperativos" listKey="id" listValue="nombre" value="%{portatil.iDsistemaOperativo.id}" cssClass="form-control" headerKey="" headerValue="Selecciona un Sistema Operativo"/>
                 </div>
                 <div class="form-group">
-                    <s:label for="disponible" value="Disponible" />
-                    <s:radio name="idRecurso" list="#{'true':'Sí', 'false':'No'}" value="%{portatil.iDrecurso.disponible}"  />
+                    <s:label for="idRecurso" value="Disponible" />
+                    <s:radio name="idRecurso" list="#{'true':'Sí', 'false':'No'}" value="%{portatil.iDRecurso.disponible}"  />
                 </div>
                 <s:submit value="Guardar" />
             </s:form>

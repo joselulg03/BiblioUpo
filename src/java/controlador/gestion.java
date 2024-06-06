@@ -14,6 +14,7 @@ public class gestion extends ActionSupport {
     private OrdenadorJerseyClient ordenadorClient = new OrdenadorJerseyClient();
     private PortatilJerseyClient portatilClient = new PortatilJerseyClient();
     private RefuerzoJerseyClient refuerzoClient = new RefuerzoJerseyClient();
+    private ReservaJerseyClient reservaClient = new ReservaJerseyClient();
     
     private String entidad;
     private String rol;
@@ -24,8 +25,25 @@ public class gestion extends ActionSupport {
     private Ordenador[] ordenadores;
     private Portatil[] portatiles;
     private Refuerzo[] refuerzos;
+    private Reserva[] reservas;
     
     public gestion() {
+    }
+
+    public ReservaJerseyClient getReservaClient() {
+        return reservaClient;
+    }
+
+    public void setReservaClient(ReservaJerseyClient reservaClient) {
+        this.reservaClient = reservaClient;
+    }
+
+    public Reserva[] getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(Reserva[] reservas) {
+        this.reservas = reservas;
     }
 
     public String getEntidad() {
@@ -145,8 +163,6 @@ public class gestion extends ActionSupport {
     }
     
     
-    
-    
     public String execute() throws Exception {
         if(entidad.equals("usuarios")){
             usuarios = usuarioClient.findAll_XML(Usuario[].class);
@@ -163,6 +179,9 @@ public class gestion extends ActionSupport {
         }
         else if (entidad.equals("refuerzos")) {
             refuerzos = refuerzoClient.findAll_XML(Refuerzo[].class);
+        }
+        else if(entidad.equals("reservas")){
+            reservas = reservaClient.findAll_XML(Reserva[].class);
         }
         return entidad;
     }

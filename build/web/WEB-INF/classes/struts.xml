@@ -38,7 +38,7 @@
             <result name="salas">/vistas/sala/gestionSalas.jsp</result>
             <result name="ordenadores">/vistas/ordenador/gestionOrdenadores.jsp</result>
             <result name="portatiles">/vistas/portatil/gestionPortatil.jsp</result>
-            <result name="reservas">/gestionReservas.jsp</result>
+            <result name="reservas">/vistas/reserva/gestionReservas.jsp</result>
             <result name="refuerzos">/vistas/refuerzo/gestionRefuerzo.jsp</result>
         </action>
         
@@ -155,29 +155,25 @@
     
     <package name="reserva" extends="struts-default">
         <action name="formGestionReserva" class="controlador.reserva.gestionReserva">
-            <result name="alta">/vistas/reserva/altaReserva.jsp</result>
-            <result name="modificacion">/vistas/reserva/modificacionReserva.jsp</result>
+            <result name="formAlta">/vistas/reserva/altaReserva.jsp</result>
+            <result name="formModificacion">/vistas/reserva/modificacionReserva.jsp</result>
         </action>
-        
+
         <action name="consultarReserva" class="controlador.reserva.gestionReserva" method="consultar">
             <result name="success">/vistas/reserva/consultaReserva.jsp</result>
         </action>
-        
+
         <action name="altaReserva" class="controlador.reserva.gestionReserva" method="alta">
             <result name="success">/vistas/reserva/gestionReservas.jsp</result>
+            <result name="input">/vistas/reserva/altaReserva.jsp</result>
         </action>
-        
+
         <action name="bajaReserva" class="controlador.reserva.gestionReserva" method="baja">
             <result name="success">/vistas/reserva/gestionReservas.jsp</result>
         </action>
-        
+
         <action name="modificacionReserva" class="controlador.reserva.gestionReserva" method="modificar">
             <result name="success">/vistas/reserva/gestionReservas.jsp</result>
-        </action>
-        
-        <action name="filtrarReserva" class="controlador.reserva.gestionReserva" method="filtrar">
-            <result name="success">/vistas/reserva/gestionReservas.jsp</result>
-            <result name="error">/vistas/reserva/gestionReservas.jsp</result>
         </action>
     </package>
     

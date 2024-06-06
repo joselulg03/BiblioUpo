@@ -82,12 +82,13 @@
                                         <s:hidden name="nombre" value="%{nombre}" />
                                         <s:submit value="Consultar" cssClass="btn btn-info" />
                                     </s:form>
-                                    <s:if test="%{#libro.cantidad > 0}">
                                         <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                            <s:hidden name="idRecurso" value="%{sala.recurso.id}" />
-                                            <s:submit value="Reservar" cssClass="text-center mb-0" />
+                                            <s:hidden name="idRecurso" value="%{#sala.recurso.id}" />
+                                            <s:hidden name="dniUsuario" value="%{#session.usuario.dni}" />
+                                            <s:hidden name="fecha" value="<s:date name='%{#attr.now}' format='yyyy-MM-dd' />" />
+                                            <s:hidden name="duracionHoras" value="2" />
+                                            <s:submit value="Reservar" cssClass="btn btn-info" />
                                         </s:form>
-                                    </s:if>
                                 </td>
                             </tr>
                         </s:iterator>
