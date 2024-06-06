@@ -1,43 +1,27 @@
-<%@taglib prefix="s" uri="/struts-tags" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestión Libros</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- basic -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <!-- mobile metas -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-        <!-- site metas -->
-        <title>webwing</title>
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/templatemo.css">
-        <!-- style css -->
-        <!-- Responsive-->
-        <link rel="stylesheet" href="css/responsive.css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-        <!-- fevicon -->
-        <link rel="icon" href="images/upo2.png" type="image/gif" />
-        <!-- Scrollbar Custom CSS -->
-        <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-        <!-- Tweaks for older IEs-->
-        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-        <link href="../../css/cards.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
-        <h1>Área de Gestión de Libros</h1>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Gestión Libros</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/templatemo.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="icon" href="images/upo2.png" type="image/gif" />
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="../../css/cards.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <h1>Área de Gestión de Libros</h1>
 
     <s:if test="#session.rol.tipo.equals('Administrador')">
         <div>
@@ -69,16 +53,19 @@
                                 <h5 class="card-title"><s:property value="#libro.titulo" /></h5>
                                 <p class="card-text"><strong>ISBN: </strong><s:property value="#libro.isbn" /></p>
                                 <p class="card-text"><strong>Descripción: </strong><s:property value="#libro.descripcion" /></p>
-                                <p class="card-text"><strong>Autor: </strong><s:property value="#libro.idAutor.nombre" /></p>
-                                <p class="card-text"><strong>Categoría: </strong><s:property value="#libro.idCategoria.nombre" /></p>
-                                <p class="card-text"><strong>Editorial: </strong><s:property value="#libro.idEditorial.nombre" /></p>
-                                <p class="card-text"><strong>Idioma: </strong><s:property value="#libro.idIdioma.nombre" /></p>
-                                <p class="card-text"><strong>Recurso disponible: </strong><s:property value="#libro.idRecurso.disponible" /></p>
+                                <p class="card-text"><strong>Autor: </strong><s:property value="#libro.autor.nombre" /></p>
+                                <p class="card-text"><strong>Categoría: </strong><s:property value="#libro.categoria.nombre" /></p>
+                                <p class="card-text"><strong>Editorial: </strong><s:property value="#libro.editorial.nombre" /></p>
+                                <p class="card-text"><strong>Idioma: </strong><s:property value="#libro.idioma.nombre" /></p>
+                                <p class="card-text"><strong>Recurso disponible: </strong><s:property value="#libro.recurso.disponible" /></p>
                                 <p class="card-text"><strong>Fecha lanzamiento: </strong><s:property value="#libro.fecha" /></p>
                                 <p class="card-text"><strong>Cantidad disponible: </strong><s:property value="#libro.cantidad" /></p>
                                 <s:if test="%{#libro.cantidad > 0}">
                                     <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                        <s:hidden name="idRecurso" value="%{#libro.idRecurso.id}" />
+                                        <s:hidden name="idRecurso" value="%{#libro.recurso.id}" />
+                                        <s:hidden name="dniUsuario" value="%{#session.usuario.dni}" />
+                                        <s:hidden name="fecha" value="<s:date name='%{#attr.now}' format='yyyy-MM-dd' />" />
+                                        <s:hidden name="duracionHoras" value="2" />
                                         <s:submit value="Reservar" cssClass="btn btn-info" />
                                     </s:form>
                                 </s:if>

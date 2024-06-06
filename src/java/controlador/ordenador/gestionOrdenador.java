@@ -5,12 +5,11 @@
  */
 package controlador.ordenador;
 
+import DAO.OrdenadorDAO;
 import com.opensymphony.xwork2.ActionSupport;
 import java.text.ParseException;
-import servicios.*;
-import entidades.*;
-import java.util.Arrays;
 import java.util.List;
+import modelo.Ordenador;
 
 /**
  *
@@ -19,11 +18,8 @@ import java.util.List;
 public class gestionOrdenador extends ActionSupport {
 
     private String operacion;
-        private String nom;
 
-
-    private OrdenadorJerseyClient ordenadorClient = new OrdenadorJerseyClient();
-    private RecursoJerseyClient recursoClient = new RecursoJerseyClient();
+    private OrdenadorDAO ordenadorDAO;
 
     private String nombre;
 
@@ -33,29 +29,14 @@ public class gestionOrdenador extends ActionSupport {
     public gestionOrdenador() {
     }
 
-    public OrdenadorJerseyClient getOrdenadorClient() {
-        return ordenadorClient;
+    public OrdenadorDAO getOrdenadorDAO() {
+        return ordenadorDAO;
     }
 
-    public void setOrdenadorClient(OrdenadorJerseyClient ordenadorClient) {
-        this.ordenadorClient = ordenadorClient;
+    public void setOrdenadorDAO(OrdenadorDAO ordenadorDAO) {
+        this.ordenadorDAO = ordenadorDAO;
     }
 
-    public RecursoJerseyClient getRecursoClient() {
-        return recursoClient;
-    }
-
-    public void setRecursoClient(RecursoJerseyClient recursoClient) {
-        this.recursoClient = recursoClient;
-    }
-
-    public List<Ordenador> getOrdenadores() {
-        return ordenadores;
-    }
-
-    public void setOrdenadores(List<Ordenador> Ordenadores) {
-        this.ordenadores = Ordenadores;
-    }
 
     public String getNombre() {
         return nombre;
@@ -64,7 +45,7 @@ public class gestionOrdenador extends ActionSupport {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    
     public Ordenador getOrdenador() {
         return ordenador;
     }
@@ -73,12 +54,12 @@ public class gestionOrdenador extends ActionSupport {
         this.ordenador = ordenador;
     }
 
-    public String getNom() {
-        return nom;
+    public List<Ordenador> getOrdenadores() {
+        return ordenadores;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setOrdenadores(List<Ordenador> ordenadores) {
+        this.ordenadores = ordenadores;
     }
 
     public String getOperacion() {
@@ -89,58 +70,49 @@ public class gestionOrdenador extends ActionSupport {
         this.operacion = operacion;
     }
 
-    /**/
     public String execute() throws Exception {
-
-        ordenador = ordenadorClient.find_XML(Ordenador.class, getNombre());
+        if (getNombre()!= null) {
+            ordenadorDAO = new OrdenadorDAO();
+            ordenador = ordenadorDAO.read(getNombre());
+        }
         return operacion;
     }
 
     public String alta() throws ParseException {
-        recursoClient.create_XML("<recurso>"
-                + "<disponible>true</disponible>"
-                + "</recurso>");
+       // ordenadorDAO = new OrdenadorDAO();
+        
+       // ordenadorDAO.create(new Ordenador(getNombre()));
+      //  ordenadores = ordenadorDAO.list();
 
-        Recurso[] r = recursoClient.findAll_XML(Recurso[].class);
-
-        ordenadorClient.create_XML("<ordenador>"
-                + "<idRecurso>"
-                + "<id>" + r[r.length - 1].getId() + "</id>"
-                + "</idRecurso>"
-                + "<nombre>" + getNombre() + "</nombre>"
-                + "</ordenador>");
-
-        ordenadores = Arrays.asList(ordenadorClient.findAll_XML(Ordenador[].class));
-
-        return SUCCESS;
-    }
-
-    public String consultar() {
-        ordenador = ordenadorClient.find_XML(Ordenador.class, getNombre());
         return SUCCESS;
     }
 
     public String baja() {
-        if (getNombre() != null) {
-            ordenadorClient.remove(getNombre());
-            ordenadores = Arrays.asList(ordenadorClient.findAll_XML(Ordenador[].class));
+        ordenadorDAO = new OrdenadorDAO();
+        ordenador = ordenadorDAO.read(getNombre());
+        ordenadorDAO.delete(ordenador);
+        ordenadores = ordenadorDAO.list();
+        
+        return SUCCESS;
+    }
 
-            return SUCCESS;
-        }
-        return ERROR;
+    public String consultar() {
+        ordenadorDAO = new OrdenadorDAO();
+        ordenador = ordenadorDAO.read(getNombre());
+        return SUCCESS;
     }
 
     public String modificar() throws ParseException {
-        if (getNom() != null) {
-            ordenadorClient.edit_XML("<ordenador>"
-                    + "<nombre>" + getNombre() + "</nombre>"
-                    + "</ordenador>",getNom());
+        System.out.println("Ordenador :" + getNombre());
 
-            ordenadores = Arrays.asList(ordenadorClient.findAll_XML(Ordenador[].class));
-
-            return SUCCESS;
-        }
-        return ERROR;
+        ordenadorDAO = new OrdenadorDAO();
+        ordenador = ordenadorDAO.read(getNombre());
+        
+        ordenador.setNombre(getNombre());
+        
+        ordenadores = ordenadorDAO.list();
+        return SUCCESS;
     }
 
 }
+

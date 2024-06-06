@@ -14,12 +14,12 @@
             <h1>Alta Sala</h1>
             <s:form action="altaSala" method="post">
                 <div class="form-group">
-                    <s:label for="nombre" value="Nombre" />
-                    <s:textfield name="nombre" cssClass="form-control" />
+                    <label for="nombre">Nombre</label>
+                    <s:textfield name="nombre" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <s:label for="aforo" value="Aforo" />
-                    <s:textfield name="aforo" cssClass="form-control" />
+                    <label for="password">Aforo</label>
+                    <s:textfield name="aforo" class="form-control" />
                 </div>
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </s:form>

@@ -12,10 +12,8 @@ import entidades.Refuerzo;
 import entidades.Sala;
 import entidades.Usuario;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.List;
 import javax.ws.rs.core.GenericType;
-import servicios.RecursoJerseyClient;
 import servicios.RefuerzoJerseyClient;
 import servicios.SalaJerseyClient;
 import servicios.UsuarioJerseyClient;
@@ -31,27 +29,28 @@ public class gestionRefuerzo extends ActionSupport{
     private RefuerzoJerseyClient refuerzoClient = new RefuerzoJerseyClient();
     private UsuarioJerseyClient usuarioClient = new UsuarioJerseyClient();
     private SalaJerseyClient salaClient = new SalaJerseyClient();
-    private RecursoJerseyClient recursoClient = new RecursoJerseyClient();
     
     private Refuerzo refuerzo;
 
     private String id;
     private String descripcion;
-    private String asignatura;
+    private String asigantura;
     private String tipo;
     private Recurso recurso;
     private Usuario usuario;
     private Sala sala;
-    
+
     private String idRecurso;
     private String dniUsuario;
-    private String nombreSala;
-    private String idRefuerzo;
+    private String idSala;
 
     private List<Refuerzo> refuerzos;
     private List<Usuario> usuarios;
     private List<Sala> salas;
 
+    GenericType<List<Usuario>> gtu = new GenericType<List<Usuario>>() {};
+    GenericType<List<Refuerzo>> gtr = new GenericType<List<Refuerzo>>() {};
+    GenericType<List<Sala>> gts = new GenericType<List<Sala>>() {};
 
     public gestionRefuerzo() {
     }
@@ -59,32 +58,6 @@ public class gestionRefuerzo extends ActionSupport{
     public String getOperacion() {
         return operacion;
     }
-
-    public RecursoJerseyClient getRecursoClient() {
-        return recursoClient;
-    }
-
-    public void setRecursoClient(RecursoJerseyClient recursoClient) {
-        this.recursoClient = recursoClient;
-    }
-
-    public Refuerzo getRefuerzo() {
-        return refuerzo;
-    }
-
-    public void setRefuerzo(Refuerzo refuerzo) {
-        this.refuerzo = refuerzo;
-    }
-
-    public String getIdRefuerzo() {
-        return idRefuerzo;
-    }
-
-    public void setIdRefuerzo(String idRefuerzo) {
-        this.idRefuerzo = idRefuerzo;
-    }
-    
-    
 
     public void setOperacion(String operacion) {
         this.operacion = operacion;
@@ -106,12 +79,12 @@ public class gestionRefuerzo extends ActionSupport{
         this.descripcion = descripcion;
     }
 
-    public String getAsignatura() {
-        return asignatura;
+    public String getAsigantura() {
+        return asigantura;
     }
 
-    public void setAsignatura(String asignatura) {
-        this.asignatura = asignatura;
+    public void setAsigantura(String asigantura) {
+        this.asigantura = asigantura;
     }
 
     public String getTipo() {
@@ -162,12 +135,12 @@ public class gestionRefuerzo extends ActionSupport{
         this.dniUsuario = dniUsuario;
     }
 
-    public String getNombreSala() {
-        return nombreSala;
+    public String getIdSala() {
+        return idSala;
     }
 
-    public void setNombreSala(String nombreSala) {
-        this.nombreSala = nombreSala;
+    public void setIdSala(String idSala) {
+        this.idSala = idSala;
     }
 
     public List<Refuerzo> getRefuerzos() {
@@ -192,6 +165,30 @@ public class gestionRefuerzo extends ActionSupport{
 
     public void setSalas(List<Sala> salas) {
         this.salas = salas;
+    }
+
+    public GenericType<List<Usuario>> getGtu() {
+        return gtu;
+    }
+
+    public void setGtu(GenericType<List<Usuario>> gtu) {
+        this.gtu = gtu;
+    }
+
+    public GenericType<List<Refuerzo>> getGtr() {
+        return gtr;
+    }
+
+    public void setGtr(GenericType<List<Refuerzo>> gtr) {
+        this.gtr = gtr;
+    }
+
+    public GenericType<List<Sala>> getGts() {
+        return gts;
+    }
+
+    public void setGts(GenericType<List<Sala>> gts) {
+        this.gts = gts;
     }
 
     public RefuerzoJerseyClient getRefuerzoClient() {
@@ -219,8 +216,8 @@ public class gestionRefuerzo extends ActionSupport{
     }
 
     public String execute() throws Exception {
-        salas = Arrays.asList(salaClient.findAll_XML(Sala[].class));
-        usuarios = Arrays.asList(usuarioClient.findAll_XML(Usuario[].class));
+        salas = (List<Sala>)salaClient.findAll_XML(gts.getClass());
+        usuarios = (List<Usuario>)usuarioClient.findAll_XML(gtu.getClass());
         if (getId() != null) {
             refuerzo = refuerzoClient.find_XML(Refuerzo.class, getId());
         }
@@ -229,30 +226,18 @@ public class gestionRefuerzo extends ActionSupport{
     
     public String alta() throws ParseException {
         
-        recursoClient.create_XML("<recurso>"
-                + "<disponible>true</disponible>"
-                + "</recurso>");
-
-        Recurso[] r = recursoClient.findAll_XML(Recurso[].class);
-        
         refuerzoClient.create_XML("<refuerzo>"
             + "<id>"+getId()+"</id>"
             + "<descripcion>"+getDescripcion()+"</descripcion>"    
-            + "<asignatura>"+getAsignatura()+"</asignatura>"  
+            + "<asignatura>"+getAsigantura()+"</asignatura>"  
             + "<tipo>"+getTipo()+"</tipo>" 
-            + "<idRecurso>"
-            + "<id>"+r[r.length-1].getId()+"</id>"   
-            +"</idRecurso>"
-            + "<dniUsuario>"
-            + "<dni>"+getDniUsuario()+"</dni>"   
-            +"</dniUsuario>"
-            + "<nombreSala>"
-            + "<nombre>"+getNombreSala()+"</nombre>"   
-            +"</nombreSala>" 
+            + "<id_recurso>"+getRecurso().getId()+"</id_recurso>"
+            + "<dni_usuario>"+getUsuario().getDni()+"</dni_usuario>"
+            + "<nombre_sala>"+getSala().getNombre()+"</nombre_sala>" 
             + "</refuerzo>"
         );
         
-        refuerzos = Arrays.asList(refuerzoClient.findAll_XML(Refuerzo[].class));
+        refuerzos = (List<Refuerzo>)refuerzoClient.findAll_XML(gtr.getClass());
         
         return SUCCESS;
     }
@@ -260,7 +245,7 @@ public class gestionRefuerzo extends ActionSupport{
     public String baja() {
         refuerzoClient.remove(getId());
         
-        refuerzos = Arrays.asList(refuerzoClient.findAll_XML(Refuerzo[].class));
+        refuerzos = (List<Refuerzo>)refuerzoClient.findAll_XML(gtr.getClass());
         
         return SUCCESS;
     }
@@ -271,23 +256,16 @@ public class gestionRefuerzo extends ActionSupport{
     }
     
     public String modificar() throws ParseException {
-        refuerzoClient.edit_XML("<refuerzo>"
-            + "<id>"+getId()+"</id>"
-            + "<descripcion>"+getDescripcion()+"</descripcion>"    
-            + "<asignatura>"+getAsignatura()+"</asignatura>"  
-            + "<tipo>"+getTipo()+"</tipo>" 
-            + "<idRecurso>"
-            + "<id>"+getIdRecurso()+"</id>"   
-            +"</idRecurso>"
-            + "<dniUsuario>"
-            + "<dni>"+getDniUsuario()+"</dni>"   
-            +"</dniUsuario>"
-            + "<nombreSala>"
-            + "<nombre>"+getNombreSala()+"</nombre>"   
-            +"</nombreSala>" 
-            + "</refuerzo>", getIdRefuerzo());
+        refuerzo = refuerzoClient.find_XML(Refuerzo.class, getId());
         
-        refuerzos = Arrays.asList(refuerzoClient.findAll_XML(Refuerzo[].class));
+        refuerzo.setAsignatura(getAsigantura());
+        refuerzo.setDescripcion(getDescripcion());
+        refuerzo.setTipo(getTipo());
+        refuerzo.setDniUsuario(getUsuario());
+        refuerzo.setIdRecurso(getRecurso());
+        refuerzo.setNombreSala(getSala());
+        
+        refuerzos = (List<Refuerzo>)refuerzoClient.findAll_XML(gtr.getClass());
         return SUCCESS;
     }
 }

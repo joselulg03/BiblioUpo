@@ -49,23 +49,23 @@
                 </div>
                 <div class="form-group">
                     <s:label for="disponible" value="Disponible" />
-                    <s:radio name="disponible" list="#{'true':'Sí', 'false':'No'}" value="%{libro.idRecurso.disponible}"  />
+                    <s:radio name="disponible" list="#{'true':'Sí', 'false':'No'}" value="%{libro.recurso.disponible}"  />
                 </div>
                 <div class="form-group">
                     <s:label for="idAutor" value="Autor" />
-                    <s:select name="idAutor" list="autores" listKey="id" listValue="nombre" value="%{libro.idAutor.id}" cssClass="form-control" headerKey="" headerValue="Selecciona un autor"/>
+                    <s:select name="idAutor" list="autores" listKey="id" listValue="nombre" value="%{libro.autor.id}" cssClass="form-control" headerKey="" headerValue="Selecciona un autor"/>
                 </div>
                 <div class="form-group">
                     <s:label for="idEditorial" value="Editorial" />
-                    <s:select name="idEditorial" list="editoriales" listKey="id" listValue="nombre" value="%{libro.idEditorial.id}" cssClass="form-control" headerKey="" headerValue="Selecciona una editorial"/>
+                    <s:select name="idEditorial" list="editoriales" listKey="id" listValue="nombre" value="%{libro.editorial.id}" cssClass="form-control" headerKey="" headerValue="Selecciona una editorial"/>
                 </div>
                 <div class="form-group">
                     <s:label for="idCategoria" value="Categoría" />
-                    <s:select name="idCategoria" list="categorias" listKey="id" listValue="nombre" value="%{libro.idCategoria.id}" cssClass="form-control" headerKey="" headerValue="Selecciona una categoría"/>
+                    <s:select name="idCategoria" list="categorias" listKey="id" listValue="nombre" value="%{libro.categoria.id}" cssClass="form-control" headerKey="" headerValue="Selecciona una categoría"/>
                 </div>
                 <div class="form-group">
                     <s:label for="idIdioma" value="Idioma" />
-                    <s:select name="idIdioma" list="idiomas" listKey="id" listValue="nombre" value="%{libro.idIdioma.id}" cssClass="form-control" headerKey="" headerValue="Selecciona un idioma"/>
+                    <s:select name="idIdioma" list="idiomas" listKey="id" listValue="nombre" value="%{libro.idioma.id}" cssClass="form-control" headerKey="" headerValue="Selecciona un idioma"/>
                 </div>
                 <s:submit value="Guardar" cssClass="btn btn-primary"/>
             </s:form>

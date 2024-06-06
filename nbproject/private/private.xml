@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/jpguz/OneDrive/Documentos/GitHub/BiblioUpo/web/vistas/libro/gestionLibros.jsp</file>
+            <file>file:/C:/Users/jpguz/OneDrive/Documentos/GitHub/BiblioUpo/src/java/controlador/iniciarSesion.java</file>
+            <file>file:/C:/Users/jpguz/OneDrive/Documentos/GitHub/BiblioUpo/src/java/controlador/reserva/gestionReserva.java</file>
+            <file>file:/C:/Users/jpguz/OneDrive/Documentos/GitHub/BiblioUpo/src/java/controlador/gestion.java</file>
+            <file>file:/C:/Users/jpguz/OneDrive/Documentos/GitHub/BiblioUpo/src/java/entidades/Usuario.java</file>
+            <file>file:/C:/Users/jpguz/OneDrive/Documentos/GitHub/BiblioUpo/src/java/servicios/ReservaJerseyClient.java</file>
+            <file>file:/C:/Users/jpguz/OneDrive/Documentos/GitHub/BiblioUpo/web/vistas/reserva/gestionReservas.jsp</file>
+        </group>
     </open-files>
 </project-private>

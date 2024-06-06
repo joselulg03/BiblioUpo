@@ -26,7 +26,7 @@ public class OrdenadorJerseyClient {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8080/BiblioUpoRESTful/webresources";
+    private static final String BASE_URI = "http://localhost:43232/BiblioUpoRESTful/webresources/";
 
     public OrdenadorJerseyClient() {
         client = javax.ws.rs.client.ClientBuilder.newClient();

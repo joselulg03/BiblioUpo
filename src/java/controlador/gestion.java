@@ -2,8 +2,8 @@ package controlador;
 
 import entidades.*;
 import com.opensymphony.xwork2.ActionSupport;
-import java.util.Arrays;
 import java.util.List;
+import javax.ws.rs.core.GenericType;
 import servicios.*;
 
 public class gestion extends ActionSupport {
@@ -12,18 +12,16 @@ public class gestion extends ActionSupport {
     private LibroJerseyClient libroClient = new LibroJerseyClient();
     private SalaJerseyClient salaClient = new SalaJerseyClient();
     private OrdenadorJerseyClient ordenadorClient = new OrdenadorJerseyClient();
-    private PortatilJerseyClient portatilClient = new PortatilJerseyClient();
-    private RefuerzoJerseyClient refuerzoClient = new RefuerzoJerseyClient();
+    private ReservaJerseyClient reservaClient = new ReservaJerseyClient();
     
     private String entidad;
     private String rol;
     
     private Usuario[] usuarios;
-    private List<Libro> libros;
+    private Libro[] libros;
     private Sala[] salas;
     private Ordenador[] ordenadores;
-    private Portatil[] portatiles;
-    private Refuerzo[] refuerzos;
+    private Reserva[] reservas;
     
     public gestion() {
     }
@@ -52,15 +50,13 @@ public class gestion extends ActionSupport {
         this.usuarios = usuarios;
     }
 
-    public List<Libro> getLibros() {
+    public Libro[] getLibros() {
         return libros;
     }
 
-    public void setLibros(List<Libro> libros) {
+    public void setLibros(Libro[] libros) {
         this.libros = libros;
     }
-
-    
 
     public Sala[] getSalas() {
         return salas;
@@ -78,7 +74,13 @@ public class gestion extends ActionSupport {
         this.ordenadores = ordenadores;
     }
 
-    
+    public Reserva[] getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(Reserva[] reservas) {
+        this.reservas = reservas;
+    }
 
     public UsuarioJerseyClient getUsuarioClient() {
         return usuarioClient;
@@ -112,59 +114,26 @@ public class gestion extends ActionSupport {
         this.ordenadorClient = ordenadorClient;
     }
 
-    public PortatilJerseyClient getPortatilClient() {
-        return portatilClient;
+    public ReservaJerseyClient getReservaClient() {
+        return reservaClient;
     }
 
-    public void setPortatilClient(PortatilJerseyClient portatilClient) {
-        this.portatilClient = portatilClient;
+    public void setReservaClient(ReservaJerseyClient reservaClient) {
+        this.reservaClient = reservaClient;
     }
-
-    public Portatil[] getPortatiles() {
-        return portatiles;
-    }
-
-    public void setPortatiles(Portatil[] portatiles) {
-        this.portatiles = portatiles;
-    }
-
-    public RefuerzoJerseyClient getRefuerzoClient() {
-        return refuerzoClient;
-    }
-
-    public void setRefuerzoClient(RefuerzoJerseyClient refuerzoClient) {
-        this.refuerzoClient = refuerzoClient;
-    }
-
-    public Refuerzo[] getRefuerzos() {
-        return refuerzos;
-    }
-
-    public void setRefuerzos(Refuerzo[] refuerzos) {
-        this.refuerzos = refuerzos;
-    }
-    
-    
-    
     
     public String execute() throws Exception {
         if(entidad.equals("usuarios")){
             usuarios = usuarioClient.findAll_XML(Usuario[].class);
-        }
-        else if(entidad.equals("libros")){
-            libros = Arrays.asList(libroClient.findAll_XML(Libro[].class));
+        } else if(entidad.equals("libros")){
+            libros = libroClient.findAll_XML(Libro[].class);
         } else if(entidad.equals("salas")){
             salas = salaClient.findAll_XML(Sala[].class);
         } else if(entidad.equals("ordenadores")){
             ordenadores = ordenadorClient.findAll_XML(Ordenador[].class);
-        }
-        else if (entidad.equals("portatiles")) {
-            portatiles = portatilClient.findAll_XML(Portatil[].class);
-        }
-        else if (entidad.equals("refuerzos")) {
-            refuerzos = refuerzoClient.findAll_XML(Refuerzo[].class);
+        } else if(entidad.equals("reservas")){
+            reservas = reservaClient.findAll_XML(Reserva[].class);
         }
         return entidad;
     }
-    
 }

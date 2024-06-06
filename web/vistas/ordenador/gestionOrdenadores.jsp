@@ -27,23 +27,16 @@
     <body>
         <div class="container">
             <h1>Área de Gestión de Ordenadores</h1>
-
             <h2>Rol: <s:property value="#session.rol.tipo" /></h2>
 
-            <s:if test="#session.rol.tipo.equals('Administrador')">
-                <div>
-                    <s:form action="formGestionOrdenador" method="post" class="form-inline">
-                        <s:hidden name="operacion" value="alta" />
-                        <s:submit value="Alta" cssClass="btn btn-primary mr-2" />
-                    </s:form>
-                </div>
-            </s:if>
             <s:form action="volverGestionEntidades" method="post">
                 <s:submit value="Volver" cssClass="btn btn-secondary mt-3" />
             </s:form>
 
-
-
+            <s:form action="formGestionOrdenador" method="post" class="form-inline">
+                <s:hidden name="operacion" value="alta" />
+                <s:submit value="Alta" cssClass="btn btn-primary mr-2" />
+            </s:form>
 
             <s:if test="ordenadores != null">
                 <table>
@@ -58,28 +51,35 @@
                             <tr>
                                 <td><s:property value="nombre" /></td>
                                 <td>
-                                    <s:if test="#session.rol.tipo.equals('Administrador')">
-                                        <s:form action="bajaOrdenador" method="post" cssClass="form-inline">
-                                            <s:hidden name="nombre" value="%{nombre}" />
-                                            <s:submit value="Baja" cssClass="btn btn-danger mr-2" />
-                                        </s:form>
+                                    <s:form action="bajaOrdenador" method="post" cssClass="form-inline">
+                                        <s:hidden name="nombre" value="%{nombre}" />
+                                        <s:submit value="Baja" cssClass="btn btn-danger mr-2" />
+                                    </s:form>
 
-                                        <s:form action="formGestionOrdenador" method="post" cssClass="form-inline">
-                                            <s:hidden name="nombre" value="%{nombre}" />
-                                            <s:hidden name="operacion" value="modificacion" />
-                                            <s:submit value="Modificar" cssClass="btn btn-warning mr-2" />
-                                        </s:form>
-                                    </s:if>
+                                    <s:form action="formGestionOrdenador" method="post" cssClass="form-inline">
+                                        <s:hidden name="nombre" value="%{nombre}" />
+                                        <s:hidden name="operacion" value="modificacion" />
+                                        <s:submit value="Modificar" cssClass="btn btn-warning mr-2" />
+                                    </s:form>
+
                                     <s:form action="consultarOrdenador" method="post" cssClass="form-inline">
                                         <s:hidden name="nombre" value="%{nombre}" />
                                         <s:submit value="Consultar" cssClass="btn btn-info" />
                                     </s:form>
-                                    <s:if test="%{#libro.cantidad > 0}">
-                                        <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                            <s:hidden name="idRecurso" value="%{ordenador.recurso.id}" />
-                                            <s:submit value="Reservar" cssClass="text-center mb-0" />
-                                        </s:form>
-                                    </s:if>
+
+                                    <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
+                                        <s:hidden name="idRecurso" value="%{ordenador.recurso.id}" />
+                                        <s:submit value="Reservar" cssClass="text-center mb-0" />
+                                    </s:form>
+                                    
+                                                                        <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
+                                        <s:hidden name="idRecurso" value="%{#libro.recurso.id}" />
+                                        <s:hidden name="dniUsuario" value="%{#session.usuario.dni}" />
+                                        <s:hidden name="fecha" value="<s:date name='%{#attr.now}' format='yyyy-MM-dd' />" />
+                                        <s:hidden name="duracionHoras" value="2" />
+                                        <s:submit value="Reservar" cssClass="btn btn-info" />
+                                    </s:form>
+                                    
                                 </td>
                             </tr>
                         </s:iterator>

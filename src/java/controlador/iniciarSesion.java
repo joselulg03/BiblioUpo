@@ -70,11 +70,7 @@ public class iniciarSesion extends ActionSupport {
 
     public String iniciarSesion() {
         
-        System.out.println("Correo: "+correo);
-        
         usuario = buscarPorCorreo(correo);
-        
-        System.out.println("Usuario: "+usuario);
 
         if (usuario != null) {
             if (!usuario.getPassword().equals(getPassword())) {
@@ -98,8 +94,6 @@ public class iniciarSesion extends ActionSupport {
                 SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
                 String fechaFormateada = formatoFecha.format(fechaActual);
                 String horaFormateada = formatoHora.format(fechaActual);
-                
-                System.out.println("Correo: "+usuario.getCorreo());
 
                 EmailAutomaticoJerseyClient client = new EmailAutomaticoJerseyClient();
                 client.enviarCorreo(String.class,
@@ -113,13 +107,7 @@ public class iniciarSesion extends ActionSupport {
     }
 
     public Usuario buscarPorCorreo(String correo) {
-        
-        System.out.println("Corr: "+correo);
-        
-        System.out.println(usuarioClient);
         Usuario[] usuarios = usuarioClient.findAll_XML(Usuario[].class);
-        
-        System.out.println("LEN: "+usuarios);
 
         for (Usuario u : usuarios) {
             if (u.getCorreo().equals(correo)) {

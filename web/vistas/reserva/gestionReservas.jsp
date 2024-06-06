@@ -1,108 +1,117 @@
-<%@taglib prefix="s" uri="/struts-tags" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gestión Libros</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- basic -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <!-- mobile metas -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-        <!-- site metas -->
-        <title>webwing</title>
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/templatemo.css">
-        <!-- style css -->
-        <!-- Responsive-->
-        <link rel="stylesheet" href="css/responsive.css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-        <!-- fevicon -->
-        <link rel="icon" href="images/upo2.png" type="image/gif" />
-        <!-- Scrollbar Custom CSS -->
-        <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-        <!-- Tweaks for older IEs-->
-        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-    </head>
-    <body>
-        <h1>Área de Gestión de Reservas</h1>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestión de Reservas</title>
 
-        <%--<h2>Buscar</h2>
-        <s:form action="filtrarLibro" method="post">
-            <s:textfield name="filtro" />
-            <s:select label="Filtrar por" name="seleccion" list="{'Titulo', 'Autor', 'Editorial'}"/>
-            <s:submit value="Buscar" />
-        </s:form>--%>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="images/upo2.png" type="image/gif" />
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+        }
+        .btn {
+            margin: 5px;
+        }
+        .no-reservas {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Área de Gestión de Reservas</h1>
+        <h2>Rol: <s:property value="#session.rol.tipo" /></h2>
+
+        <div class="text-center mt-4">
+            <s:form action="volverGestionEntidades" method="post" class="d-inline-block mr-2">
+                <s:submit value="Volver" cssClass="btn btn-secondary" />
+            </s:form>
+
+            <s:if test="#session.rol.tipo.equals('Administrador') || #session.rol.tipo.equals('Empleado')">
+                <s:form action="formGestionReserva" method="post" class="d-inline-block">
+                    <s:hidden name="operacion" value="formAlta" />
+                    <s:submit value="Crear Reserva" cssClass="btn btn-primary" />
+                </s:form>
+            </s:if>
+        </div>
 
         <s:if test="reservas != null">
-            <div class="row">
-                <s:iterator value="reservas">
-                    <div class="col-md-4">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0">
-                                <%--<img class="card-img rounded-0 img-fluid" src="images/libro.png"/>--%>
-                                <div class="card-body">
-                                    <p class="h3 text-decoration-none"><strong>ID: </strong><s:property value="id" /></p>
-                                    <p><strong>Recurso: </strong><s:property value="recurso.id" /></p>
-                                    <p><strong>Usuario: </strong><s:property value="usuario.correo" /></p>
-                                    <p><strong>Fecha: </strong><s:property value="fecha" /></p>
-                                    <p><strong>Duración: </strong><s:property value="duracionHoras" /> horas</p>
-                                    <p><strong>Entregado: </strong><s:property value="entregado" /></p>
-                                    
-                                    <s:if test="%{cantidad > 0}">
-                                        <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                            <s:hidden name="idRecurso" value="%{recurso.id}" />
-                                            <s:submit value="Reservar" cssClass="text-center mb-0" />
-                                        </s:form>
-                                    </s:if>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </s:iterator>
-            </div>
-        </s:if>
+            <table class="table mt-4">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Duración (Horas)</th>
+                        <th scope="col">Entregado</th>
+                        <th scope="col">Recurso</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <s:iterator value="reservas">
+                        <tr>
+                            <td><s:property value="id" /></td>
+                            <td><s:property value="fecha" /></td>
+                            <td><s:property value="duracionHoras" /></td>
+                            <td><s:if test="entregado">Sí</s:if>
+                                <s:else>No</s:else></td>
+                            <td><s:property value="idRecurso.id" /></td>
+                            <td><s:property value="dniUsuario.dni" /></td>
+                            <td class="btn-group">
+                                <s:if test="#session.rol.tipo.equals('Administrador')">
+                                    <s:form action="bajaReserva" method="post" class="d-inline-block mr-2">
+                                        <s:hidden name="id" value="%{id}" />
+                                        <s:submit value="Eliminar" cssClass="btn btn-danger" />
+                                    </s:form>
+                                </s:if>
 
-        <s:if test="libro != null">
-            <div class="col-md-4">
-                <div class="card mb-4 product-wap rounded-0">
-                    <div class="card rounded-0">
-                        <img class="card-img rounded-0 img-fluid" src="images/libro.png"/>
-                        <div class="card-body">
-                            <p class="h3 text-decoration-none"><strong>ISBN: </strong><s:property value="libro.isbn" /></p>
-                            <p><strong>Titulo: </strong><s:property value="libro.titulo" /></p>
-                            <p><strong>Descripción: </strong><s:property value="libro.descripcion" /></p>
-                            <p><strong>Autor: </strong><s:property value="libro.autor.nombre" /></p>
-                            <p><strong>Categoría: </strong><s:property value="libro.categoria.nombre" /></p>
-                            <p><strong>Editorial: </strong><s:property value="libro.editorial.nombre" /></p>
-                            <p><strong>Idioma: </strong><s:property value="libro.idioma.nombre" /></p>
-                            <p><strong>Recurso disponible: </strong><s:property value="libro.recurso.disponible" /></p>
-                            <p><strong>Fecha lanzamiento: </strong><s:property value="libro.fecha" /></p>
-                            <p><strong>Cantidad disponible: </strong><s:property value="libro.cantidad" /></p>
-                            <s:if test="%{libro.cantidad > 0}">
-                                <s:form action="altaReserva" method="post" cssClass="list-unstyled d-flex justify-content-center mb-1">
-                                    <s:hidden name="idRecurso" value="%{libro.recurso.id}" />
-                                    <s:submit value="Reservar" cssClass="text-center mb-0" />
+                                <s:if test="#session.rol.tipo.equals('Administrador') || #session.rol.tipo.equals('Empleado') || #session.rol.tipo.equals('Profesor')">
+                                    <s:form action="formGestionReserva" method="post" class="d-inline-block mr-2">
+                                        <s:hidden name="id" value="%{id}" />
+                                        <s:hidden name="operacion" value="formModificacion" />
+                                        <s:submit value="Modificar" cssClass="btn btn-warning" />
+                                    </s:form>
+                                </s:if>
+
+                                <s:form action="consultarReserva" method="post" class="d-inline-block">
+                                    <s:hidden name="id" value="%{id}" />
+                                    <s:submit value="Consultar" cssClass="btn btn-info" />
                                 </s:form>
-                            </s:if>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            </td>
+                        </tr>
+                    </s:iterator>
+                </tbody>
+            </table>
         </s:if>
-
-        <s:url action="volverGestionEntidades" var="url" />
-        <h5><a href="${url}"/>Volver</h5>
-    </body>
+        <s:else>
+            <p class="no-reservas">No hay reservas que mostrar.</p>
+        </s:else>
+    </div>
+</body>
 </html>

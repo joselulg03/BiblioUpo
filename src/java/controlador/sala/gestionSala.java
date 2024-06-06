@@ -5,13 +5,11 @@
  */
 package controlador.sala;
 
+import DAO.SalaDAO;
 import com.opensymphony.xwork2.ActionSupport;
 import java.text.ParseException;
-import servicios.*;
-import entidades.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import modelo.Sala;
 
 /**
  *
@@ -20,28 +18,8 @@ import java.util.List;
 public class gestionSala extends ActionSupport {
 
     private String operacion;
-    private String nom;
 
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public int getFiltro() {
-        return filtro;
-    }
-
-    public void setFiltro(int filtro) {
-        this.filtro = filtro;
-    }
-
-    private int filtro;
-
-    private SalaJerseyClient salaClient = new SalaJerseyClient();
-    private RecursoJerseyClient recursoClient = new RecursoJerseyClient();
+    private SalaDAO salaDAO;
 
     private String nombre;
     private int aforo;
@@ -52,29 +30,14 @@ public class gestionSala extends ActionSupport {
     public gestionSala() {
     }
 
-    public SalaJerseyClient getSalaClient() {
-        return salaClient;
+    public SalaDAO getSalaDAO() {
+        return salaDAO;
     }
 
-    public void setSalaClient(SalaJerseyClient salaClient) {
-        this.salaClient = salaClient;
+    public void setSalaDAO(SalaDAO salaDAO) {
+        this.salaDAO = salaDAO;
     }
 
-    public RecursoJerseyClient getRecursoClient() {
-        return recursoClient;
-    }
-
-    public void setRecursoClient(RecursoJerseyClient recursoClient) {
-        this.recursoClient = recursoClient;
-    }
-
-    public List<Sala> getSalas() {
-        return salas;
-    }
-
-    public void setSalas(List<Sala> salas) {
-        this.salas = salas;
-    }
 
     public String getNombre() {
         return nombre;
@@ -83,8 +46,8 @@ public class gestionSala extends ActionSupport {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public int getAforo() {
+    
+     public int getAforo() {
         return aforo;
     }
 
@@ -100,6 +63,14 @@ public class gestionSala extends ActionSupport {
         this.sala = sala;
     }
 
+    public List<Sala> getSalas() {
+        return salas;
+    }
+
+    public void setSalas(List<Sala> salas) {
+        this.salas = salas;
+    }
+
     public String getOperacion() {
         return operacion;
     }
@@ -108,79 +79,49 @@ public class gestionSala extends ActionSupport {
         this.operacion = operacion;
     }
 
-    public String execute() {
-
-        sala = salaClient.find_XML(Sala.class, getNombre());
+    public String execute() throws Exception {
+        if (getNombre()!= null) {
+            salaDAO = new SalaDAO();
+            sala = salaDAO.read(getNombre());
+        }
         return operacion;
     }
 
     public String alta() throws ParseException {
-        recursoClient.create_XML("<recurso>"
-                + "<disponible>true</disponible>"
-                + "</recurso>");
-
-        Recurso[] r = recursoClient.findAll_XML(Recurso[].class);
-
-        salaClient.create_XML("<sala>"
-                + "<aforo>" + getAforo() + "</aforo>"
-                + "<idRecurso>"
-                + "<id>" + r[r.length - 1].getId() + "</id>"
-                + "</idRecurso>"
-                + "<nombre>" + getNombre() + "</nombre>"
-                + "</sala>");
-
-        salas = Arrays.asList(salaClient.findAll_XML(Sala[].class));
+       // salaDAO = new SalaDAO();
+        
+       // salaDAO.create(new Sala(getNombre(), getAforo()));
+      //  salas = salaDAO.list();
 
         return SUCCESS;
     }
 
     public String baja() {
-        if (getNombre() != null) {
-            salaClient.remove(getNombre());
-            salas = Arrays.asList(salaClient.findAll_XML(Sala[].class));
-
-            return SUCCESS;
-        }
-        return ERROR;
-    }
-
-    public String consulta() {
-        sala = salaClient.find_XML(Sala.class, getNombre());
+        salaDAO = new SalaDAO();
+        sala = salaDAO.read(getNombre());
+        salaDAO.delete(sala);
+        salas = salaDAO.list();
+        
         return SUCCESS;
     }
 
     public String consultar() {
-        if (filtro != 0) {
-            salas = muestra(filtro);
-            if (sala == null) {
-                return ERROR;
-            }
-        }
+        salaDAO = new SalaDAO();
+        sala = salaDAO.read(getNombre());
         return SUCCESS;
     }
 
     public String modificar() throws ParseException {
-        if (getNom() != null) {
-            salaClient.edit_XML("<sala>"
-                    + "<aforo>" + getAforo() + "</aforo>"
-                    + "<nombre>" + getNom()+ "</nombre>"
-                    + "</sala>", getNombre());
+        System.out.println("Sala :" + getNombre());
 
-            salas = Arrays.asList(salaClient.findAll_XML(Sala[].class));
-
-            return SUCCESS;
-        }
-        return ERROR;
+        salaDAO = new SalaDAO();
+        sala = salaDAO.read(getNombre());
+        
+        sala.setNombre(getNombre());
+        
+        salas = salaDAO.list();
+        return SUCCESS;
     }
 
-    private List<Sala> muestra(int filtro) {
-        salas = Arrays.asList(salaClient.findAll_XML(Sala[].class));
-        List<Sala> sals = new ArrayList<>();
-        for (Sala s : salas) {
-            if (s.getAforo() == filtro) {
-                sals.add(s);
-            }
-        }
-        return sals;
-    }
 }
+

@@ -4,9 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import entidades.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import servicios.*;
 
 public class gestionUsuario extends ActionSupport {
@@ -28,9 +26,9 @@ public class gestionUsuario extends ActionSupport {
     private int idRol;
 
     private Usuario usuario;
-    private List<Usuario> usuarios;
+    private Usuario [] usuarios;
 
-    private List<Rol> roles;
+    private Rol[] roles;
 
     public gestionUsuario() {
     }
@@ -108,6 +106,14 @@ public class gestionUsuario extends ActionSupport {
         this.usuario = usuario;
     }
 
+    public Usuario[] getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(Usuario[] usuarios) {
+        this.usuarios = usuarios;
+    }
+
     public String getOperacion() {
         return operacion;
     }
@@ -122,6 +128,14 @@ public class gestionUsuario extends ActionSupport {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public Rol[] getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Rol[] roles) {
+        this.roles = roles;
     }
 
     public int getIdRol() {
@@ -139,27 +153,11 @@ public class gestionUsuario extends ActionSupport {
     public void setClient(EmailAutomaticoJerseyClient client) {
         this.client = client;
     }
-
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    public List<Rol> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Rol> roles) {
-        this.roles = roles;
-    }
     
     
 
     public String execute() throws Exception {
-        roles = Arrays.asList(rolClient.findAll_XML(Rol[].class));
+        roles = rolClient.findAll_XML(Rol[].class);
 
         if (getDni() != null) {
             usuario = usuarioClient.find_XML(Usuario.class, dni);
@@ -186,8 +184,10 @@ public class gestionUsuario extends ActionSupport {
                 + "<password>"+getPassword()+"</password>"
                 + "</usuario>"
         );
+        
+        
 
-        usuarios = Arrays.asList(usuarioClient.findAll_XML(Usuario[].class));
+        usuarios = usuarioClient.findAll_XML(Usuario[].class);
         
         client.enviarCorreo(String.class,
                 getCorreo(),
@@ -201,7 +201,7 @@ public class gestionUsuario extends ActionSupport {
     public String baja() {
         usuarioClient.remove(getDni());
         
-        usuarios = Arrays.asList(usuarioClient.findAll_XML(Usuario[].class));
+        usuarios = usuarioClient.findAll_XML(Usuario[].class);
 
         client.enviarCorreo(String.class,
                 getCorreo(),
@@ -231,7 +231,7 @@ public class gestionUsuario extends ActionSupport {
 
         client.enviarCorreo(String.class, "", "BiblioUpo ha actualizado su perfil", "Hola " + getNombre() + " " + getApellidos() + ", el administrador de BiblioUpo ha modificado su perfil. Su nueva contraseña es " + getPassword() + ".");
 
-        usuarios = Arrays.asList(usuarioClient.findAll_XML(Usuario[].class));
+        usuarios = usuarioClient.findAll_XML(Usuario[].class);
         return SUCCESS;
     }
 
