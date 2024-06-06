@@ -258,7 +258,7 @@ public class gestionRefuerzo extends ActionSupport{
     public String baja() {
         refuerzoClient.remove(getId());
         
-        refuerzos = (List<Refuerzo>)refuerzoClient.findAll_XML(gtr.getClass());
+        refuerzos = Arrays.asList(refuerzoClient.findAll_XML(Refuerzo[].class));
         
         return SUCCESS;
     }
